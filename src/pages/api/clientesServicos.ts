@@ -9,63 +9,48 @@ const prisma = new PrismaClient();
 const checkout = async (req: NextApiRequest, res: NextApiResponse) => {
   const { booking }: { booking: BookingType } = req.body;
   
-  const {
+    const {
+      selectedProductId,
+      selectedProductNane,
+      selectedProdutPrice,
+      nome,
+      telefone,
+      selectedModel,
+      selectedColor,
+      selectedTime,
+      selectedProductDefaultPrice,
+      rawPrice,
   
-  selectedProductId,
-  selectedProductNane,
-  selectedProdutPrice,
- 
-  nome,
-  telefone,
-  selectedModel,
-  selectedColor,
- 
-  selectedTime,
-  selectedProductDefaultPrice,
-  rawPrice,
-  
-   } = booking;
-   const price = parseFloat(selectedProdutPrice.replace('€', '').trim()) * 100;
+    } = booking;
+    const price = parseFloat(selectedProdutPrice.replace('€', '').trim()) * 100;
 
   try {
     // Primeiro, procurar ou criar um cliente com o nome e telefone fornecidos
     console.log(booking);
     const client = await prisma.clientes.upsert({
-      where: { telefone },
-      update: { nome },
-      create: { nome, telefone },
-    });
+        where: { telefone },
+        update: { nome },
+        create: { nome, telefone },
+      });
 
     const newService = await prisma.clientesServicos.create({
       data: {
-        
-      
-       
         cliente: { connect: { id: client.id } },
         aguardandoPagamento: true,
         carro: selectedModel, 
         concluido: false,
-       
         data: new Date(),
-        
- 
         selectedPayment: booking.selectedPayment,
-
-       
         selectedProductId: booking.selectedProductId,
         selectedProductNane: booking.selectedProductNane,
         selectedProdutPrice: booking.selectedProdutPrice,
-       
         selectedModel: booking.selectedModel,
         selectedColor: booking.selectedColor,
         selectedTime: booking.selectedTime,
         selectedProductDefaultPrice: booking.selectedProductDefaultPrice,
-        rawPrice: booking.rawPrice.toString() // Convert rawPrice to string
+        rawPrice: booking.rawPrice.toString()
       },
     });
-    
-    
-
     return res.status(201).json({
       message: 'Reserva criada com sucesso!',
       service: newService

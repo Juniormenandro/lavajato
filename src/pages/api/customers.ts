@@ -3,7 +3,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import dotenv from 'dotenv';
 import prisma from "@/lib/prismaClient";
 
-// carregar as variáveis de ambiente do arquivo .env
 dotenv.config();
 
 const DATABASE_URL = process.env.DATABASE_URL;
@@ -43,7 +42,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(200).json(clientes);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error." });
+    res.status(500).json({ error: "Internal server error. precisar fazer de novo " });
   }
 }; 
 
