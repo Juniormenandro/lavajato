@@ -7,7 +7,7 @@ import RootLayout from '../layout';
 export default async function Page() {
 
  
-  const res = await fetch('http://localhost:3000/api/customers');
+  const res = await fetch('/api/customers');
   
   if (!res.ok) {
     throw new Error('Failed to fetch data');

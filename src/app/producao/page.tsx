@@ -59,7 +59,7 @@ export default function Page() {
       type: 'FETCH_START',
       payload: undefined
     });
-    fetch('http://localhost:3000/api/producao')
+    fetch('/api/producao')
       .then(res => {
         if (!res.ok) {
           throw new Error('Failed to fetch data');
