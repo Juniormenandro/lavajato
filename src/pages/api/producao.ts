@@ -6,14 +6,14 @@ import prisma from "@/lib/prismaClient";
 // carregar as variáveis de ambiente do arquivo .env
 dotenv.config();
 
-const DATABASE_URL = process.env.DATABASE_URL;
+const MONGODB_URI = process.env.MONGODB_URI;
 
 // garantir que a URL do banco de dados está definida
-if (!DATABASE_URL) {
-  throw new Error("Por favor, defina a DATABASE_URL no arquivo .env");
+if (!MONGODB_URI) {
+  throw new Error("Por favor, defina a MONGODB_URI no arquivo .env");
 }
  
-const client = new MongoClient(DATABASE_URL);
+const client = new MongoClient(MONGODB_URI);
 
 let isConnected = false;
 
