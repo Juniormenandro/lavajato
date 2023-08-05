@@ -137,7 +137,7 @@ export default function Page() {
       type: 'FETCH_START',
       payload: undefined
     });
-    fetch('http://localhost:3000/api/customers')
+    fetch('/api/customers')
       .then(res => {
         if (!res.ok) {
           throw new Error('Failed to fetch data');
@@ -154,7 +154,7 @@ export default function Page() {
       payload: undefined
     });
     console.log('Deletando o serviço:', id);
-    fetch(`http://localhost:3000/api/customers/${id}`, {
+    fetch(`/api/customers/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json',  },
     })
