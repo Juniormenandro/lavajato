@@ -1,4 +1,5 @@
 "use client";
+
 import SelectionSteps from "@/components/SelectionSteps/SelectionSteps";
 import Spinner from "@/components/Spinner/Spinner";
 import StepButton from "@/components/StepButton/StepButton";
@@ -15,15 +16,12 @@ import Header from "./header";
 
 
 
-
-
 export type ProductType = {
   id: string;
   name: string;
   price: string;
   default_price: string;
   raw_price: string;
- 
 };
 
 export type BookingType = typeof bookingDataInitialState;
@@ -40,12 +38,13 @@ const BookingPage: NextPage = () => {
       revalidateOnFocus: false,
     }
   );
+
   const [bookingData, setBookingData] = useLocalStorage(
     "booking_step",
     bookingDataInitialState as BookingType
   );
+
   const [checkoutIsLoading, setIsCheckoutLoading] = useState<boolean>(false);
-  
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -87,62 +86,66 @@ const BookingPage: NextPage = () => {
         <h1>Error loading page...</h1>
       </div>
     );
+
   if (isLoading || checkoutIsLoading)
     return (
       <div className="flex flex-col items-center mt-10">
         <Spinner />
       </div>
     );
-  return (
-    <>
-    <Header></Header>
-    <div className="flex flex-col items-center min-h-screen p-10  ">
-      <Toaster position="top-center" />
 
-      <div className="w-full max-w-lg">
-  <h2 className="mb-8 text-3xl text-center">Book Now!</h2>
-  <div className="mb-4">
-    <label className="block mb-2">
-      {!bookingData.step && "Select your service:"}
-      {bookingData.step === 1 && "Enter your name and phone number:"}
-      {bookingData.step === 2 && "Select your time:"}
-      {bookingData.step === 3 && "Select your payment:"}
-      {bookingData.step === 4 && "Enter your car Model:"}
-      {bookingData.step === 5 && "Enter your car Color:"}
-     
-      
-    </label>
-    <div className="flex flex-col gap-4">
-      <SelectionSteps
-        step={bookingData.step}
-        data={data}
-        bookingData={bookingData}
-        setBookingData={setBookingData}
-        nome={nome}
-        setNome={setNome}
-        telefone={telefone}
-        setTelefone={setTelefone}
-      />
+return (
+  <>
+  <Header></Header>
+    <div className="flex flex-col items-center min-h-screen p-10  ">
+            <Toaster position="top-center" />
+
+          <div className="w-full max-w-lg">
+        <h2 className="mb-8 text-3xl text-center">Book Now!</h2>
+        <div className="mb-4">
+          <label className="block mb-2">
+            {!bookingData.step && "Select your service:"}
+            {bookingData.step === 1 && "Enter your name and phone number:"}
+            {bookingData.step === 2 && "Select your time:"}
+            {bookingData.step === 3 && "Select your payment:"}
+            {bookingData.step === 4 && "Enter your car Model:"}
+            {bookingData.step === 5 && "Enter your car Color:"}
+          
+            
+          </label>
+          <div className="flex flex-col gap-4">
+            <SelectionSteps
+              step={bookingData.step}
+              data={data}
+              bookingData={bookingData}
+              setBookingData={setBookingData}
+              nome={nome}
+              setNome={setNome}
+              telefone={telefone}
+              setTelefone={setTelefone}
+            />
+          </div>
+        </div>
+        <StepButton
+          step={bookingData.step}
+          checkoutIsLoading={checkoutIsLoading}
+          selectedProductId={bookingData.selectedProductId}
+          selectedTime={bookingData.selectedTime}
+          selectedModel={bookingData.selectedModel}
+          selectedColor={bookingData.selectedColor}
+          selectedPayment={bookingData.selectedPayment}
+          setBookingData={setBookingData}
+          handleBuyProduct={handleBuyProduct}
+          nome={nome}
+          telefone={telefone}
+          bookingData={bookingData}
+        />
+      </div>
     </div>
-  </div>
-  <StepButton
-    step={bookingData.step}
-    checkoutIsLoading={checkoutIsLoading}
-    selectedProductId={bookingData.selectedProductId}
-    selectedTime={bookingData.selectedTime}
-    selectedModel={bookingData.selectedModel}
-    selectedColor={bookingData.selectedColor}
-    selectedPayment={bookingData.selectedPayment}
-    setBookingData={setBookingData}
-    handleBuyProduct={handleBuyProduct}
-    nome={nome}
-    telefone={telefone}
-    bookingData={bookingData}
-  />
-</div>
-    </div>
-    </>
-  );
+  </>
+);
+
+
 };
 
 export default BookingPage;

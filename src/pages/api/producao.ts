@@ -41,6 +41,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       include: {
         servicos: true,
       },
+      orderBy: {
+        createdAt: 'desc', // Ordena do mais recente para o mais antigo.
+      },
     });
 
     // enviar a lista de clientes como resposta

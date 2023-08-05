@@ -1,6 +1,5 @@
 export const bookingDataInitialState = {
   
-  
   selectedProductId: "",
   selectedProductNane: "",
   selectedProdutPrice: "",
@@ -10,7 +9,6 @@ export const bookingDataInitialState = {
   selectedModel:"",
   selectedColor:"",
   selectedPayment:"",
-
   selectedTime: "",
   selectedProductDefaultPrice: "",
   rawPrice: "",

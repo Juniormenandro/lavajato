@@ -5,26 +5,26 @@ import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
 
 
-// Definindo a interface para os dados do serviço
+
 interface Servico {
   selectedColor: ReactNode;
   selectedTime: ReactNode;
+  selectedModel: ReactNode;
   selectedPayment: ReactNode;
   selectedProdutPrice: ReactNode;
   selectedProductNane: ReactNode;
   id: string;
-  carro: string;
+  carro: string; 
   concluido: boolean;
   aguardandoPagamento: boolean;
-  // Inclua os demais campos conforme necessário
-}
+ 
+};
 
 interface Cliente {
   id: string;
   nome: string;
   servicos: Servico[];
-  // Inclua os demais campos conforme necessário
-}
+};
 
 const initialState = {
   loading: false,
@@ -101,8 +101,11 @@ export default function Page() {
   return (
      <>
       <Header />
+      <h1 style={{ textAlign: "center", padding: "2%", fontSize:"20px" }}>CUSTOMERS</h1>
+    
       <ul>
         {state.data.map((client: {
+          telefone: ReactNode;
             id: React.Key | null | undefined; nome: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode
             // Definindo a interface para os dados do serviço
             > | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; servicos: any[];
@@ -112,22 +115,27 @@ export default function Page() {
               <h1 className="text-xl font-semibold text-red-600" style={{ textAlign: "center", padding: "8%" }}>
                 {client.nome}
               </h1>
+              <h1 className="text-xl font-semibold" style={{ textAlign: "right", padding: "2%" }}>
+                {client.telefone}
+              </h1>
+             
             </div>
             {client.servicos && client.servicos.map(servico => (
               <div key={servico.id} className="flex">
-                <div style={{ minWidth: "50%", textAlign: "center", padding: "5px", borderRight: "1px solid #c2c2c2", borderBottom: "1px solid #c2c2c2" }}>
+                <div style={{ minWidth: "50%", textAlign: "center", padding: "5px",  borderBottom: "1px solid #c2c2c2" }}>
                   <p className="text-sm font-semibold leading-6">{servico.selectedProductNane}</p>
                   <p className="text-sm font-semibold leading-6">{servico.selectedProdutPrice}</p>
                   <p className="text-sm font-semibold leading-6">{servico.selectedPayment}</p>
                 </div>
                 <div style={{ minWidth: "50%", textAlign: "center", borderBottom: "1px solid #c2c2c2" }}>
-                  <p className="text-sm font-semibold leading-6 text-bg-teal-blue">{servico.selectedTime}</p>
-                  <p className="text-sm font-semibold leading-6">{servico.selectedTime}</p>
+                  <p className="text-sm font-semibold leading-6 text-bg-teal-blue">{new Date(servico.data).toLocaleDateString('pt-BR')}</p>
+                  <p className="text-sm font-semibold leading-6">{servico.selectedModel}</p>
                   <p className="text-sm font-semibold leading-6">{servico.selectedColor}</p>
                 </div>
                 <button style={{ background:"red", borderRadius:"20px", color:"white"}} onClick={() => deleteService(servico.id)}>Deletar</button>
               </div>
             ))}
+
           </li>
         ))}
       </ul>
