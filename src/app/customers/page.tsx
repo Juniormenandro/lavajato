@@ -1,82 +1,3 @@
-/*
-import React from 'react';
-import fetch from 'node-fetch';
-import Header from '../header';
-import RootLayout from '../layout';
-
-export default async function Page() {
-
- 
-  const res = await fetch('/api/customers');
-  
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-
-  const data = await res.json();
-
-  return (
-    
-   
-    <RootLayout >
-    <Header></Header>
-  
-    <ul>
-      {data.map((client: { id: React.Key | null | undefined; nome: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; telefone: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; createdAt: string | number | Date; servicos: any[]; }) => (
-        
-         <li key={client.id}
-          
-          style={{
-             
-            width:"100%"
-           }}>
-
-           
-
-              <div  >
-              <h1 className="text-xl font-semibold  text-red-600" style={{textAlign:"center",padding:"8%" }}>{client.nome}</h1>
-                <p className="text-m font-semibold leading-6 text-blue-600" style={{textAlign:"right", paddingRight:"5%"}}>{client.telefone}</p>
-                <p className="text-m font-semibold leading-6 " style={{textAlign:"right", paddingRight:"5%"}}>{new Date(client.createdAt).toLocaleDateString('pt-BR')}</p>
-                
-            </div>
-
-
-
-                    {client.servicos && client.servicos.map(servico => (
-
-                        <div key={servico.id} className="flex  " >
-                           
-                              <div style={{minWidth:"50%", textAlign:"center", padding:"5px",  borderRight: "1px solid #c2c2c2",  borderBottom: "1px solid #c2c2c2" }} >
-                                <p className="text-sm font-semibold leading-6 ">{servico.selectedProductNane}</p>
-                                <p className="text-sm font-semibold leading-6 ">{servico.selectedProdutPrice}</p>
-                                <p className="text-sm font-semibold leading-6 ">{servico.selectedPayment}</p>
-                                <p className="text-sm font-semibold leading-6 ">{servico.rawPrice}</p>
-                              </div>
-
-                              <div   style={{minWidth:"50%", textAlign:"center",  borderBottom: "1px solid #c2c2c2"}} >
-                              <p className="text-sm font-semibold leading-6 ">{new Date(servico.data).toLocaleDateString('pt-BR')}</p>
-                                <p className="text-sm font-semibold leading-6 ">{servico.selectedModel}</p>
-                                <p className="text-sm font-semibold leading-6 ">{servico.selectedColor}</p>
-                                <p className="text-sm font-semibold leading-6 ">{servico.selectedTime}</p>
-                              </div>    
-                       </div>    
-                      
-                    ))}
-
-             
-            
-          </li>
-      ))}
-    </ul>
-    
-    </RootLayout>
-  );
-}
-*/
-
-
-
-
 "use client";
 
 import React, {  useEffect, useReducer, ReactNode } from 'react';
@@ -156,7 +77,7 @@ export default function Page() {
       payload: undefined
     });
     console.log('Deletando o serviço:', id);
-    fetch(`/api/customers/${id}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/customers/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json',  },
     })

@@ -59,7 +59,7 @@ export default function Page() {
       type: 'FETCH_START',
       payload: undefined
     });
-    fetch('/api/producao')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/producao`)
       .then(res => {
         if (!res.ok) {
           throw new Error('Failed to fetch data');
@@ -75,7 +75,7 @@ export default function Page() {
       type: 'UPDATE_START',
       payload: undefined
     });
-    fetch(`/api/clientesServicos/${id}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clientesServicos/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ concluido: true }),

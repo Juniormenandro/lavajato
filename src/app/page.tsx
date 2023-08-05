@@ -34,7 +34,7 @@ const BookingPage: NextPage = () => {
   const [telefone, setTelefone] = useState("");
 
   const { data, error, isLoading } = useSWR<ProductType[]>(
-    "/api/getprices",
+    `${process.env.NEXT_PUBLIC_API_URL}/api/getprices`,
     fetcher,
     {
       revalidateOnFocus: false,
@@ -60,7 +60,7 @@ const BookingPage: NextPage = () => {
   const handleBuyProduct = async (id: string, updatedData: any): Promise<void> => {
     try {
       setIsCheckoutLoading(true);
-      const response = await fetch("/api/clientesServicos", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clientesServicos`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
