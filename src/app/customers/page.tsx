@@ -83,6 +83,7 @@ import React, {  useEffect, useReducer, ReactNode } from 'react';
 import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
 
+
 // Definindo a interface para os dados do serviço
 interface Servico {
   selectedColor: ReactNode;
@@ -137,7 +138,8 @@ export default function Page() {
       type: 'FETCH_START',
       payload: undefined
     });
-    fetch('/api/customers')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/customers`)
+
       .then(res => {
         if (!res.ok) {
           throw new Error('Failed to fetch data');
