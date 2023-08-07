@@ -103,41 +103,49 @@ return (
     
       return (
         <li key={client.id} style={{ width: "100%" }}>
-          <div>
-            <h1 className="text-xl font-semibold text-blue-600" style={{ textAlign: "center", padding: "5%" }}>
+          <div className="flex" style={{marginTop:"2%", marginBottom:"2%", marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:"  20px 20px 0 0 ",  borderTop: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"}} >
+          <div style={{ minWidth: "50%", textAlign: "center"  }}>
+            <h1 className="text-xl font-semibold  text-blue-600">
               {client.nome}
             </h1>
-            <h1 className="text-xl font-semibold" style={{ textAlign: "right", padding: "2%" }}>
+          </div>
+          <div style={{  minWidth: "50%", textAlign: "center",   }}>
+            <h1 className="text-xl font-semibold  ">
               {client.telefone}
             </h1>
+            </div>
           </div>
           {client.servicos?.map((servico, index) => (
            <>
-            <div key={index} className="flex">
-              <div style={{ minWidth: "50%", textAlign: "center", padding: "5px", borderBottom: "1px solid #c2c2c2" }}>
+            <div key={index} className="flex" style={{marginRight:"2%",  marginLeft:"2%", borderRight: "1px solid #c2c2c2",  borderLeft: "1px solid #c2c2c2", }}>
+              <div style={{ minWidth: "50%", textAlign: "center"  }}>
                 <p className="text-sm font-semibold leading-6">{servico.selectedProductNane}</p>
                 <p className="text-sm font-semibold leading-6">{servico.selectedProdutPrice}</p>
                 <p className="text-sm font-semibold leading-6">{servico.selectedPayment}</p>
               </div>
-              <div style={{ minWidth: "50%", textAlign: "center", borderBottom: "1px solid #c2c2c2" }}>
+              <div style={{  minWidth: "50%", textAlign: "center",   }}>
                 <p className="text-sm font-semibold leading-6">{servico.selectedTime}</p>
                 <h3>{servico.carro}</h3>
                 <p className="text-sm font-semibold leading-6">{servico.selectedColor}</p>
               </div>
             </div>
+            <div  style={{ marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:" 0 0 20px 20px ", color:"white", fontSize:"11px", borderBottom: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"  }}>
             <button
-              style={{marginLeft:"43%", padding:"8px",background:"red", borderRadius:"20px", color:"white", fontSize:"11px" }}
+             style={{background:"blue",marginLeft:"47%", padding:"8px", borderRadius:"20px", }}
               disabled={!!loadingState[servico.id]}  
               onClick={() => markAsDone(servico.id)}
             >
               {loadingState[servico.id] ? 'Carregando...' : 'FINISH'}
             </button>
+            </div>
+            
            </>   
           ))}
 
         </li>
       )})}
     </ul>
+    <br/><br/><br/><br/>
   </>
 );
 
