@@ -8,23 +8,23 @@ datasource db {
 }
 model ClientesServicos {
   id                       String   @id @default(auto()) @map("_id") @db.ObjectId
-  carro                    String
+  carro                    String?
   concluido                Boolean  @default(false)  
   aguardandoPagamento      Boolean @default(true)
   
   data                     DateTime @db.Date
 
-  selectedPayment          String
+  selectedPayment          String?
  
-  selectedProductId        String
-  selectedProductNane      String
-  selectedProdutPrice      String
+  selectedProductId        String?
+  selectedProductNane      String?
+  selectedProdutPrice      String?
   
-  selectedModel            String
-  selectedColor            String
-  selectedTime             String
-  selectedProductDefaultPrice String
-  rawPrice                 String
+  selectedModel            String?
+  selectedColor            String?
+  selectedTime             String?
+  selectedProductDefaultPrice String?
+  rawPrice                 String?
 
   clienteId                String   @db.ObjectId // updated to @db.ObjectId
   cliente                  clientes @relation(fields: [clienteId], references: [id]) // foreign key relation to 'clientes'
@@ -85,7 +85,7 @@ model registrohoras {
 
 model users {
   id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  v        Int      @map("__v")
+ 
   email    String   @unique(map: "email_1")
   isAdmin  Boolean?
   name     String

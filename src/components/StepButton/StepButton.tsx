@@ -52,7 +52,7 @@ const StepButton: React.FC<StepButtonProps> = ({
   
 
   const finishBooking = () => {
-    console.log();
+    
     setBookingData(bookingDataInitialState);
     handleBuyProduct(selectedProductId, bookingData);
   };

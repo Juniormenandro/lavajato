@@ -1,12 +1,14 @@
 
 "use client";
 
-import React, {  useEffect, useReducer, ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
-
+import { fetcher } from '@/utils/fetcher/fetcher';
+import useSWR, { mutate } from 'swr';
 
 interface Servico {
+  clienteId: string;
   selectedColor: ReactNode;
   selectedTime: ReactNode;
   selectedModel: ReactNode;
@@ -20,118 +22,130 @@ interface Servico {
 }
 
 interface Cliente {
+  selectedColor: ReactNode;
+  selectedTime: ReactNode;
+  selectedPayment: ReactNode;
+  selectedProdutPrice: ReactNode;
+  selectedProductNane: ReactNode;
+  carro: ReactNode;
+  concluido: any;
+  data: string | number | Date;
+  aguardandoPagamento: any;
   id: string;
   nome: string;
   telefone: string;
   servicos: Servico[];
 }
 
-const initialState = {
-  loading: false,
-  data: [],
-  error: null,
+const useFetch = (url: string) => {
+  const { data, error } = useSWR<Cliente[]>(url, fetcher);
+
+  return {
+    data,
+    isLoading: !error && !data,
+    isError: error
+  };
 };
 
-function reducer(state: any, action: { type: any; payload: any; }) {
-  switch (action.type) {
-    case 'FETCH_START':
-      return { ...state, loading: true };
-    case 'FETCH_SUCCESS':
-      return { ...state, loading: false, data: action.payload };
-    case 'FETCH_ERROR':
-      return { ...state, loading: false, error: action.payload };
-    case 'UPDATE_START':
-      return { ...state, loading: true };
-    case 'UPDATE_SUCCESS':
-      return { ...state, loading: false, data: action.payload };
-    case 'UPDATE_ERROR':
-      return { ...state, loading: false, error: action.payload };
-    default:
-      return state;
-  }
-}
-
 export default function Page() {
-  const [state, dispatch] = useReducer(reducer, initialState);
 
-  useEffect(() => {
-    dispatch({
-      type: 'FETCH_START',
-      payload: undefined
-    });
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/producao`)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        return res.json() as Promise<Cliente[]>; 
-      })
-      .then(data => dispatch({ type: 'FETCH_SUCCESS', payload: data }))
-      .catch(error => dispatch({ type: 'FETCH_ERROR', payload: error }));
-  }, []);
+  const { data: clientes, isLoading, isError } = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/producao`);
+  
+  
+  const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
 
-  const markAsDone = (id: string) => {
-    dispatch({
-      type: 'UPDATE_START',
-      payload: undefined
-    });
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clientesServicos/${id}`, {
+const markAsDone = async (id: string) => {
+  // Define o serviço como carregando antes de iniciar a solicitação
+  setLoadingState(prev => ({ ...prev, [id]: true }));
+
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clientesServicos/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ concluido: true }),
-    })
-    .then(response => response.json() as Promise<Servico>) 
-    .then((updatedServico: Servico) => {
-      dispatch({ type: 'UPDATE_SUCCESS', payload: updatedServico });
-      window.location.reload(); 
-    })
-    .catch((error: Error) => dispatch({ type: 'UPDATE_ERROR', payload: error }));
-  }
+    });
 
-  if (state.loading) {
+    if (!response.ok) {
+      throw new Error('Failed to update service');
+    }
+
+    mutate(`${process.env.NEXT_PUBLIC_API_URL}/api/producao`);
+  } catch (e) {
+    console.error(e);
+  } finally {
+    // Remove o serviço do estado de carregamento após a conclusão da solicitação
+    setLoadingState(prev => {
+      const newState = { ...prev };
+      delete newState[id];
+      return newState;
+    });
+  }
+};
+  
+  
+
+  if (isLoading) {
     return  <div className="flex flex-col items-center mt-10">
     <Spinner />
   </div>;
-  }
+}
 
-  return (
-     <>
-      <Header />
-      <h1 style={{ textAlign: "center", padding: "2%", fontSize:"20px" }}>PRODUCTION</h1>
-      <ul>
-        {state.data.map((client: {
-          telefone: ReactNode;
-            id: React.Key | null | undefined; nome: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode
-            // Definindo a interface para os dados do serviço
-            > | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; servicos: any[];
-          }) => (
-          <li key={client.id} style={{ width: "100%" }}>
-            <div>
-              <h1 className="text-xl font-semibold text-red-600" style={{ textAlign: "center", padding: "5%" }}>
-                {client.nome}
-              </h1>
-              <h1 className="text-xl font-semibold" style={{ textAlign: "right", padding: "2%" }}>
-                {client.telefone}
-              </h1>
-            </div>
-            {client.servicos && client.servicos.map(servico => (
-              <div key={servico.id} className="flex">
-                <div style={{ minWidth: "50%", textAlign: "center", padding: "5px", borderBottom: "1px solid #c2c2c2" }}>
-                  <p className="text-sm font-semibold leading-6">{servico.selectedProductNane}</p>
-                  <p className="text-sm font-semibold leading-6">{servico.selectedProdutPrice}</p>
-                  <p className="text-sm font-semibold leading-6">{servico.selectedPayment}</p>
-                </div>
-                <div style={{ minWidth: "50%", textAlign: "center", borderBottom: "1px solid #c2c2c2" }}>
-                  <p className="text-sm font-semibold leading-6 text-bg-teal-blue">{servico.selectedTime}</p>
-                  <p className="text-sm font-semibold leading-6">{servico.selectedModel}</p>
-                  <p className="text-sm font-semibold leading-6">{servico.selectedColor}</p>
-                </div>
-                <button style={{ background:"red", borderRadius:"20px", color:"white"}} onClick={() => markAsDone(servico.id)}>Concluído</button>
+if (isError) {
+    return <p>An error occurred while fetching data</p>;
+}
+
+return (
+  <>
+    <Header />
+    <h1 style={{ textAlign: "center", padding: "2%", fontSize:"20px" }}>PRODUCTION</h1>
+    <ul>
+      {clientes && clientes.map((client: Cliente) => {
+    
+      return (
+        <li key={client.id} style={{ width: "100%" }}>
+          <div>
+            <h1 className="text-xl font-semibold text-blue-600" style={{ textAlign: "center", padding: "5%" }}>
+              {client.nome}
+            </h1>
+            <h1 className="text-xl font-semibold" style={{ textAlign: "right", padding: "2%" }}>
+              {client.telefone}
+            </h1>
+          </div>
+          {client.servicos?.map((servico, index) => (
+           <>
+            <div key={index} className="flex">
+              <div style={{ minWidth: "50%", textAlign: "center", padding: "5px", borderBottom: "1px solid #c2c2c2" }}>
+                <p className="text-sm font-semibold leading-6">{servico.selectedProductNane}</p>
+                <p className="text-sm font-semibold leading-6">{servico.selectedProdutPrice}</p>
+                <p className="text-sm font-semibold leading-6">{servico.selectedPayment}</p>
               </div>
-            ))}
-          </li>
-        ))}
-      </ul>
-    </>
-  );
+              <div style={{ minWidth: "50%", textAlign: "center", borderBottom: "1px solid #c2c2c2" }}>
+                <p className="text-sm font-semibold leading-6">{servico.selectedTime}</p>
+                <h3>{servico.carro}</h3>
+                <p className="text-sm font-semibold leading-6">{servico.selectedColor}</p>
+              </div>
+            </div>
+            <button
+              style={{marginLeft:"43%", padding:"8px",background:"red", borderRadius:"20px", color:"white", fontSize:"11px" }}
+              disabled={!!loadingState[servico.id]}  
+              onClick={() => markAsDone(servico.id)}
+            >
+              {loadingState[servico.id] ? 'Carregando...' : 'FINISH'}
+            </button>
+           </>   
+          ))}
+
+        </li>
+      )})}
+    </ul>
+  </>
+);
+
+
+
+
+
+
+
+
 }

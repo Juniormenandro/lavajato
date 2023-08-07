@@ -71,12 +71,12 @@ const BookingPage: NextPage = () => {
         }),
       });
 
-      console.log(bookingData)
+      
       router.push("/producao");
     } catch (error: any) {
       setIsCheckoutLoading(false);
       alert(`An error occured`);
-      console.log(error);
+      //console.log(error);
     }
   };
 

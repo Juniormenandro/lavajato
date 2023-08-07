@@ -1,101 +1,79 @@
 "use client";
 
-import React, {  useEffect, useReducer, ReactNode } from 'react';
+import React, { useState } from 'react';
 import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
-
-
+import useSWR, { mutate } from 'swr';
+import { fetcher } from '@/utils/fetcher/fetcher';
 
 interface Servico {
-  selectedColor: ReactNode;
-  selectedTime: ReactNode;
-  selectedModel: ReactNode;
-  selectedPayment: ReactNode;
-  selectedProdutPrice: ReactNode;
-  selectedProductNane: ReactNode;
+  selectedColor: React.ReactNode;
+  selectedTime: Date | string;
+  selectedModel: React.ReactNode;
+  selectedPayment: React.ReactNode;
+  selectedProdutPrice: React.ReactNode;
+  selectedProductNane: React.ReactNode;
   id: string;
   carro: string; 
   concluido: boolean;
   aguardandoPagamento: boolean;
- 
 };
 
 interface Cliente {
   id: string;
   nome: string;
+  telefone: string;
   servicos: Servico[];
 };
 
-const initialState = {
-  loading: false,
-  data: [],
-  error: null,
+const useFetch = (url: string) => {
+  const { data, error } = useSWR<Cliente[]>(url, fetcher);
+
+  return {
+    data,
+    isLoading: !error && !data,
+    isError: error
+  };
 };
 
-function reducer(state: any, action: { type: any; payload: any; }) {
-  switch (action.type) {
-    case 'FETCH_START':
-      return { ...state, loading: true };
-    case 'FETCH_SUCCESS':
-      return { ...state, loading: false, data: action.payload };
-    case 'FETCH_ERROR':
-      return { ...state, loading: false, error: action.payload };
-    case 'UPDATE_START':
-      return { ...state, loading: true };
-    case 'UPDATE_SUCCESS':
-      return { ...state, loading: false, data: action.payload };
-    case 'UPDATE_ERROR':
-      return { ...state, loading: false, error: action.payload };
-    default:
-      return state;
-  }
-}
-
 export default function Page() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const { data: clientes, isLoading, isError } = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/customers`);
 
-  useEffect(() => {
-    dispatch({
-      type: 'FETCH_START',
-      payload: undefined
-    });
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/customers`)
+  const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
 
-      .then(res => {
-        if (!res.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        return res.json() as Promise<Cliente[]>; 
-      })
-      .then(data => dispatch({ type: 'FETCH_SUCCESS', payload: data }))
-      .catch(error => dispatch({ type: 'FETCH_ERROR', payload: error }));
-  }, []);
+  const deleteService = async (id: string) => {
+    setLoadingState(prev => ({ ...prev, [id]: true }));
 
-  const deleteService = (id: string) => {
-    dispatch({
-      type: 'DELETE_START',
-      payload: undefined
-    });
-    console.log('Deletando o serviço:', id);
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/customers/${id}`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json',  },
-    })
-    .then(response => response.json() as Promise<Servico>) 
-    .then((deletedServico: Servico) => {
-      dispatch({ type: 'DELETE_SUCCESS', payload: deletedServico });
-      window.location.reload(); 
-    })
-    .catch(error => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/customers/${id}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete service');
+      }
+
+      mutate(`${process.env.NEXT_PUBLIC_API_URL}/api/customers`);
+    } catch (error) {
       console.error('Erro ao deletar o serviço:', error);
-      dispatch({ type: 'DELETE_ERROR', payload: error });
-    });
-  }
+    } finally {
+      setLoadingState(prev => {
+        const newState = { ...prev };
+        delete newState[id];
+        return newState;
+      });
+    }
+  };
 
-  if (state.loading) {
+  if (isLoading) {
     return  <div className="flex flex-col items-center mt-10">
     <Spinner />
   </div>;
+  }
+
+  if (isError) {
+    return <p>An error occurred while fetching data</p>;
   }
 
   return (
@@ -104,15 +82,10 @@ export default function Page() {
       <h1 style={{ textAlign: "center", padding: "2%", fontSize:"20px" }}>CUSTOMERS</h1>
     
       <ul>
-        {state.data.map((client: {
-          telefone: ReactNode;
-            id: React.Key | null | undefined; nome: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode
-            // Definindo a interface para os dados do serviço
-            > | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; servicos: any[];
-          }) => (
+        {clientes && clientes.map(client => (
           <li key={client.id} style={{ width: "100%" }}>
             <div>
-              <h1 className="text-xl font-semibold text-red-600" style={{ textAlign: "center", padding: "8%" }}>
+              <h1 className="text-xl font-semibold text-blue-600" style={{ textAlign: "center", padding: "8%" }}>
                 {client.nome}
               </h1>
               <h1 className="text-xl font-semibold" style={{ textAlign: "right", padding: "2%" }}>
@@ -121,6 +94,7 @@ export default function Page() {
              
             </div>
             {client.servicos && client.servicos.map(servico => (
+             <>
               <div key={servico.id} className="flex">
                 <div style={{ minWidth: "50%", textAlign: "center", padding: "5px",  borderBottom: "1px solid #c2c2c2" }}>
                   <p className="text-sm font-semibold leading-6">{servico.selectedProductNane}</p>
@@ -128,14 +102,20 @@ export default function Page() {
                   <p className="text-sm font-semibold leading-6">{servico.selectedPayment}</p>
                 </div>
                 <div style={{ minWidth: "50%", textAlign: "center", borderBottom: "1px solid #c2c2c2" }}>
-                  <p className="text-sm font-semibold leading-6 text-bg-teal-blue">{new Date(servico.data).toLocaleDateString('pt-BR')}</p>
+                  <p className="text-sm font-semibold leading-6 text-bg-teal-blue">{new Date(servico.selectedTime).toLocaleDateString('pt-BR')}</p>
                   <p className="text-sm font-semibold leading-6">{servico.selectedModel}</p>
                   <p className="text-sm font-semibold leading-6">{servico.selectedColor}</p>
                 </div>
-                <button style={{ background:"red", borderRadius:"20px", color:"white"}} onClick={() => deleteService(servico.id)}>Deletar</button>
               </div>
+              <button
+                style={{marginLeft:"43%", padding:"10px",background:"red", borderRadius:"20px", color:"white", fontSize:"10px" }}
+                disabled={!!loadingState[servico.id]}  
+                onClick={() => deleteService(servico.id)}
+              >
+                {loadingState[servico.id] ? 'Carregando...' : 'DELETE'}
+              </button>
+             </>
             ))}
-
           </li>
         ))}
       </ul>

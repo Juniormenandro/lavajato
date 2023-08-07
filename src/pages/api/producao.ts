@@ -30,27 +30,33 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     await connectToDb();
 
     // Buscar clientes com seus respectivos serviços
-    const clientes = await prisma.clientes.findMany({
+    // Depois de buscar os dados do Prisma
+    const clientes = await prisma.clientesServicos.findMany({
       where: {
-        servicos: {
-          some: {
-            concluido: false,
+        concluido: false,
+      },
+      include: {
+        cliente: {
+          include: {
+            servicos: true,  // incluir a relação "servicos"
           },
         },
       },
-      include: {
-        servicos: true,
-      },
-      orderBy: {
-        createdAt: 'desc', // Ordena do mais recente para o mais antigo.
-      },
     });
+    // Mapear os dados para ter as propriedades do cliente no objeto principal
+    const clientesFormatados = clientes.map(servico => ({
+      ...servico,
+      ...servico.cliente,
+      servicos: servico.cliente.servicos,  // adicione esta linha
+    }));
 
-    // enviar a lista de clientes como resposta
-    res.status(200).json(clientes);
+    // Enviar os dados formatados
+    res.status(200).json(clientesFormatados);
+
+  
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error." });
+    res.status(500).json({ error });
   }
 }; 
  
