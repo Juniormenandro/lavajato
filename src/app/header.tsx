@@ -12,8 +12,8 @@ return (
   <header className="flex "
     style={{
       
-      paddingTop:"10%",
-      paddingBottom:"10%",
+      paddingTop:"30px",
+      paddingBottom:"30px",
      
       backgroundImage: `url('/images/logo.jpg')`,
       backgroundPosition: 'center', // Centraliza a imagem de fundo
