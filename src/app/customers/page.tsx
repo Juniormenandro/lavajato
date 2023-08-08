@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { Key, useState } from 'react';
 import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
 import useSWR, { mutate } from 'swr';
 import { fetcher } from '@/utils/fetcher/fetcher';
+
 
 interface Servico {
   selectedColor: React.ReactNode;
@@ -19,11 +20,24 @@ interface Servico {
   aguardandoPagamento: boolean;
 };
 
+interface Booking {
+  id: string;
+  selectedDayOfWeek: React.ReactNode;
+  selectedDate: number | string;
+  selectedMonth: React.ReactNode;
+  selectedYear: React.ReactNode;
+  selectedTime: React.ReactNode;
+  selectedProductDefaultPrice: React.ReactNode;
+
+};
+
+
 interface Cliente {
   id: string;
   nome: string;
   telefone: string;
   servicos: Servico[];
+  Booking: Booking[];
 };
 
 const useFetch = (url: string) => {
@@ -38,7 +52,7 @@ const useFetch = (url: string) => {
 
 export default function Page() {
   const { data: clientes, isLoading, isError } = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/customers`);
-
+  
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
 
   const deleteService = async (id: string) => {
@@ -96,6 +110,7 @@ export default function Page() {
             </h1>
             </div>
           </div>
+          
             {client.servicos && client.servicos.map(servico => (
              <>
               <div key={servico.id} className="flex" style={{marginRight:"2%",  marginLeft:"2%", borderRight: "1px solid #c2c2c2",  borderLeft: "1px solid #c2c2c2", }}>
@@ -110,18 +125,39 @@ export default function Page() {
                   <p className="text-sm font-semibold leading-6">{servico.selectedColor}</p>
                 </div>
               </div>
-              <div  style={{ marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:" 0 0 20px 20px ", color:"white", fontSize:"11px", borderBottom: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"  }}>
+
+
+            <div  style={{  textAlign:"center",  marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:" 0 0 20px 20px ", color:"white", fontSize:"11px", borderBottom: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"  }}>
             <button
-             style={{background:"blue",marginLeft:"47%", padding:"8px", borderRadius:"20px", }}
+             style={{background:"red", padding:"8px", borderRadius:"20px", }}
               disabled={!!loadingState[servico.id]}  
               onClick={() => deleteService(servico.id)}
             >
-              {loadingState[servico.id] ? 'Carregando...' : 'FINISH'}
+              {loadingState[servico.id] ? 'Carregando...' : 'FINISH'} 
             </button>
             </div>
-
              </>
             ))}
+                       
+            {client.Booking && client.Booking.map(book => (
+                
+              <div key={book.id} className="flex" style={{marginRight:"2%",  marginLeft:"2%", borderLeft: "1px solid #c2c2c2",   borderRight: "1px solid #c2c2c2", borderBottom: "1px solid #c2c2c2", borderRadius:" 0 0 20px 20px ", }}>
+                
+                <div style={{ minWidth: "50%", textAlign: "center", padding: "5px",   }}>
+                <p className="text-sm font-semibold leading-6">{book.selectedDate}</p>
+                <p className="text-sm font-semibold leading-6">{book.selectedDayOfWeek}</p>
+                <p className="text-sm font-semibold leading-6">{book.selectedMonth}</p>
+                </div>
+
+                <div style={{ minWidth: "50%", textAlign: "center",  }}>
+                <p className="text-sm font-semibold leading-6">{book.selectedYear}</p>
+                <p className="text-sm font-semibold leading-6">{book.selectedTime}</p>
+                <p className="text-sm font-semibold leading-6">{book.selectedProductDefaultPrice}</p>
+                </div>
+
+            </div>
+            ))}
+
           </li>
         ))}
       </ul>

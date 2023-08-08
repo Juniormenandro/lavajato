@@ -1,31 +1,3 @@
-/*
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
-
-export default async function handle(req: NextApiRequest, res: NextApiResponse) {
-  const { id } = req.query // accessing the 'id' in the route
-
- 
-  if (req.method === 'DELETE') {
-    await prisma.clientesServicos.deleteMany({
-      where: { clienteId: String(req.query.id) },
-    })
-  
-    const cliente = await prisma.clientes.delete({
-      where: { id: String(req.query.id) },
-    })
-    
-    res.json(cliente)
-  } else {
-        throw new Error(`The HTTP ${req.method} method is not supported at this route.`)
-  }
-}
-
-*/
-
-
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { PrismaClient } from '@prisma/client'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';

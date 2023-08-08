@@ -7,35 +7,26 @@ import Spinner from "@/components/Spinner/Spinner";
 import { fetcher } from '@/utils/fetcher/fetcher';
 import useSWR, { mutate } from 'swr';
 
-interface Servico {
-  clienteId: string;
-  selectedColor: ReactNode;
-  selectedTime: ReactNode;
-  selectedModel: ReactNode;
-  selectedPayment: ReactNode;
-  selectedProdutPrice: ReactNode;
-  selectedProductNane: ReactNode;
-  id: string;
-  carro: string;
-  concluido: boolean;
-  aguardandoPagamento: boolean;
-}
 
 
 interface Booking {
-  clienteId: string;
-  id: string;
-  selectedDayOfWeek: React.ReactNode;
-  selectedDate: number | string;
-  selectedMonth: React.ReactNode;
-  selectedYear: React.ReactNode;
-  selectedTime: React.ReactNode;
-  selectedProductDefaultPrice: React.ReactNode;
-
-};
+    lienteId: string;
+    id: string;
+    selectedDayOfWeek: React.ReactNode;
+    selectedDate: number | string;
+    selectedMonth: React.ReactNode;
+    selectedYear: React.ReactNode;
+    selectedTime: React.ReactNode;
+    selectedProductDefaultPrice: React.ReactNode;
+  
+  };
+  
 
 interface Cliente {
-  Booking: any;
+  selectedMonth: ReactNode;
+  selectedDayOfWeek: ReactNode;
+
+  Booking: Booking[];
   selectedColor: ReactNode;
   selectedTime: ReactNode;
   selectedPayment: ReactNode;
@@ -48,7 +39,7 @@ interface Cliente {
   id: string;
   nome: string;
   telefone: string;
-  servicos: Servico[];
+  
 }
 
 const useFetch = (url: string) => {
@@ -65,7 +56,7 @@ export default function Page() {
 
   const { data: clientes, isLoading, isError } = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/producao`);
   
-  
+  console.log(clientes);
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
 
 const markAsDone = async (id: string) => {
@@ -129,36 +120,43 @@ return (
               <h1 className="text-xl font-semibold  ">
                 {client.telefone}
               </h1>
+              <p className="text-sm font-semibold leading-6">{client.selectedTime}</p>
+                  <p className="text-sm font-semibold leading-6">{client.selectedDayOfWeek}</p>
+                  <p className="text-sm font-semibold leading-6">{client.selectedMonth}</p>
             </div> 
 
           </div>
 
-          {client.servicos?.map((servico, index) => (
-           <>
-            <div key={index} className="flex" style={{marginRight:"2%",  marginLeft:"2%", borderRight: "1px solid #c2c2c2",  borderLeft: "1px solid #c2c2c2", }}>
-              <div style={{ minWidth: "50%", textAlign: "center"  }}>
-                <p className="text-sm font-semibold leading-6">{servico.selectedProductNane}</p>
-                <p className="text-sm font-semibold leading-6">{servico.selectedProdutPrice}</p>
-                <p className="text-sm font-semibold leading-6">{servico.selectedPayment}</p>
+
+          {client.Booking && client.Booking.map(book => (
+                <>
+                <div key={book.id} className="flex" style={{marginRight:"2%",  marginLeft:"2%", borderLeft: "1px solid #c2c2c2",   borderRight: "1px solid #c2c2c2", borderBottom: "1px solid #c2c2c2", borderRadius:" 0 0 20px 20px ", }}>
+                  
+                  <div style={{ minWidth: "50%", textAlign: "center", padding: "5px",   }}>
+                  <p className="text-sm font-semibold leading-6">{book.selectedDate}</p>
+                  <p className="text-sm font-semibold leading-6">{book.selectedDayOfWeek}</p>
+                  <p className="text-sm font-semibold leading-6">{book.selectedMonth}</p>
+                  </div>
+  
+                  <div style={{ minWidth: "50%", textAlign: "center",  }}>
+                  <p className="text-sm font-semibold leading-6">{book.selectedYear}</p>
+                  <p className="text-sm font-semibold leading-6">{book.selectedTime}</p>
+                  <p className="text-sm font-semibold leading-6">{book.selectedProductDefaultPrice}</p>
+                  </div>
               </div>
-              <div style={{  minWidth: "50%", textAlign: "center",   }}>
-                <p className="text-sm font-semibold leading-6">{servico.selectedTime}</p>
-                <h3>{servico.carro}</h3>
-                <p className="text-sm font-semibold leading-6">{servico.selectedColor}</p>
+              <div  style={{ textAlign:"center", marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:" 0 0 20px 20px ", color:"white", fontSize:"11px", borderBottom: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"  }}>
+              <button
+               style={{background:"blue", padding:"8px", borderRadius:"20px", }}
+                disabled={!!loadingState[book.id]}  
+                onClick={() => markAsDone(book.id)}
+              >
+                {loadingState[book.id] ? 'Carregando...' : 'FINISH'}
+              </button>
               </div>
-            </div>
-            <div  style={{ textAlign:"center", marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:" 0 0 20px 20px ", color:"white", fontSize:"11px", borderBottom: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"  }}>
-            <button
-             style={{background:"blue", padding:"8px", borderRadius:"20px", }}
-              disabled={!!loadingState[servico.id]}  
-              onClick={() => markAsDone(servico.id)}
-            >
-              {loadingState[servico.id] ? 'Carregando...' : 'FINISH'}
-            </button>
-            </div>
-            
-           </>   
-          ))}
+              </>
+              ))}
+
+
         </li>
       )})}
     </ul>
