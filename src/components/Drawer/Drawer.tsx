@@ -54,6 +54,13 @@ const Drawer: React.FC = () => {
             PRODUCTION
           </Link>
           <Link
+            href="/booking"
+            className=" hover:text-blue-700"
+            onClick={toggleDrawer}
+          >
+            BOOKING
+          </Link>
+          <Link
             href="/customers"
             className=" hover:text-blue-700"
             onClick={toggleDrawer}

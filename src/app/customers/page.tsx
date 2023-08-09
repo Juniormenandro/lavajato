@@ -15,7 +15,7 @@ interface Servico {
   selectedProdutPrice: React.ReactNode;
   selectedProductNane: React.ReactNode;
   id: string;
-  carro: string; 
+  carro: string;  
   concluido: boolean;
   aguardandoPagamento: boolean;
 };
@@ -133,7 +133,7 @@ export default function Page() {
               disabled={!!loadingState[servico.id]}  
               onClick={() => deleteService(servico.id)}
             >
-              {loadingState[servico.id] ? 'Carregando...' : 'FINISH'} 
+              {loadingState[servico.id] ? 'Carregando...' : 'DELETE'} 
             </button>
             </div>
              </>
