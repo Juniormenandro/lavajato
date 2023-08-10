@@ -52,33 +52,27 @@ interface Cliente {
   servicos: Servico[];
 }
 
-const useFetch = (url: string, token: string | null = null) => {
-  const { data, error } = useSWR<Cliente[]>(url, (url) => fetcher(url, undefined, token));
-
-  return {
-    data,
-    isLoading: !error && !data,
-    isError: error
-  };
-};
 
 
 export default function Page() {
   
 const [token, setToken] = useState<string | null>(null);
 
-useEffect(() => {
+useEffect(() => { 
   const userToken = localStorage.getItem('token');
   if (userToken) {
     setToken(userToken);
   }
 }, []);
 
-  const { data: clientes, isLoading, isError } = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/producao`, token);
-  const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
+
+const { data:clientes, error:isError, isLoading } =  useSWR<Cliente[]>([`${process.env.NEXT_PUBLIC_API_URL}/api/producao`, token], fetcher, {
+  revalidateOnFocus: false,
+});
 
 
 
+const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
 
 
 const markAsDone = async (id: string) => {

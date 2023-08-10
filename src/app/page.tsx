@@ -29,10 +29,18 @@ export type BookingType = typeof bookingDataInitialState;
 const BookingPage: NextPage = () => {
   
   const [nome, setNome] = useState("");
-  const [telefone, setTelefone] = useState("");
+  const [telefone, setTelefone] = useState(""); 
+  const [token, setToken] = useState<string | null>(null);
 
-  const { data, error, isLoading } = useSWR<ProductType[]>(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/getprices`,
+  useEffect(() => {
+    const userToken = localStorage.getItem('token');
+    if (userToken) {
+      setToken(userToken);
+    }
+  }, []);
+  
+  const { data, error, isLoading } = useSWR<ProductType[]>([
+    `${process.env.NEXT_PUBLIC_API_URL}/api/getprices`, token],
     fetcher,
     {
       revalidateOnFocus: false,

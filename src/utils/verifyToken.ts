@@ -4,7 +4,7 @@ import { NextApiRequest } from 'next';
 function verifyToken(req: NextApiRequest): string | null {
   const authHeader = req.headers.authorization;
 
-  if (!authHeader) {
+  if (!authHeader) { 
     return null;
   }
 

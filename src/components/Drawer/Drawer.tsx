@@ -10,17 +10,7 @@ const Drawer: React.FC = () => {
   };
 
   async function handleLogout() {
-    try {
-      const response = await fetch('/api/logout', { method: 'POST' });
-      
-      if (response.ok) {
-       
-      } else {
-        console.error('Failed to logout');
-      }
-    } catch (error) {
-      console.error('Error during logout:', error);
-    }
+    localStorage.setItem("token", "");
   }
   
   
@@ -53,7 +43,7 @@ const Drawer: React.FC = () => {
             </svg>
           <Link
             href="/"
-            className="flex items-center  hover:text-blue-700 cursor-pointer w-full"
+            className="flex items-center  hover:text-gray-700 cursor-pointer w-full"
             onClick={toggleDrawer}
           >
             
@@ -64,35 +54,35 @@ const Drawer: React.FC = () => {
           
           <Link
             href="/producao"
-            className=" hover:text-blue-700"
+            className=" hover:text-gray-700"
             onClick={toggleDrawer}
           >
-            PRODUCTION
+            <h1>PRODUCTION</h1>
           </Link>
           <Link
             href="/booking"
-            className=" hover:text-blue-700"
+            className=" hover:text-gray-700"
             onClick={toggleDrawer}
           >
             BOOKING
           </Link>
           <Link
             href="/customers"
-            className=" hover:text-blue-700"
+            className=" hover:text-gray-700"
             onClick={toggleDrawer}
           >
             CUSTOMERS
           </Link>
           <Link
             href="/login"
-            className=" hover:text-blue-700"
+            className=" hover:text-gray-700"
             onClick={toggleDrawer}
           >
             LOGIN
           </Link>
           <Link
             href="/login"
-            className=" hover:text-blue-700"
+            className=" hover:text-gray-700"
             onClick={handleLogout}
           >
             LOGOUT
