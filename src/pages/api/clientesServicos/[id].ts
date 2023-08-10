@@ -1,12 +1,24 @@
 import { PrismaClient } from "@prisma/client";
-import { GetResult } from "@prisma/client/runtime/library";
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const prisma = new PrismaClient();
 
-export default async function handler(req: { method: string; query: { id: any; }; }, res: { json: (arg0: GetResult<{ id: string; carro: string | null; concluido: boolean; aguardandoPagamento: boolean; data: Date; selectedPayment: string | null; selectedProductId: string | null; selectedProductNane: string | null; selectedProdutPrice: string | null; selectedModel: string | null; selectedColor: string | null; selectedTime: string | null; selectedProductDefaultPrice: string | null; rawPrice: string | null; clienteId: string; },  never> & {}) => void; status: (arg0: number) => { (): any; new(): any; json: { (arg0: { error: string; }): void; new(): any; }; }; }) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'PUT') {
-    const id = req.query.id;
-    
+    let id: string | undefined;
+
+    if (typeof req.query.id === 'string') {
+      id = req.query.id;
+    } else if (Array.isArray(req.query.id)) {
+      id = req.query.id[0]; // pega o primeiro valor se for um array
+    } else {
+      return res.status(400).json({ error: 'ID inválido.' });
+    }
+
+    if (!id) {
+      return res.status(400).json({ error: 'ID é obrigatório.' });
+    }
+
     try {
       const tarefa = await prisma.clientesServicos.update({
         where: {
@@ -21,9 +33,7 @@ export default async function handler(req: { method: string; query: { id: any; }
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Erro ao atualizar tarefa' });
-    } finally {
-      await prisma.$disconnect();
-    }
+    } 
   } else {
     res.status(405).json({ error: 'Método não permitido' });
   }

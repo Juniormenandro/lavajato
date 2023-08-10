@@ -8,6 +8,7 @@ import GoogleIcon from "@/icons/GoogleIcon/GoogleIcon";
 import Link from "next/link";
 import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Header from "../header";
 
 type FormData = {
   name: string;
@@ -63,6 +64,8 @@ const SignIn: NextPage = () => {
   };
 
   return (
+    <>
+    <Header />
     <main className="flex flex-col items-center min-h-screen p-10">
       <div className="w-full max-w-lg">
         <h2 className="mb-5 text-3xl text-center">Sign In</h2>
@@ -114,6 +117,7 @@ const SignIn: NextPage = () => {
         }}
       />
     </main>
+    </>
   );
 };
 
