@@ -14,7 +14,7 @@ const Drawer: React.FC = () => {
       const response = await fetch('/api/logout', { method: 'POST' });
       
       if (response.ok) {
-        window.location.href = '/login';
+       
       } else {
         console.error('Failed to logout');
       }
@@ -90,15 +90,14 @@ const Drawer: React.FC = () => {
           >
             LOGIN
           </Link>
-          <div className=" hover:text-blue-700">
-            <h1>
-              <button
-              onClick={handleLogout}
-              > 
-              LOGOUT 
-              </button>
-            </h1>
-          </div>
+          <Link
+            href="/login"
+            className=" hover:text-blue-700"
+            onClick={handleLogout}
+          >
+            LOGIN
+          </Link>
+          
       </div>
       </AppDrawer>
     </>

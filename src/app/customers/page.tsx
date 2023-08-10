@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Key, useState } from 'react';
+import React, { Key, useEffect, useState } from 'react';
 import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
 import useSWR, { mutate } from 'swr';
@@ -52,9 +52,21 @@ const useFetch = (url: string, token: string | null = null) => {
 
 
 export default function Page() {
-  const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const userToken = localStorage.getItem('token');
+    if (userToken) {
+      setToken(userToken);
+    }
+  }, []);
+  
+
   const { data: clientes, isLoading, isError } = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/customers`, token);
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
+
+ 
 
   const deleteService = async (id: string) => {
     setLoadingState(prev => ({ ...prev, [id]: true }));
@@ -83,14 +95,38 @@ export default function Page() {
     }
   };
 
-  if (isLoading) {
-    return  <div className="flex flex-col items-center mt-10">
-    <Spinner />
-  </div>;
+
+
+
+  const [showError, setShowError] = useState(false);
+
+  useEffect(() => {
+    const userToken = localStorage.getItem('token');
+    if (userToken) {
+      setToken(userToken);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isError) {
+      const timer = setTimeout(() => {
+        setShowError(true);
+      }, 7000); // espera 5 segundos antes de mostrar a mensagem de erro
+
+      return () => clearTimeout(timer); // Limpar o timer ao desmontar
+    }
+  }, [isError]);
+
+  if (isError && showError) {
+    return <p>An error occurred while fetching data</p>;
   }
 
-  if (isError) {
-    return <p>An error occurred while fetching data</p>;
+  if (isLoading || isError) {
+    return (
+      <div className="flex flex-col items-center mt-10">
+        <Spinner />
+      </div>
+    );
   }
 
   return (

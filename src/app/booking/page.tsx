@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Key, useState } from 'react';
+import React, { Key, useEffect, useState } from 'react';
 import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
 import useSWR, { mutate } from 'swr';
@@ -40,20 +40,50 @@ const useFetch = (url: string, token: string | null = null) => {
 };
 
 export default function Page() {
-  const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const userToken = localStorage.getItem('token');
+    if (userToken) {
+      setToken(userToken);
+    }
+  }, []);
+
   const { data: clientes, isLoading, isError } = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/book`,token);
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
 
-  console.log(clientes)
+  
+  
+  const [showError, setShowError] = useState(false);
 
-  if (isLoading) {
-    return  <div className="flex flex-col items-center mt-10">
-    <Spinner />
-  </div>;
+  useEffect(() => {
+    const userToken = localStorage.getItem('token');
+    if (userToken) {
+      setToken(userToken);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isError) {
+      const timer = setTimeout(() => {
+        setShowError(true);
+      }, 7000); // espera 5 segundos antes de mostrar a mensagem de erro
+
+      return () => clearTimeout(timer); // Limpar o timer ao desmontar
+    }
+  }, [isError]);
+
+  if (isError && showError) {
+    return <p>An error occurred while fetching data</p>;
   }
 
-  if (isError) {
-    return <p>An error occurred while fetching data</p>;
+  if (isLoading || isError) {
+    return (
+      <div className="flex flex-col items-center mt-10">
+        <Spinner />
+      </div>
+    );
   }
 
   return (
@@ -84,7 +114,7 @@ export default function Page() {
           
            
             {client.Booking && client.Booking.map(book => (
-                clientes && clientes.map(client => (
+               
               <div key={book.id} className="flex" style={{marginRight:"2%",  marginLeft:"2%", borderLeft: "1px solid #c2c2c2",   borderRight: "1px solid #c2c2c2", borderBottom: "1px solid #c2c2c2", borderRadius:" 0 0 20px 20px ", }}>
                 
                 <div style={{ minWidth: "50%", textAlign: "center", padding: "5px",   }}>
@@ -102,7 +132,7 @@ export default function Page() {
 
 
             </div>
-                ))
+                
             ))}
 
           </li>

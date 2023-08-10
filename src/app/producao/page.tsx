@@ -1,11 +1,12 @@
 
 "use client";
 
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
 import { fetcher } from '@/utils/fetcher/fetcher';
 import useSWR, { mutate } from 'swr';
+
 
 interface Servico {
   clienteId: string;
@@ -63,9 +64,22 @@ const useFetch = (url: string, token: string | null = null) => {
 
 
 export default function Page() {
-  const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+  
+const [token, setToken] = useState<string | null>(null);
+
+useEffect(() => {
+  const userToken = localStorage.getItem('token');
+  if (userToken) {
+    setToken(userToken);
+  }
+}, []);
+
   const { data: clientes, isLoading, isError } = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/producao`, token);
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
+
+
+
+
 
 const markAsDone = async (id: string) => {
   // Define o serviço como carregando antes de iniciar a solicitação
@@ -96,15 +110,35 @@ const markAsDone = async (id: string) => {
 };
   
   
+const [showError, setShowError] = useState(false);
 
-  if (isLoading) {
-    return  <div className="flex flex-col items-center mt-10">
-    <Spinner />
-  </div>;
+useEffect(() => {
+  const userToken = localStorage.getItem('token');
+  if (userToken) {
+    setToken(userToken);
+  }
+}, []);
+
+useEffect(() => {
+  if (isError) {
+    const timer = setTimeout(() => {
+      setShowError(true);
+    }, 7000); // espera 5 segundos antes de mostrar a mensagem de erro
+
+    return () => clearTimeout(timer); // Limpar o timer ao desmontar
+  }
+}, [isError]);
+
+if (isError && showError) {
+  return <p>An error occurred while fetching data</p>;
 }
 
-if (isError) {
-    return <p>An error occurred while fetching data</p>;
+if (isLoading || isError) {
+  return (
+    <div className="flex flex-col items-center mt-10">
+      <Spinner />
+    </div>
+  );
 }
 
 return (
@@ -172,4 +206,8 @@ return (
 
 
 
+}
+
+function setLoadingState(arg0: (prev: any) => any) {
+  throw new Error('Function not implemented.');
 }

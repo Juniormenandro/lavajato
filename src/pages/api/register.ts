@@ -46,7 +46,7 @@ export default async function handler(
           password: hashedPassword,
         },
       });
-      window.location.href = '/login';
+     
       // Return encrypted password
       return res.status(200).json({
         id: user.id,
