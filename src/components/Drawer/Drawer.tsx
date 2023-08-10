@@ -95,7 +95,7 @@ const Drawer: React.FC = () => {
             className=" hover:text-blue-700"
             onClick={handleLogout}
           >
-            LOGIN
+            LOGOUT
           </Link>
           
       </div>
