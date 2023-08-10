@@ -3,12 +3,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from '@prisma/client';
 import { BookingType } from "@/app/page";
+import verifyToken from "@/utils/verifyToken";
 
 const prisma = new PrismaClient();
 
 const checkout = async (req: NextApiRequest, res: NextApiResponse) => {
   const { booking }: { booking: BookingType } = req.body;
-  
+  const token = verifyToken(req);
+
     const {
       selectedProductId,
       selectedProductNane,
@@ -25,8 +27,11 @@ const checkout = async (req: NextApiRequest, res: NextApiResponse) => {
     const price = parseFloat(selectedProdutPrice.replace('€', '').trim()) * 100;
 
   try {
-    // Primeiro, procurar ou criar um cliente com o nome e telefone fornecidos
-    console.log(booking);
+
+    if (!token) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
     const client = await prisma.clientes.upsert({
         where: { telefone },
         update: { nome },

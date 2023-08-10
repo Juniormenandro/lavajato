@@ -84,11 +84,12 @@ model registrohoras {
   saida       Json?
 }
 
-model users {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+
+model User {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  email      String    @unique
+  name       String?
+  password   String?
  
-  email    String   @unique(map: "email_1")
-  isAdmin  Boolean?
-  name     String
-  password String
+  active     Boolean?
 }

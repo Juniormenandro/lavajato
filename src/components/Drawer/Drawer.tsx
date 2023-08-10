@@ -1,7 +1,6 @@
 "use-client";
 import Link from "next/link";
 import React from "react";
-
 import AppDrawer from "react-modern-drawer";
 
 const Drawer: React.FC = () => {
@@ -9,6 +8,23 @@ const Drawer: React.FC = () => {
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
   };
+
+  async function handleLogout() {
+    try {
+      const response = await fetch('/api/logout', { method: 'POST' });
+      
+      if (response.ok) {
+        window.location.href = '/login';
+      } else {
+        console.error('Failed to logout');
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+  }
+  
+  
+
 
   return (
     <>
@@ -67,7 +83,23 @@ const Drawer: React.FC = () => {
           >
             CUSTOMERS
           </Link>
-        </div>
+          <Link
+            href="/login"
+            className=" hover:text-blue-700"
+            onClick={toggleDrawer}
+          >
+            LOGIN
+          </Link>
+          <div className=" hover:text-blue-700">
+            <h1>
+              <button
+              onClick={handleLogout}
+              > 
+              LOGOUT 
+              </button>
+            </h1>
+          </div>
+      </div>
       </AppDrawer>
     </>
   );

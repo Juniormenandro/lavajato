@@ -5,7 +5,7 @@ import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
 import useSWR, { mutate } from 'swr';
 import { fetcher } from '@/utils/fetcher/fetcher';
-
+ 
 
 
 
@@ -29,8 +29,8 @@ interface Cliente {
   Booking: Booking[];
 };
 
-const useFetch = (url: string) => {
-  const { data, error } = useSWR<Cliente[]>(url, fetcher);
+const useFetch = (url: string, token: string | null = null) => {
+  const { data, error } = useSWR<Cliente[]>(url, (url) => fetcher(url, undefined, token));
 
   return {
     data,
@@ -40,7 +40,8 @@ const useFetch = (url: string) => {
 };
 
 export default function Page() {
-  const { data: clientes, isLoading, isError } = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/book`);
+  const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+  const { data: clientes, isLoading, isError } = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/book`,token);
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
 
   console.log(clientes)

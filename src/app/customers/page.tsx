@@ -40,8 +40,8 @@ interface Cliente {
   Booking: Booking[];
 };
 
-const useFetch = (url: string) => {
-  const { data, error } = useSWR<Cliente[]>(url, fetcher);
+const useFetch = (url: string, token: string | null = null) => {
+  const { data, error } = useSWR<Cliente[]>(url, (url) => fetcher(url, undefined, token));
 
   return {
     data,
@@ -50,15 +50,17 @@ const useFetch = (url: string) => {
   };
 };
 
+
 export default function Page() {
-  const { data: clientes, isLoading, isError } = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/customers`);
-  
+  const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+  const { data: clientes, isLoading, isError } = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/customers`, token);
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
 
   const deleteService = async (id: string) => {
     setLoadingState(prev => ({ ...prev, [id]: true }));
-
+    
     try {
+      
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/customers/${id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
@@ -69,8 +71,9 @@ export default function Page() {
       }
 
       mutate(`${process.env.NEXT_PUBLIC_API_URL}/api/customers`);
+    
     } catch (error) {
-      console.error('Erro ao deletar o serviço:', error);
+      console.error('Erro ao deletar o serviço:', error, token);
     } finally {
       setLoadingState(prev => {
         const newState = { ...prev };
