@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-      const tarefa = await prisma.clientesServicos.update({
+      const tarefa = await prisma.servicos.update({
         where: {
           id: id
         },

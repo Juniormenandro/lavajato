@@ -6,7 +6,7 @@ datasource db {
   provider = "mongodb"
   url      = env("MONGODB_URI")
 }
-model ClientesServicos {
+model servicos {
   id                       String   @id @default(auto()) @map("_id") @db.ObjectId
   carro                    String?
   concluido                Boolean  @default(false)  
@@ -51,7 +51,7 @@ model clientes {
  
   createdAt DateTime           @default(now())
   nome      String
-  servicos  ClientesServicos[]
+  servicos  servicos[]
   telefone  String             @unique
   email     String?
  

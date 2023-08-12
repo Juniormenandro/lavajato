@@ -1,13 +1,12 @@
-
 "use client";
-
 import React, { ReactNode, useEffect, useState } from 'react';
 import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
-import { fetcher } from '@/utils/fetcher/fetcher';
 import useSWR, { mutate } from 'swr';
+import { fetcher } from '@/utils/fetcher/fetcher';
+ 
 
-interface Servico {
+interface servicos {
   clienteId: string;
   selectedColor: ReactNode;
   selectedTime: ReactNode;
@@ -21,32 +20,31 @@ interface Servico {
   aguardandoPagamento: boolean;
 }
 
-
 interface Cliente {
   id: string;
   nome: string;
   telefone: string;
-  servicos: Servico[];
-}
+  servicos: servicos[];
+};
+
+
 
 
 
 export default function Page() {
-  
+
   const [token, setToken] = useState<string | null>(null);
 
-  useEffect(() => { 
+  useEffect(() => {
     const userToken = localStorage.getItem('token');
     if (userToken) {
       setToken(userToken);
     }
   }, []);
 
-
   const { data:clientes, error:isError, isLoading } =  useSWR<Cliente[]>([`${process.env.NEXT_PUBLIC_API_URL}/api/producao`, token], fetcher, {
     revalidateOnFocus: false,
   });
-
 
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
 
@@ -54,22 +52,31 @@ export default function Page() {
     setLoadingState(prev => ({ ...prev, [id]: true }));
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clientesServicos/${id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/producao/${id}`, {
         method: 'PUT',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` // Mantenha o header de autorização
-        },
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ concluido: true }),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        // Exibir o status e a mensagem de erro (se estiver disponível)
-        throw new Error(`Status: ${response.status}. Error: ${data.error || 'Failed to update service'}`);
+        throw new Error('Failed to update service');
       }
 
-      mutate(`${process.env.NEXT_PUBLIC_API_URL}/api/producao`);
+      if (!clientes) return; 
+
+      const updatedClientes = clientes.map(client => {
+        if(client.id === id) {
+          return {
+            ...client,
+            servicos: client.servicos.filter(servico => servico.id !== id)
+          }
+        }
+        return client;
+      });
+     
+      // Mutate local data
+      mutate([`${process.env.NEXT_PUBLIC_API_URL}/api/producao`, token]);
+      
     } catch (e) {
       console.error(e);
     } finally {
@@ -81,17 +88,17 @@ export default function Page() {
     }
 };
 
-    
-    
+
+
   const [showError, setShowError] = useState(false);
 
   useEffect(() => {
     if (isError) {
       const timer = setTimeout(() => {
         setShowError(true);
-      }, 7000); // espera 5 segundos antes de mostrar a mensagem de erro
+      }, 7000); 
 
-      return () => clearTimeout(timer); // Limpar o timer ao desmontar
+      return () => clearTimeout(timer);
     }
   }, [isError]);
 
@@ -103,47 +110,41 @@ export default function Page() {
     return (
       <div className="flex flex-col items-center mt-10">
         <Spinner />
-      </div> 
+      </div>
     );
   }
 
   return (
-    <>
+     <>
       <Header />
-      <h1 style={{ textAlign: "center", padding: "2%", fontSize:"20px" }}>PRODUCTION</h1>
+      <h1 style={{ textAlign: "center", padding: "2%", fontSize:"20px" }}>  PRODUTION</h1>
       <ul>
-        {clientes && clientes.map((client: Cliente) => {
-      
-        return (
+        {clientes && clientes?.map(client => (
           <li key={client.id} style={{ width: "100%" }}>
-
             <div className="flex" style={{marginTop:"2%", marginBottom:"2%", marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:"  20px 20px 0 0 ",  borderTop: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"}} >
-            
               <div style={{ minWidth: "50%", textAlign: "center"  }}>
-                <h1 className="text-xl font-semibold  text-blue-600">
+                <h1 className="text-xl font-semibold  text-blue-900">
                   {client.nome}
                 </h1>
               </div>
               <div style={{  minWidth: "50%", textAlign: "center",   }}>
-                <h1 className="text-xl font-semibold  ">
+                <h1 className="text-xl font-semibold text-blue-900  ">
                   {client.telefone}
                 </h1>
-              </div> 
-
+              </div>
             </div>
-
-            {client.servicos?.map((servico, index) => (
+            {client.servicos && client.servicos.map(servico => (
             <>
-              <div key={index} className="flex" style={{marginRight:"2%",  marginLeft:"2%", borderRight: "1px solid #c2c2c2",  borderLeft: "1px solid #c2c2c2", }}>
+              <div key={servico.id} className="flex" style={{fontSize:"19px", marginRight:"2%",  marginLeft:"2%", borderRight: "1px solid #c2c2c2",  borderLeft: "1px solid #c2c2c2", }}>
                 <div style={{ minWidth: "50%", textAlign: "center"  }}>
-                  <p className="text-sm font-semibold leading-6">{servico.selectedProductNane}</p>
-                  <p className="text-sm font-semibold leading-6">{servico.selectedProdutPrice}</p>
-                  <p className="text-sm font-semibold leading-6">{servico.selectedPayment}</p>
+                  <p className="text-sm font-semibold leading-6">SERVICE: {servico.selectedProductNane}</p>
+                  <p className="text-sm font-semibold leading-6">PRICE: {servico.selectedProdutPrice}</p>
+                  <p className="text-sm font-semibold leading-6">PAYMENT: {servico.selectedPayment}</p>
                 </div>
                 <div style={{  minWidth: "50%", textAlign: "center",   }}>
-                  <p className="text-sm font-semibold leading-6">{servico.selectedTime}</p>
-                  <h3>{servico.carro}</h3>
-                  <p className="text-sm font-semibold leading-6">{servico.selectedColor}</p>
+                  <p className="text-sm font-semibold leading-6">END TIME: {servico.selectedTime}</p>
+                  <p className="text-sm font-semibold leading-6">CAR BRAND: {servico.carro}</p>
+                  <p className="text-sm font-semibold leading-6">COLOR: {servico.selectedColor}</p>
                 </div>
               </div>
               <div  style={{ textAlign:"center", marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:" 0 0 20px 20px ", color:"white", fontSize:"11px", borderBottom: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"  }}>
@@ -158,10 +159,12 @@ export default function Page() {
             </>   
             ))}
           </li>
-        )})}
+         ))
+        }
       </ul>
       <br/><br/><br/><br/>
     </>
   );
 }
+
 

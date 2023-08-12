@@ -36,7 +36,7 @@ const checkout = async (req: NextApiRequest, res: NextApiResponse) => {
         create: { nome, telefone },
       });
 
-    const newService = await prisma.clientesServicos.create({
+    const newService = await prisma.servicos.create({
       data: {
         cliente: { connect: { id: client.id } },
         aguardandoPagamento: true,

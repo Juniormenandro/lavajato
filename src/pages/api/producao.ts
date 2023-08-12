@@ -11,13 +11,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(401).json({ error: "Unauthorized" });
     }
     
-    const clientes = await prisma.clientesServicos.findMany({
+    const clientes = await prisma.servicos.findMany({
       where: {
         concluido: false,
       },
       include: {
         cliente: {
-          include: {
+          include: { 
             servicos: true, 
           },
         },
