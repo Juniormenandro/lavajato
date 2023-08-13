@@ -136,18 +136,18 @@ if (isError) {
   return (
      <>
       <Header />
-      <h1 style={{ textAlign: "center", padding: "2%", fontSize:"20px" }}>  PRODUTION</h1>
+      <h1 style={{ textAlign: "center", padding: "2%", fontSize:"24px" }}>  PRODUTION</h1>
       <ul>
         {clientes && clientes?.map(client => (
           <li key={client.id} style={{ width: "100%" }}>
-            <div className="flex" style={{marginTop:"2%", marginBottom:"2%", marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:"  20px 20px 0 0 ",  borderTop: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"}} >
-              <div style={{ minWidth: "50%", textAlign: "center"  }}>
-                <h1 className="text-xl font-semibold  text-blue-900">
+            <div className="flex" style={{marginTop:"15px",  marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:"  20px 20px 0 0 ",  borderTop: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"}} >
+              <div style={{ minWidth: "50%", textAlign: "left", marginLeft:"3px"  }}>
+                <h1 className="text-blue-500" style={{fontSize:"21px"}}>
                   {client.nome}
                 </h1>
               </div>
-              <div style={{  minWidth: "50%", textAlign: "center",   }}>
-                <h1 className="text-xl font-semibold text-blue-900  ">
+              <div style={{  minWidth: "50%", textAlign: "left" }}>
+                <h1 className="text-xl font-semibold text-blue-500  ">
                   {client.telefone}
                 </h1>
               </div>
@@ -155,15 +155,15 @@ if (isError) {
             {client.servicos && client.servicos.map(servico => (
             <>
               <div key={servico.id} className="flex" style={{fontSize:"19px", marginRight:"2%",  marginLeft:"2%", borderRight: "1px solid #c2c2c2",  borderLeft: "1px solid #c2c2c2", }}>
-                <div style={{ minWidth: "50%", textAlign: "center"  }}>
-                  <p className="text-sm font-semibold leading-6">SERVICE: {servico.selectedProductNane}</p>
-                  <p className="text-sm font-semibold leading-6">PRICE: {servico.selectedProdutPrice}</p>
-                  <p className="text-sm font-semibold leading-6">PAYMENT: {servico.selectedPayment}</p>
+                <div style={{ minWidth: "50%", textAlign: "left", marginLeft:"10px" }}>
+                  <h2 style={{fontSize:"19px"}}>serv: {servico.selectedProductNane}</h2>
+                  <h2 style={{fontSize:"19px"}}>price: {servico.selectedProdutPrice}</h2>
+                  <h2 style={{fontSize:"19px"}}>pay: {servico.selectedPayment}</h2>
                 </div>
-                <div style={{  minWidth: "50%", textAlign: "center",   }}>
-                  <p className="text-sm font-semibold leading-6">END TIME: {servico.selectedTime}</p>
-                  <p className="text-sm font-semibold leading-6">CAR BRAND: {servico.carro}</p>
-                  <p className="text-sm font-semibold leading-6">COLOR: {servico.selectedColor}</p>
+                <div style={{  minWidth: "50%", textAlign: "left",   }}>
+                  <h2 style={{fontSize:"19px"}}>end: {servico.selectedTime}</h2>
+                  <h2 style={{fontSize:"19px"}}>brand: {servico.carro}</h2>
+                  <h2 style={{fontSize:"19px"}}>color: {servico.selectedColor}</h2>
                 </div>
               </div>
               <div  style={{ textAlign:"center", marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:" 0 0 20px 20px ", color:"white", fontSize:"11px", borderBottom: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"  }}>

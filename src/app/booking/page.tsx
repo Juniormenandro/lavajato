@@ -121,44 +121,47 @@ if (isLoading) {
   return (
      <>
       <Header />
-      <h1 style={{ textAlign: "center", padding: "2%", fontSize:"20px" }}>  BOOKING</h1>
+      
+      <h1 style={{ textAlign: "center", padding: "2%", fontSize:"24px" }}>  BOOKING</h1>
       <ul>
         {clientes && clientes?.map(client => (
           <li key={client.id} style={{ width: "100%" }}>
-            <div className="flex" style={{marginTop:"2%", marginBottom:"2%", marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:"  20px 20px 0 0 ",  borderTop: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"}} >
-              <div style={{ minWidth: "50%", textAlign: "center"  }}>
-                <h1 className="text-xl font-semibold  text-blue-900">
+            <div className="flex" style={{marginTop:"15px",  marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:"  20px 20px 0 0 ",  borderTop: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"}} >
+              <div style={{ minWidth: "50%", textAlign: "left", marginLeft:"3px"  }}>
+                <h1 className="text-blue-500" style={{fontSize:"21px"}}>
                   {client.nome}
                 </h1>
               </div>
-              <div style={{  minWidth: "50%", textAlign: "center",   }}>
-                <h1 className="text-xl font-semibold text-blue-900  ">
+              <div style={{  minWidth: "50%", textAlign: "left" }}>
+                <h1 className="text-xl font-semibold text-blue-500  ">
                   {client.telefone}
                 </h1>
               </div>
             </div>
               {client.Booking && client.Booking.map(book => (
                 <>
-                <div key={book.id} className="flex" style={{marginRight:"2%",  marginLeft:"2%", borderLeft: "1px solid #c2c2c2",   borderRight: "1px solid #c2c2c2", }}>  
-                  <div style={{ minWidth: "50%", textAlign: "center", padding: "5px",   }}>
-                    <p className="text-sm font-semibold leading-6">DAY: {book.selectedDate}</p>
-                    <p className="text-sm font-semibold leading-6">DAY WEEK: {book.selectedDayOfWeek}</p>
-                    <p className="text-sm font-semibold leading-6">MONTH: {book.selectedMonth}</p>
+                <div key={book.id} className="flex" style={{ marginRight:"2%",  marginLeft:"2%", borderLeft: "1px solid #c2c2c2",   borderRight: "1px solid #c2c2c2",  }}>  
+                  
+                  <div  style={{ minWidth: "50%", textAlign: "left", marginLeft:"10px"  }}>
+                    <h2 style={{fontSize:"19px"}}>DAY: {book.selectedDate}</h2>
+                    <h2 style={{fontSize:"19px"}}>WEEK: {book.selectedDayOfWeek}</h2>
+                    <h2 style={{fontSize:"19px"}}>MONTH: {book.selectedMonth}</h2>
                   </div>
-                  <div style={{ minWidth: "50%", textAlign: "center",  }}>
-                    <p className="text-sm font-semibold leading-6">YEAR: {book.selectedYear}</p>
-                    <p className="text-sm font-semibold leading-6">TIME: {book.selectedTime}</p>
-                    <p className="text-sm font-semibold leading-6">PRICE: {book.selectedProductDefaultPrice} €</p>
+                  <div style={{ minWidth: "50%", textAlign: "left",   }}>
+                    <h2 style={{fontSize:"19px"}}>TIME: {book.selectedTime}</h2>
+                    <h2 style={{fontSize:"19px"}}>PRICE: {book.selectedProductDefaultPrice} €</h2>
+                    <h2 style={{fontSize:"19px"}}>YEAR: {book.selectedYear}</h2>
                   </div>
                 </div>
-                <div  style={{ textAlign:"center", marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:" 0 0 20px 20px ", color:"white", fontSize:"11px", borderBottom: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"  }}>
-                <button
-                style={{background:"blue", padding:"8px", borderRadius:"20px", }}
-                  disabled={!!loadingState[book.id]}  
-                  onClick={() => markAsDone(book.id)}
-                >
-                  {loadingState[book.id] ? 'Carregando...' : 'FINISH'}
-                </button>
+
+                <div  style={{ textAlign:"center", marginLeft:"2%", marginRight:"2%", padding:"15px", borderRadius:" 0 0 20px 20px ", color:"white", fontSize:"11px", borderBottom: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"  }}>
+                  <button
+                    style={{background:"blue", padding:"8px", borderRadius:"20px", }}
+                      disabled={!!loadingState[book.id]}  
+                      onClick={() => markAsDone(book.id)}
+                    >
+                    {loadingState[book.id] ? 'Carregando...' : 'FINISH'}
+                  </button>
                 </div>
                 </>   
               ))}
