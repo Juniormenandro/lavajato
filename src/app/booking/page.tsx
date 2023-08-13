@@ -4,7 +4,8 @@ import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
 import useSWR, { mutate } from 'swr';
 import { fetcher } from '@/utils/fetcher/fetcher';
-
+import { useRouter } from 'next/navigation';
+import { Toaster, toast } from "react-hot-toast";
 
 interface Booking {
   id: string;
@@ -32,20 +33,34 @@ interface Cliente {
 export default function Page() {
 
   const [token, setToken] = useState<string | null>(null);
+  const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
+  const router = useRouter();
+
 
   useEffect(() => {
     const userToken = localStorage.getItem('token');
-    if (userToken) {
-      setToken(userToken);
+    if (!userToken) {
+      alert('O usuário não está logado!');
+      router.push("/login");
+      return;
     }
-  }, []);
+    setToken(userToken);
+    console.log('Token from localStorage:', localStorage.getItem('token'));
+}, []);
 
-  const { data:clientes, error:isError, isLoading } =  useSWR<Cliente[]>([`${process.env.NEXT_PUBLIC_API_URL}/api/book`, token], fetcher, {
+
+
+  const fetchURL = token ? `${process.env.NEXT_PUBLIC_API_URL}/api/book` : null;
+
+  const { data: clientes, error: isError, isLoading } = useSWR<Cliente[]>(fetchURL ? [fetchURL, token] : null, fetcher, {
     revalidateOnFocus: false,
   });
+  
+  if (!fetchURL) {
+    return null;
+  }
 
-  const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
-
+  
   const markAsDone = async (id: string) => {
     setLoadingState(prev => ({ ...prev, [id]: true }));
 
@@ -88,29 +103,20 @@ export default function Page() {
 
 
 
-  const [showError, setShowError] = useState(false);
 
-  useEffect(() => {
-    if (isError) {
-      const timer = setTimeout(() => {
-        setShowError(true);
-      }, 7000); 
+if (isError) {
+  return <div>Erro detectado: {JSON.stringify(isError)}</div>;
+}
 
-      return () => clearTimeout(timer); 
-    }
-  }, [isError]);
 
-  if (isError && showError) {
-    return <p>An error occurred while fetching data</p>;
-  }
+if (isLoading) {
+  return (
+    <div className="flex flex-col items-center mt-10">
+      <Spinner />
+    </div>
+  );
+}
 
-  if (isLoading || isError) {
-    return (
-      <div className="flex flex-col items-center mt-10">
-        <Spinner />
-      </div>
-    );
-  }
 
   return (
      <>

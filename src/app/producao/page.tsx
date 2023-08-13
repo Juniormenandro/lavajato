@@ -4,6 +4,8 @@ import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
 import useSWR, { mutate } from 'swr';
 import { fetcher } from '@/utils/fetcher/fetcher';
+import { useRouter } from 'next/navigation';
+
  
 
 interface servicos {
@@ -34,19 +36,38 @@ interface Cliente {
 export default function Page() {
 
   const [token, setToken] = useState<string | null>(null);
+  const router = useRouter();
+  const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
+
 
   useEffect(() => {
     const userToken = localStorage.getItem('token');
-    if (userToken) {
-      setToken(userToken);
+    if (!userToken) {
+      alert('O usuário não está logado!');
+      router.push("/login");
+      return;
     }
-  }, []);
+    setToken(userToken);
+    console.log('Token from localStorage:', localStorage.getItem('token'));
+}, []);
 
-  const { data:clientes, error:isError, isLoading } =  useSWR<Cliente[]>([`${process.env.NEXT_PUBLIC_API_URL}/api/producao`, token], fetcher, {
+
+  
+
+  const fetchURL = token ? `${process.env.NEXT_PUBLIC_API_URL}/api/producao` : null;
+
+  const { data: clientes, error: isError, isLoading } = useSWR<Cliente[]>(fetchURL ? [fetchURL, token] : null, fetcher, {
     revalidateOnFocus: false,
   });
+  
 
-  const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
+  console.log('Error:', isError);
+  console.log('fetchURL:', fetchURL);
+  console.log('Token:', token);
+
+
+  
+
 
   const markAsDone = async (id: string) => {
     setLoadingState(prev => ({ ...prev, [id]: true }));
@@ -90,23 +111,21 @@ export default function Page() {
 
 
 
-  const [showError, setShowError] = useState(false);
-
-  useEffect(() => {
-    if (isError) {
-      const timer = setTimeout(() => {
-        setShowError(true);
-      }, 7000); 
-
-      return () => clearTimeout(timer);
-    }
-  }, [isError]);
-
-  if (isError && showError) {
-    return <p>An error occurred while fetching data</p>;
+useEffect(() => {
+  if (isError) {
+      console.log('Error detected:', isError);
+      
   }
+});
 
-  if (isLoading || isError) {
+
+if (isError) {
+  return <div>Erro detectado: {JSON.stringify(isError)}</div>;
+}
+
+
+
+  if (isLoading) {
     return (
       <div className="flex flex-col items-center mt-10">
         <Spinner />

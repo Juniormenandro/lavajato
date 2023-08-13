@@ -18,5 +18,5 @@ function verifyToken(req: NextApiRequest): string | null {
 }
 
 }
-
+ 
 export default verifyToken;

@@ -5,6 +5,9 @@ import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
 import useSWR, { mutate } from 'swr';
 import { fetcher } from '@/utils/fetcher/fetcher';
+import { useRouter } from 'next/navigation';
+import { Toaster, toast } from "react-hot-toast";
+
 
 interface Servico {
   selectedColor: React.ReactNode;
@@ -43,33 +46,38 @@ export default function Page() {
   
   
   const [token, setToken] = useState<string | null>(null);
-  const [showError, setShowError] = useState(false);
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
   const [newPrice, setNewPrice] = useState<string>('');
+  const router = useRouter();
 
-
-
-  const { data:clientes, error:isError, isLoading } =  useSWR<Cliente[]>([`${process.env.NEXT_PUBLIC_API_URL}/api/customers`, token], fetcher, {
-    revalidateOnFocus: false,
-    onError: () => setShowError(true),
-  });
 
   useEffect(() => {
     const userToken = localStorage.getItem('token');
-    if (userToken) {
-      setToken(userToken);
+    if (!userToken) {
+      alert('O usuário não está logado!');
+      router.push("/login");
+      return;
     }
-  }, []);
+    setToken(userToken);
+    console.log('Token from localStorage:', localStorage.getItem('token'));
+}, []);
 
-  useEffect(() => {
-    if (isError) {
-      const timer = setTimeout(() => {
-        setShowError(true);
-      }, 7000);
 
-      return () => clearTimeout(timer);
-    }
-  }, [isError]);
+
+  const fetchURL = token ? `${process.env.NEXT_PUBLIC_API_URL}/api/customers` : null;
+
+  const { data: clientes, error: isError, isLoading } = useSWR<Cliente[]>(fetchURL ? [fetchURL, token] : null, fetcher, {
+    
+    revalidateOnFocus: false,
+  
+  });
+  
+  if (!fetchURL) {
+    return null;
+  }
+ 
+
+  
   
 
   async function updateServicePrice(id: string, price: string) {
@@ -85,24 +93,6 @@ export default function Page() {
       if (!response.ok) {
         throw new Error("Failed to update the record.");
       }
-  
-      const data = await response.json();
-  
-      // Atualizando localmente sem re-buscar do servidor.
-      if (clientes) {
-        const updatedClientes = clientes.map(client => {
-          const updatedServicos = client.servicos.map(servico => {
-            if (servico.id === id) {
-              return { ...servico, selectedProdutPrice: price };  // Atualizando o preço deste serviço.
-            }
-            return servico;
-          });
-          return { ...client, servicos: updatedServicos };
-        });
-        mutate(`${process.env.NEXT_PUBLIC_API_URL}/api/customers`, updatedClientes, false);  // Atualiza os dados localmente sem revalidação.
-      }
-  
-      return data;
     } catch (error) {
       console.error(error);
       throw error;
@@ -113,27 +103,38 @@ export default function Page() {
   
   
   const handleUpdate = async (serviceId: string) => {
+    setLoadingState(prev => ({ ...prev, [serviceId]: true }));
+
     try {
       await updateServicePrice(serviceId, newPrice);
-      alert('Updated Successfully');
-      window.location.reload();  // Recarrega a página
+      window.location.reload(); 
+
+      
     } catch (error) {
-      alert('Error updating price');
+      console.log(error)
+    } finally {
+      setLoadingState(prev => ({ ...prev, [serviceId]: false }));
     }
 };
 
 
-  if (isError && showError) {
-    return <p>An error occurred while fetching data</p>;
-  }
 
-  if (isLoading || isError) {
-    return (
-      <div className="flex flex-col items-center mt-10">
-        <Spinner />
-      </div>
-    );
-  }
+
+
+
+if (isError) {
+  return <div>Erro detectado: {JSON.stringify(isError)}</div>;
+}
+
+
+if (isLoading) {
+  return (
+    <div className="flex flex-col items-center mt-10">
+      <Spinner />
+    </div>
+  );
+}
+
 
   return (
     <>
@@ -182,7 +183,10 @@ export default function Page() {
                 
                 <button 
                   style={{background:"blue", padding:"8px", borderRadius:"20px", marginLeft:"5px" }}
-                  onClick={() => handleUpdate(servico.id)}>Update Price
+                  disabled={!!loadingState[servico.id]} 
+                  onClick={() => handleUpdate(servico.id)}>
+                    {loadingState[servico.id] ? 'Carregando...' : 'Update Price'}
+                    
                 </button>
               </div>
              </> 
