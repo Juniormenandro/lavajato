@@ -25,7 +25,7 @@ model servicos {
   selectedTime             String?
   selectedProductDefaultPrice String?
   rawPrice                 String?
-
+  
   clienteId                String   @db.ObjectId // updated to @db.ObjectId
   cliente                  clientes @relation(fields: [clienteId], references: [id]) // foreign key relation to 'clientes'
 }
@@ -48,7 +48,7 @@ model Booking {
 
 model clientes {
   id        String             @id @default(auto()) @map("_id") @db.ObjectId
- 
+  updatedAt  DateTime          @updatedAt
   createdAt DateTime           @default(now())
   nome      String
   servicos  servicos[]

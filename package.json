@@ -28,6 +28,7 @@
     "framer-motion": "^10.15.0",
     "jsonwebtoken": "^9.0.1",
     "mongodb": "^5.7.0",
+    "mongoose": "^7.4.3",
     "next": "13.4.9",
     "node-fetch": "^3.3.2",
     "postcss": "8.4.25",

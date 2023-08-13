@@ -50,6 +50,8 @@ export default function Page() {
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
   const [newPrice, setNewPrice] = useState<string>('');
   const router = useRouter();
+  const [periodoFiltragem, setPeriodoFiltragem] = useState('all'); // all, week, month, year
+
 
 
   useEffect(() => {
@@ -109,14 +111,54 @@ export default function Page() {
     try {
       await updateServicePrice(serviceId, newPrice);
       window.location.reload(); 
-
-      
+      mutate(fetchURL);
     } catch (error) {
       console.log(error)
     } finally {
       setLoadingState(prev => ({ ...prev, [serviceId]: false }));
     }
 };
+
+
+
+
+
+let filteredClientes = clientes || [];
+
+if (clientes && periodoFiltragem !== 'all') {
+    const today = new Date();
+    const oneWeekAgo = new Date(today);
+    oneWeekAgo.setDate(today.getDate() - 7);
+    const oneMonthAgo = new Date(today);
+    oneMonthAgo.setMonth(today.getMonth() - 1);
+    const oneYearAgo = new Date(today);
+    oneYearAgo.setFullYear(today.getFullYear() - 1);
+  
+    switch(periodoFiltragem) {
+      case 'week':
+        filteredClientes = clientes.filter(client => 
+          client.servicos && client.servicos.length > 0 && 
+          new Date(client.servicos[0].data) >= oneWeekAgo
+        );
+        break;
+      case 'month':
+        filteredClientes = clientes.filter(client => 
+          client.servicos && client.servicos.length > 0 && 
+          new Date(client.servicos[0].data) >= oneMonthAgo
+        );
+        break;
+      case 'year':
+        filteredClientes = clientes.filter(client => 
+          client.servicos && client.servicos.length > 0 && 
+          new Date(client.servicos[0].data) >= oneYearAgo
+        );
+        break;
+      default:
+        break;
+    }
+}
+
+
 
 
 
@@ -139,10 +181,19 @@ if (isLoading) {
 
   return (
     <>
-      <Header />
+    <Header />
+      <select 
+        value={periodoFiltragem} 
+        onChange={e => setPeriodoFiltragem(e.target.value)}
+      >
+        <option value="all">Todos</option>
+        <option value="week">Esta Semana</option>
+        <option value="month">Este Mês</option>
+        <option value="year">Este Ano</option>
+      </select>
       <h1 style={{ textAlign: "center", padding: "2%", fontSize: "24px" }}>CUSTOMERS</h1>
       <ul>
-      {clientes && clientes.map(client => (
+      {filteredClientes.map(client => (
       <li key={client.id} style={{ width: "100%" }}>
         <div className="flex" style={{marginTop:"15px",  marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:"  20px 20px 0 0 ",  borderTop: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"}} >
           <div style={{ minWidth: "50%", textAlign:"center" }}>

@@ -74,6 +74,14 @@ const Drawer: React.FC = () => {
             CUSTOMERS
           </Link>
           <Link
+          style={{marginTop:"100px"}}
+            href="/oldClients"
+            className=" hover:text-gray-700"
+            onClick={toggleDrawer}
+          >
+            OLD-CUSTOMERS
+          </Link>
+          <Link
             href="/login"
             className=" hover:text-gray-700"
             onClick={toggleDrawer}
@@ -81,7 +89,7 @@ const Drawer: React.FC = () => {
             LOGIN
           </Link>
           <Link
-            href="/login"
+            href="/login" 
             className=" hover:text-gray-700"
             onClick={handleLogout}
           >
