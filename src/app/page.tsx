@@ -140,7 +140,7 @@ return (
           selectedProductId={bookingData.selectedProductId}
           selectedTime={bookingData.selectedTime}
           selectedModel={bookingData.selectedModel}
-          selectedColor={bookingData.selectedColor}
+          selectedColor={bookingData.selectedColor} 
           selectedPayment={bookingData.selectedPayment}
           setBookingData={setBookingData}
           handleBuyProduct={handleBuyProduct}
