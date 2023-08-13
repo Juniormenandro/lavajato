@@ -141,12 +141,12 @@ if (isError) {
         {clientes && clientes?.map(client => (
           <li key={client.id} style={{ width: "100%" }}>
             <div className="flex" style={{marginTop:"15px",  marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:"  20px 20px 0 0 ",  borderTop: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"}} >
-              <div style={{ minWidth: "50%", textAlign: "left", marginLeft:"3px"  }}>
+              <div style={{ minWidth: "50%", textAlign: "center"  }}>
                 <h1 className="text-blue-500" style={{fontSize:"21px"}}>
                   {client.nome}
                 </h1>
               </div>
-              <div style={{  minWidth: "50%", textAlign: "left" }}>
+              <div style={{  minWidth: "50%", textAlign: "center" }}>
                 <h1 className="text-xl font-semibold text-blue-500  ">
                   {client.telefone}
                 </h1>
@@ -155,12 +155,12 @@ if (isError) {
             {client.servicos && client.servicos.map(servico => (
             <>
               <div key={servico.id} className="flex" style={{fontSize:"19px", marginRight:"2%",  marginLeft:"2%", borderRight: "1px solid #c2c2c2",  borderLeft: "1px solid #c2c2c2", }}>
-                <div style={{ minWidth: "50%", textAlign: "left", marginLeft:"10px" }}>
+                <div style={{ minWidth: "50%", textAlign: "center" }}>
                   <h2 style={{fontSize:"19px"}}>serv: {servico.selectedProductNane}</h2>
                   <h2 style={{fontSize:"19px"}}>price: {servico.selectedProdutPrice}</h2>
                   <h2 style={{fontSize:"19px"}}>pay: {servico.selectedPayment}</h2>
                 </div>
-                <div style={{  minWidth: "50%", textAlign: "left",   }}>
+                <div style={{  minWidth: "50%", textAlign: "center"   }}>
                   <h2 style={{fontSize:"19px"}}>end: {servico.selectedTime}</h2>
                   <h2 style={{fontSize:"19px"}}>brand: {servico.carro}</h2>
                   <h2 style={{fontSize:"19px"}}>color: {servico.selectedColor}</h2>
