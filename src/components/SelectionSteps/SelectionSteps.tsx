@@ -39,7 +39,9 @@ const availableModelSlots = [
   "VW",
   "TOYOTA",
   "VOLVO",
+  "HYUNDAI",
   "KIA",
+  "NISSAN",
   "DARCIA",
   "PEUGEOT",
   "OTHERS"
@@ -53,6 +55,8 @@ const availableColorSlots = [
   "silver",
   "blue",
   "red",
+  "green",
+  "yellow",
   "outros",
 ];
 

@@ -183,6 +183,7 @@ if (isLoading) {
     <>
     <Header />
       <select 
+      style={{marginTop:"15px", marginBottom:"15px"}}
         value={periodoFiltragem} 
         onChange={e => setPeriodoFiltragem(e.target.value)}
       >
