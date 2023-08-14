@@ -4,14 +4,14 @@ import verifyToken from "@/utils/verifyToken";
 
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  //const token = verifyToken(req);
+  const token = verifyToken(req);
   try {
  
-   /*
+   
     if (!token) {
       return res.status(401).json({ error: "Unauthorized" });
     }
-*/
+
 
     const clientes = await prisma.clientes.findMany({
       

@@ -212,7 +212,7 @@ if (isLoading) {
              <>
               <div key={servico.id} className="flex" style={{marginRight:"2%", marginLeft:"2%", borderRight: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2"}}>
                 <div style={{ minWidth: "50%", textAlign: "center" }}>
-                  <h2 style={{fontSize:"19px"}}>serv: {servico.selectedProductNane}</h2>
+                  <h2 style={{fontSize:"19px"}}>{servico.selectedProductNane}</h2>
                   <h2 style={{fontSize:"19px"}}>price: {servico.selectedProdutPrice}</h2>
                   <h2 style={{fontSize:"19px"}}>pay: {servico.selectedPayment}</h2>
                 </div>
