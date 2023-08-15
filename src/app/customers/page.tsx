@@ -231,8 +231,11 @@ if (!fetchURL) {
 
 if (isError) {
   console.error('Erro ao buscar clientes:', isError);
-  return <p>Erro ao buscar os clientes.</p>;
+  return <>
+  <Header />
+  <p>Erro ao buscar os clientes.</p>;
 
+  </>
 }
 
 
