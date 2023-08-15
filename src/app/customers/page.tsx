@@ -1,12 +1,15 @@
-
 "use client";
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
-import useSWR, { mutate } from 'swr';
 import { fetcher } from '@/utils/fetcher/fetcher';
 import { useRouter } from 'next/navigation';
 import { Toaster, toast } from "react-hot-toast";
+import Button from '@/components/Button/Button';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import useSWR, { mutate } from 'swr';
+
 
 
 interface Servico {
@@ -34,7 +37,6 @@ interface Booking {
 
 };
 
-
 interface Cliente {
   id: string;
   nome: string;
@@ -42,6 +44,43 @@ interface Cliente {
   servicos: Servico[];
   Booking: Booking[];
 };
+interface DateSelectorProps {
+  onDateChange: (date: Date, type: string) => void;
+}
+
+function DateSelector({ onDateChange }: DateSelectorProps) {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const [dateType, setDateType] = useState('');
+ 
+  
+  return (
+    <div  style={{margin:"20px", fontSize:"20px"}}>
+      <select
+       value={dateType} onChange={(e) => setDateType(e.target.value)}
+      
+       >
+        <option value="day">Day</option>
+        <option value="week">Week</option>
+        <option value="month">Month</option>
+        <option value="all">all</option>
+      </select>
+    
+      <DatePicker
+        selected={selectedDate}
+        onChange={(date) => {
+          if (date instanceof Date && dateType) {  // Ensure date is a Date object and dateType is not empty
+            setSelectedDate(date);
+            onDateChange(date, dateType);
+          }
+        }}
+        
+      />
+    </div>
+  );
+}
+
+
+
 
 export default function Page() {
   
@@ -50,9 +89,9 @@ export default function Page() {
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
   const [newPrice, setNewPrice] = useState<string>('');
   const router = useRouter();
-  const [periodoFiltragem, setPeriodoFiltragem] = useState('all'); // all, week, month, year
-
-
+  const [periodoFiltragem, setPeriodoFiltragem] = useState('day');
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [showReturned, setShowReturned] = useState(false);
 
   useEffect(() => {
     const userToken = localStorage.getItem('token');
@@ -61,29 +100,78 @@ export default function Page() {
       router.push("/login");
       return;
     }
-    setToken(userToken);
-    console.log('Token from localStorage:', localStorage.getItem('token'));
+    //setToken(userToken);
+    setToken(prevToken => userToken || prevToken);
+
+  
 }, []);
 
 
 
-  const fetchURL = token ? `${process.env.NEXT_PUBLIC_API_URL}/api/customers` : null;
 
-  const { data: clientes, error: isError, isLoading } = useSWR<Cliente[]>(fetchURL ? [fetchURL, token] : null, fetcher, {
-    
-    revalidateOnFocus: false,
-  
-  });
-  
-  if (!fetchURL) {
-    return null;
+
+
+// Esta lógica agora depende do selectedDate
+const fetchURL = useMemo(() => {
+  if (!token) return null;
+
+  const currentDate = selectedDate.toISOString();
+
+  let param = "";
+  switch (periodoFiltragem) {
+    case 'day':
+      param = `date=${currentDate}`;
+      break;
+    case 'week':
+      param = `weekDate=${currentDate}`;
+      break;
+    case 'month':
+      param = `monthDate=${currentDate}`;
+      break;
+      case 'all':
+      param = '';
+      break;
+    default:
+      return null;
   }
+  if (showReturned) {
+    param += '&returned=true';
+  }
+
+  return `${process.env.NEXT_PUBLIC_API_URL}/api/customers?${param}`;
+}, [token, periodoFiltragem, selectedDate, showReturned]);  // Add 'showReturned' as a dependency
+
+
  
 
-  
-  
+const handleDateChange = (date: Date, type: string) => {
+  console.log("Selected Date:", date);
+  setSelectedDate(date); // Atualiza a data selecionada
+  setPeriodoFiltragem(type); // Atualiza o periodoFiltragem
+
+};
+
+
+//const fetchURL = token ? `${process.env.NEXT_PUBLIC_API_URL}/api/customers` : null;
+// Lógica do SWR
+const { data: clientes, error: isError, isLoading } = useSWR<Cliente[]>(fetchURL ? [fetchURL, token] : null, fetcher, {
+  revalidateOnFocus: false,
+});
+
+if (!fetchURL) {
+  return null;
+}
+
+
+
+
+
+  console.log('Clientes:', clientes);
+
+
 
   async function updateServicePrice(id: string, price: string) {
+    if (!newPrice) return
     try {
       const response = await fetch(`/api/customers/updatePrice?id=${id}`, {
         method: 'POST',
@@ -101,62 +189,38 @@ export default function Page() {
       throw error;
     }
   }
-  
-  
-  
-  
+   
   const handleUpdate = async (serviceId: string) => {
     setLoadingState(prev => ({ ...prev, [serviceId]: true }));
 
     try {
-      await updateServicePrice(serviceId, newPrice);
-      window.location.reload(); 
-      mutate(fetchURL);
+        await updateServicePrice(serviceId, newPrice);
+
+        // If the mutation was successful, update the local data without re-fetching
+        if (clientes) {
+            // Map over the clients and find the service you're updating
+            const updatedClientes = clientes.map(client => ({
+                ...client,
+                  
+                servicos: client.servicos.map(servico => 
+                    servico.id === serviceId
+                    ? { ...servico, selectedProdutPrice: newPrice }
+                    : servico
+                )
+            }));
+
+            // Mutate without re-fetching
+            mutate(updatedClientes, false);
+        }
     } catch (error) {
-      console.log(error)
+        console.log(error);
     } finally {
-      setLoadingState(prev => ({ ...prev, [serviceId]: false }));
+        setLoadingState(prev => ({ ...prev, [serviceId]: false }));
     }
 };
 
 
 
-
-
-let filteredClientes = clientes || [];
-
-if (clientes && periodoFiltragem !== 'all') {
-    const today = new Date();
-    const oneWeekAgo = new Date(today);
-    oneWeekAgo.setDate(today.getDate() - 7);
-    const oneMonthAgo = new Date(today);
-    oneMonthAgo.setMonth(today.getMonth() - 1);
-    const oneYearAgo = new Date(today);
-    oneYearAgo.setFullYear(today.getFullYear() - 1);
-  
-    switch(periodoFiltragem) {
-      case 'week':
-        filteredClientes = clientes.filter(client => 
-          client.servicos && client.servicos.length > 0 && 
-          new Date(client.servicos[0].data) >= oneWeekAgo
-        );
-        break;
-      case 'month':
-        filteredClientes = clientes.filter(client => 
-          client.servicos && client.servicos.length > 0 && 
-          new Date(client.servicos[0].data) >= oneMonthAgo
-        );
-        break;
-      case 'year':
-        filteredClientes = clientes.filter(client => 
-          client.servicos && client.servicos.length > 0 && 
-          new Date(client.servicos[0].data) >= oneYearAgo
-        );
-        break;
-      default:
-        break;
-    }
-}
 
 
 
@@ -166,7 +230,9 @@ if (clientes && periodoFiltragem !== 'all') {
 
 
 if (isError) {
-  return <div>Erro detectado: {JSON.stringify(isError)}</div>;
+  console.error('Erro ao buscar clientes:', isError);
+  return <p>Erro ao buscar os clientes.</p>;
+
 }
 
 
@@ -182,19 +248,13 @@ if (isLoading) {
   return (
     <>
     <Header />
-      <select 
-      style={{marginTop:"15px", marginBottom:"15px"}}
-        value={periodoFiltragem} 
-        onChange={e => setPeriodoFiltragem(e.target.value)}
-      >
-        <option value="all">Todos</option>
-        <option value="week">Esta Semana</option>
-        <option value="month">Este Mês</option>
-        <option value="year">Este Ano</option>
-      </select>
+    <DateSelector onDateChange={handleDateChange} />
+    <Button onClick={() => setShowReturned(!showReturned)} type={'button'} isLoading={false}>
+        {showReturned ? 'Hide Returned Customers' : 'Show Returned Customers'}
+    </Button>
       <h1 style={{ textAlign: "center", padding: "2%", fontSize: "24px" }}>CUSTOMERS</h1>
       <ul>
-      {filteredClientes.map(client => (
+      {clientes?.map(client => (
       <li key={client.id} style={{ width: "100%" }}>
         <div className="flex" style={{marginTop:"15px",  marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:"  20px 20px 0 0 ",  borderTop: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"}} >
           <div style={{ minWidth: "50%", textAlign:"center" }}>
@@ -270,6 +330,11 @@ if (isLoading) {
           </li>
         ))}
       </ul>
+     
     </>
   );
 }
+
+
+
+
