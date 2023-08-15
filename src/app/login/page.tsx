@@ -85,17 +85,7 @@ const SignIn: NextPage = () => {
             register={register}
             type="password"
           />
-          <Button
-            isLoading={false}
-            type="button"
-            className="mt-3"
-            variant="white"
-          >
-            <div className="flex items-center justify-center">
-              <GoogleIcon />
-              <span className="ml-2 text-black">Continue with Google</span>
-            </div>
-          </Button>
+         
           <Button isLoading={isSubmitting} type="submit" className="mt-3">
             Sign In
           </Button>

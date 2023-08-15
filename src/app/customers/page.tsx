@@ -52,7 +52,7 @@ function DateSelector({ onDateChange }: DateSelectorProps) {
  
   
   return (
-    <div  style={{margin:"20px", fontSize:"20px"}}>
+    <div  style={{margin:"10px", fontSize:"20px", paddingLeft:"10px"}}>
       <select
        value={dateType} onChange={(e) => setDateType(e.target.value)}
       
@@ -239,10 +239,6 @@ if (isLoading) {
   return (
     <>
     <Header />
-    <DateSelector onDateChange={handleDateChange} />
-    <Button onClick={() => setShowReturned(!showReturned)} type={'button'} isLoading={false}>
-        {showReturned ? 'Hide Returned Customers' : 'Show Returned Customers'}
-    </Button>
       <h1 style={{ textAlign: "center", padding: "2%", fontSize: "24px" }}>CUSTOMERS</h1>
       <ul>
       {clientes?.map(client => (
@@ -321,7 +317,10 @@ if (isLoading) {
           </li>
         ))}
       </ul>
-     
+      <DateSelector onDateChange={handleDateChange} />
+      <Button onClick={() => setShowReturned(!showReturned)} type={'button'} isLoading={false}>
+        {showReturned ? 'Hide Returned Customers' : 'Show Returned Customers'}
+    </Button>
     </>
   );
 }
