@@ -4,9 +4,8 @@ import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
 import useSWR, { mutate } from 'swr';
 import { fetcher } from '@/utils/fetcher/fetcher';
-import { useRouter } from 'next/navigation';
 
- 
+
 
 interface Servicos {
   telefone: ReactNode;
@@ -35,7 +34,6 @@ interface Servicos {
 export default function Page() {
 
   const [token, setToken] = useState<string | null>(null);
-  const router = useRouter();
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
 
 
@@ -43,7 +41,7 @@ export default function Page() {
     const userToken = localStorage.getItem('token');
     if (!userToken) {
       alert('O usuário não está logado!');
-      router.push("/login");
+      
       return;
     }
     setToken(userToken);

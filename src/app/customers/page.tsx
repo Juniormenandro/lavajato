@@ -3,8 +3,6 @@ import { useState, useEffect, useMemo } from 'react';
 import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
 import { fetcher } from '@/utils/fetcher/fetcher';
-import { useRouter } from 'next/navigation';
-import { Toaster, toast } from "react-hot-toast";
 import Button from '@/components/Button/Button';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -88,23 +86,23 @@ export default function Page() {
   const [token, setToken] = useState<string | null>(null);
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
   const [newPrice, setNewPrice] = useState<string>('');
-  const router = useRouter();
+
   const [periodoFiltragem, setPeriodoFiltragem] = useState('day');
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [showReturned, setShowReturned] = useState(false);
 
-  useEffect(() => {
-    const userToken = localStorage.getItem('token');
-    if (!userToken) {
-      alert('O usuário não está logado!');
-      router.push("/login");
-      return;
-    }
-    //setToken(userToken);
-    setToken(prevToken => userToken || prevToken);
-
   
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+        const userToken = localStorage.getItem('token');
+        if (!userToken) {
+            alert('O usuário não está logado!');
+            return;
+        }
+        setToken(userToken);
+    }
 }, []);
+
 
 
 
@@ -129,7 +127,7 @@ const fetchURL = useMemo(() => {
       param = `monthDate=${currentDate}`;
       break;
       case 'all':
-      param = '';
+      param = '/';
       break;
     default:
       return null;
@@ -142,7 +140,6 @@ const fetchURL = useMemo(() => {
 }, [token, periodoFiltragem, selectedDate, showReturned]);  // Add 'showReturned' as a dependency
 
 
- 
 
 const handleDateChange = (date: Date, type: string) => {
   console.log("Selected Date:", date);
@@ -158,15 +155,12 @@ const { data: clientes, error: isError, isLoading } = useSWR<Cliente[]>(fetchURL
   revalidateOnFocus: false,
 });
 
+
 if (!fetchURL) {
-  return null;
+  return null;  // Isso pode ser substituído por um fallback ou conteúdo padrão.
 }
-
-
-
-
-
-  console.log('Clientes:', clientes);
+console.log("fetchURL:", fetchURL);
+console.log('Clientes:', clientes);
 
 
 
@@ -228,14 +222,8 @@ if (!fetchURL) {
 
 
 
-
 if (isError) {
-  console.error('Erro ao buscar clientes:', isError);
-  return <>
-  <Header />
-  <p>Erro ao buscar os clientes.</p>;
-
-  </>
+  console.error("Erro ao buscar clientes:", isError);
 }
 
 

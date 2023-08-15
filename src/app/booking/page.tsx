@@ -4,7 +4,7 @@ import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
 import useSWR, { mutate } from 'swr';
 import { fetcher } from '@/utils/fetcher/fetcher';
-import { useRouter } from 'next/navigation';
+
 import { Toaster, toast } from "react-hot-toast";
 
 interface Booking {
@@ -34,14 +34,14 @@ export default function Page() {
 
   const [token, setToken] = useState<string | null>(null);
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
-  const router = useRouter();
+
 
 
   useEffect(() => {
     const userToken = localStorage.getItem('token');
     if (!userToken) {
       alert('O usuário não está logado!');
-      router.push("/login");
+     
       return;
     }
     setToken(userToken);

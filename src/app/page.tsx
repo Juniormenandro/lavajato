@@ -62,7 +62,7 @@ const BookingPage: NextPage = () => {
       alert(checkoutError);
       router.push("/");
     }
-  }, [checkoutError]);
+  }, [checkoutError, router]);
 
   const handleBuyProduct = async (id: string, updatedData: any): Promise<void> => {
     try {
