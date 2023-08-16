@@ -3,10 +3,10 @@ import { useState, useEffect, useMemo } from 'react';
 import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
 import { fetcher } from '@/utils/fetcher/fetcher';
-import Button from '@/components/Button/Button';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import useSWR, { mutate } from 'swr';
+import { useRouter } from "next/navigation";
 
 
 
@@ -50,10 +50,12 @@ function DateSelector({ onDateChange }: DateSelectorProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [dateType, setDateType] = useState('');
  
-  
+  //flex-col
   return (
-    <div  style={{margin:"10px", fontSize:"20px", paddingLeft:"10px"}}>
-      <select
+    <div className=' flex  '>
+   
+     <select
+     className=' w-28 pl-7 pt-1 pb-1  rounded-lg  bg-blue-500 text-white'
        value={dateType} onChange={(e) => setDateType(e.target.value)}
       
        >
@@ -62,8 +64,10 @@ function DateSelector({ onDateChange }: DateSelectorProps) {
         <option value="month">Month</option>
         <option value="all">all</option>
       </select>
-    
+
+
       <DatePicker
+      className= ' p-2 w-28 ml-1    rounded-lg bottom-content   bg-blue-500 text-white '
         selected={selectedDate}
         onChange={(date) => {
           if (date instanceof Date && dateType) {  // Ensure date is a Date object and dateType is not empty
@@ -71,7 +75,6 @@ function DateSelector({ onDateChange }: DateSelectorProps) {
             onDateChange(date, dateType);
           }
         }}
-        
       />
     </div>
   );
@@ -87,21 +90,22 @@ export default function Page() {
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
   const [newPrice, setNewPrice] = useState<string>('');
 
-  const [periodoFiltragem, setPeriodoFiltragem] = useState('day');
+  const [periodoFiltragem, setPeriodoFiltragem] = useState('all');
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [showReturned, setShowReturned] = useState(false);
-
+  const router = useRouter();
   
   useEffect(() => {
     if (typeof window !== 'undefined') {
         const userToken = localStorage.getItem('token');
         if (!userToken) {
             alert('O usuário não está logado!');
+            router.push("/login");
             return;
         }
         setToken(userToken);
     }
-}, []);
+}, [router]);
 
 
 
@@ -159,8 +163,6 @@ const { data: clientes, error: isError, isLoading } = useSWR<Cliente[]>(fetchURL
 if (!fetchURL) {
   return null;  // Isso pode ser substituído por um fallback ou conteúdo padrão.
 }
-console.log("fetchURL:", fetchURL);
-console.log('Clientes:', clientes);
 
 
 
@@ -224,6 +226,7 @@ console.log('Clientes:', clientes);
 
 if (isError) {
   console.error("Erro ao buscar clientes:", isError);
+  router.push("/login");
 }
 
 
@@ -239,7 +242,18 @@ if (isLoading) {
   return (
     <>
     <Header />
+       <div className='flex  ml-20 mb-5  ' >
+        <button className=' w-28  bg-blue-500 text-white rounded-lg'
+         onClick={() => setShowReturned(!showReturned)} type={'button'} >
+           {showReturned ? 'back. ' : 'Servicos'}
+        </button>
+        <div className='ml-1'>
+          <DateSelector onDateChange={handleDateChange} />  
+        </div>
+      </div>
+      
       <h1 style={{ textAlign: "center", padding: "2%", fontSize: "24px" }}>CUSTOMERS</h1>
+    
       <ul>
       {clientes?.map(client => (
       <li key={client.id} style={{ width: "100%" }}>
@@ -278,18 +292,19 @@ if (isLoading) {
 
               <div style={{ textAlign: "center", marginLeft: "2%", marginRight: "2%", padding: "8px", borderRadius: "0 0 20px 20px", color: "white", fontSize: "11px", borderBottom: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2" }}>
                 <input 
-                  style={{border:"1px solid #c2c2c2", color:"black", padding:"8px", borderRadius:"20px", maxWidth:"25%"}}
+                className="  text-blue-700" 
+                  style={{border:"1px solid #c2c2c2",  padding:"8px", borderRadius:"20px", maxWidth:"15%"}}
                   type="text" 
                   value={newPrice} 
                   onChange={(e) => setNewPrice(e.target.value)} 
-                  placeholder="New Price" 
+                  placeholder="Price" 
                 />
                 
                 <button 
                   style={{background:"blue", padding:"8px", borderRadius:"20px", marginLeft:"5px" }}
                   disabled={!!loadingState[servico.id]} 
                   onClick={() => handleUpdate(servico.id)}>
-                    {loadingState[servico.id] ? 'Carregando...' : 'Update Price'}
+                    {loadingState[servico.id] ? 'Carregando...' : 'Update'}
                     
                 </button>
               </div>
@@ -317,10 +332,9 @@ if (isLoading) {
           </li>
         ))}
       </ul>
-      <DateSelector onDateChange={handleDateChange} />
-      <Button onClick={() => setShowReturned(!showReturned)} type={'button'} isLoading={false}>
-        {showReturned ? 'Hide Returned Customers' : 'Show Returned Customers'}
-    </Button>
+
+      
+  
     </>
   );
 }

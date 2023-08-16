@@ -19,8 +19,9 @@ const Drawer: React.FC = () => {
 
   return (
     <>
+    
       <button
-      style={{backgroundColor:"aqua"}}
+      className="bg-blue-400 m-3 rounded-lg"
       onClick={toggleDrawer}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -44,13 +45,12 @@ const Drawer: React.FC = () => {
             >
               </svg>
           <Link
-          style={{marginBottom:"50px"}}
             href="/"
-            className="flex items-center  hover:text-gray-700 cursor-pointer w-full"
+            className="flex items-center  cursor-pointer w-full mb-5 "
             onClick={toggleDrawer}
           >
             
-            <Button type={"button"} isLoading={false} >
+            <Button type={"button"} isLoading={false} variant={"home"} >
             <span className="p-2 rounded-lg">HOME</span>
             </Button>
             
@@ -86,9 +86,9 @@ const Drawer: React.FC = () => {
            
           </Link>
           <Link
-          style={{marginTop:"50px"}}
+          
             href="/oldClients"
-            className=" hover:text-gray-700"
+            className=" mt-10"
             onClick={toggleDrawer}
           >
              <Button type={"button"} isLoading={false} variant={"relevante"}>

@@ -2,7 +2,7 @@ import React from "react";
 
 type ButtonProps = {
   type: "submit" | "button" | "reset";
-  variant?: "default" | "danger" | "relevante" | "white"; // Added "white" variant
+  variant?: "default" | "danger" | "relevante"  | "home"  | "white"; // Added "white" variant
   className?: string;
   disabled?: boolean;
   isLoading: boolean;
@@ -30,7 +30,10 @@ const Button: React.FC<ButtonProps> = ({
       buttonClassName += " bg-white text-black border border-black";
     }else if (variant === "relevante") {
       buttonClassName += " bg-green-500";
+    }else if (variant === "home") {
+      buttonClassName += " bg-blue-400";
     }
+
 
     return buttonClassName;
   };

@@ -10,26 +10,18 @@ const DynamicDrawer = dynamic(() => import("@/components/Drawer/Drawer"), {
 const Header: React.FC = () => {
 return (
   <>
-  <header className="flex "
+  <header className=" pt-16 pb-16  rounded-b-2xl  "
     style={{
-     
-      paddingTop:"70px",
-      paddingBottom:"30px",
-     
       backgroundImage: `url('/images/logo.jpg')`,
       backgroundPosition: 'center', // Centraliza a imagem de fundo
       backgroundRepeat: 'no-repeat', // Previne a repetição da imagem
-      backgroundSize: '350px' // Faz a imagem cobrir toda a área disponível
+      backgroundSize: '390px' // Faz a imagem cobrir toda a área disponível
     }}>
     
   </header>
-  <div className="w-full max-w-5xl"  >
-  <div className="flex items-center justify-between" >
-    <nav className="flex c" style={{position:'fixed', bottom:"10px", left:"5px"}}>
+    <nav className=" fixed bottom-2 left-1">
       <DynamicDrawer  /> 
     </nav>
-  </div>
-</div>
 </>
 );
 };

@@ -4,6 +4,7 @@ import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
 import useSWR, { mutate } from 'swr';
 import { fetcher } from '@/utils/fetcher/fetcher';
+import { useRouter } from "next/navigation";
 
 
  
@@ -37,17 +38,18 @@ export default function Page() {
 
   const [token, setToken] = useState<string | null>(null);
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
-
+  const router = useRouter();
 
   useEffect(() => {
     const userToken = localStorage.getItem('token');
     if (!userToken) {
       alert('O usuário não está logado!');
+      router.push("/login");
       return;
     }
     setToken(userToken);
-    console.log('Token from localStorage:', localStorage.getItem('token'));
-}, []);
+    
+}, [router]);
 
 
   
@@ -58,11 +60,6 @@ export default function Page() {
     revalidateOnFocus: false,
   });
   
-
-  console.log('Error:', isError);
-  console.log('fetchURL:', fetchURL);
-  console.log('Token:', token);
-
 
   
 
@@ -112,12 +109,13 @@ export default function Page() {
 useEffect(() => {
   if (isError) {
       console.log('Error detected:', isError);
-      
+      router.push("/login");
   }
-});
+}, [router]);
 
 
 if (isError) {
+  
   return <div>Erro detectado: {JSON.stringify(isError)}</div>;
 }
 
