@@ -34,6 +34,7 @@ const availablePaymentSlots = [
 
 const availableModelSlots = [
   "BMW",
+  "MERCEDES",
   "AUDI",
   "FORD",
   "VW",
@@ -42,8 +43,10 @@ const availableModelSlots = [
   "HYUNDAI",
   "KIA",
   "NISSAN",
+  "RENAULT",
   "DARCIA",
   "PEUGEOT",
+  "INSIGNIA",
   "OTHERS"
 
 ];
@@ -88,7 +91,7 @@ const availableServices: ServiceType[] = [
 ];
 
 
-const SelectionSteps: React.FC<SelectionStepsProps> = ({
+const SelectionSteps: React.FC<SelectionStepsProps > = ({
   
   step,
   data,
@@ -158,20 +161,6 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
 
         );
         case 2:
-      return availableTimeSlots.map((timeSlot) => (
-        <Selector
-          key={timeSlot}
-          item={timeSlot}
-          selectedItem={bookingData.selectedTime}
-          onClick={() =>
-            setBookingData({
-              ...bookingData,
-              selectedTime: timeSlot,
-            })
-          }
-        />
-      ));
-      case 3:
       return availablePaymentSlots.map((PaymentSlot) => (
         <Selector
           key={PaymentSlot}
@@ -181,6 +170,20 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
             setBookingData({
               ...bookingData,
               selectedPayment: PaymentSlot,
+            })
+          }
+        />
+      ));
+        case 3:
+      return availableTimeSlots.map((timeSlot) => (
+        <Selector
+          key={timeSlot}
+          item={timeSlot}
+          selectedItem={bookingData.selectedTime}
+          onClick={() =>
+            setBookingData({
+              ...bookingData,
+              selectedTime: timeSlot,
             })
           }
         />

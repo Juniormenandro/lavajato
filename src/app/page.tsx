@@ -114,8 +114,8 @@ return (
           <label className="block mb-2">
             {!bookingData.step && "Select your service:"}
             {bookingData.step === 1 && "Enter your name and phone number:"}
-            {bookingData.step === 2 && "Select your time:"}
-            {bookingData.step === 3 && "Select your payment:"}
+            {bookingData.step === 2 && "Select your payment:"}
+            {bookingData.step === 3 && "Select your time:"}
             {bookingData.step === 4 && "Enter your car Model:"}
             {bookingData.step === 5 && "Enter your car Color:"}
           

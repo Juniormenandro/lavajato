@@ -23,8 +23,8 @@ const StepButton: React.FC<StepButtonProps> = ({
   step,
   checkoutIsLoading,
   selectedProductId,
-  selectedTime,
   selectedPayment,
+  selectedTime,
   selectedModel,
   selectedColor,
   setBookingData,
@@ -96,7 +96,7 @@ const StepButton: React.FC<StepButtonProps> = ({
         <Button
           type="button"
           isLoading={false}
-          disabled={!selectedTime}
+          disabled={!selectedPayment}
           onClick={handleContinue}
         >
           Continue
@@ -107,7 +107,7 @@ const StepButton: React.FC<StepButtonProps> = ({
         <Button
           type="button"
           isLoading={false}
-          disabled={!selectedPayment}
+          disabled={!selectedTime}
           onClick={handleContinue}
         >
           Continue

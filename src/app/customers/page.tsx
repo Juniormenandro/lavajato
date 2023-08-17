@@ -206,12 +206,14 @@ if (!fetchURL) {
             }));
 
             // Mutate without re-fetching
-            mutate(updatedClientes, false);
+            mutate(updatedClientes);
+          
         }
     } catch (error) {
         console.log(error);
     } finally {
         setLoadingState(prev => ({ ...prev, [serviceId]: false }));
+        window.location.reload();
     }
 };
 
@@ -226,7 +228,7 @@ if (!fetchURL) {
 
 if (isError) {
   console.error("Erro ao buscar clientes:", isError);
-  router.push("/login");
+  
 }
 
 
@@ -303,7 +305,7 @@ if (isLoading) {
                 <button 
                   style={{background:"blue", padding:"8px", borderRadius:"20px", marginLeft:"5px" }}
                   disabled={!!loadingState[servico.id]} 
-                  onClick={() => handleUpdate(servico.id)}>
+                  onClick={() => handleUpdate(servico.id) }>
                     {loadingState[servico.id] ? 'Carregando...' : 'Update'}
                     
                 </button>
