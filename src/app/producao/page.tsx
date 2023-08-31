@@ -136,21 +136,21 @@ if (isError) {
       <ul>
         {clientes && clientes?.map(client => (
           <li key={client.id} style={{ width: "100%" }}>
-            <div className="flex" style={{marginTop:"15px",  marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:"  20px 20px 0 0 ",  borderTop: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"}} >
+            <div className="flex bg-blue-500 mt-5 ml-3 mr-3 p-2 rounded-xl" >
               <div style={{ minWidth: "50%", textAlign: "center"  }}>
-                <h1 className="text-blue-500" style={{fontSize:"21px"}}>
+                <h1 className="text-white" style={{fontSize:"21px"}}>
                   {client.nome}
                 </h1>
               </div>
               <div style={{  minWidth: "50%", textAlign: "center" }}>
-                <h1 className="text-xl font-semibold text-blue-500  ">
+                <h1 className="text-xl font-semibold text-white">
                   {client.telefone}
                 </h1>
               </div>
             </div>
             {client.servicos && client.servicos.map(servico => (
             <>
-              <div key={servico.id} className="flex" style={{fontSize:"19px", marginRight:"2%",  marginLeft:"2%", borderRight: "1px solid #c2c2c2",  borderLeft: "1px solid #c2c2c2", }}>
+              <div key={servico.id} className="flex bg-white  ml-3 mr-3 p-2 rounded-t-2xl">
                 <div style={{ minWidth: "50%", textAlign: "center" }}>
                   <h2 style={{fontSize:"19px"}}>{servico.selectedProductNane}</h2>
                   <h2 style={{fontSize:"19px"}}>price: {servico.selectedProdutPrice}</h2>
@@ -162,9 +162,9 @@ if (isError) {
                   <h2 style={{fontSize:"19px"}}>color: {servico.selectedColor}</h2>
                 </div>
               </div>
-              <div  style={{ textAlign:"center", marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:" 0 0 20px 20px ", color:"white", fontSize:"11px", borderBottom: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"  }}>
+              <div className=' bg-white text-white text-center ml-3 mr-3 p-1 rounded-b-2xl '>
               <button
-              style={{background:"blue", padding:"8px", borderRadius:"20px", }}
+              className=' bg-blue-500 p-2 rounded-2xl'
                 disabled={!!loadingState[servico.id]}  
                 onClick={() => markAsDone(servico.id)}
               >

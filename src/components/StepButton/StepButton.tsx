@@ -58,17 +58,7 @@ const StepButton: React.FC<StepButtonProps> = ({
   };
   return (
     <>
-      {step > 0 && (
-        <Button
-          type="button"
-          variant="danger"
-          className="mb-3"
-          isLoading={false}
-          onClick={() => setBookingData(bookingDataInitialState)}
-        >
-          Cancel
-        </Button>
-      )}
+      
 
       {step === 0 && (
         <Button
@@ -136,8 +126,22 @@ const StepButton: React.FC<StepButtonProps> = ({
           Book
         </Button>
       )}
+<br/><br/>
+{step > 0 && (
+        <Button
+          type="button"
+          variant="danger"
+          className="mb-3"
+          isLoading={false}
+          onClick={() => setBookingData(bookingDataInitialState)}
+        >
+          Cancel
+        </Button>
+      )}
+      <br/><br/><br/><br/>
     </>
   );
 };
+
 
 export default StepButton;

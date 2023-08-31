@@ -105,7 +105,7 @@ const BookingPage: NextPage = () => {
 return (
   <>
   <Header></Header>
-    <div className="flex flex-col items-center min-h-screen p-10  ">
+    <div className="flex flex-col items-center min-h-screen p-10 bg-white  ">
             <Toaster position="top-center" />
 
           <div className="w-full max-w-lg">
