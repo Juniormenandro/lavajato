@@ -128,7 +128,7 @@ if (isError) {
       </div>
     );
   }
-
+ 
   return (
      <>
       <Header />
@@ -136,7 +136,7 @@ if (isError) {
       <ul>
         {clientes && clientes?.map(client => (
           <li key={client.id} style={{ width: "100%" }}>
-            <div className="flex bg-blue-500 mt-5 ml-3 mr-3 p-2 rounded-xl" >
+            <div className="flex bg-blue-500 mt-5 ml-3 mr-3 p-2 rounded-t-xl" >
               <div style={{ minWidth: "50%", textAlign: "center"  }}>
                 <h1 className="text-white" style={{fontSize:"21px"}}>
                   {client.nome}
@@ -150,7 +150,7 @@ if (isError) {
             </div>
             {client.servicos && client.servicos.map(servico => (
             <>
-              <div key={servico.id} className="flex bg-white  ml-3 mr-3 p-2 rounded-t-2xl">
+              <div key={servico.id} className="flex bg-white  ml-3 mr-3 p-2">
                 <div style={{ minWidth: "50%", textAlign: "center" }}>
                   <h2 style={{fontSize:"19px"}}>{servico.selectedProductNane}</h2>
                   <h2 style={{fontSize:"19px"}}>price: {servico.selectedProdutPrice}</h2>

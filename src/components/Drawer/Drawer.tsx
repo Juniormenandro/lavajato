@@ -34,16 +34,37 @@ const Drawer: React.FC = () => {
         </svg>
       </button>
       <AppDrawer open={isOpen} onClose={toggleDrawer} direction="left">
-      <div className="flex flex-col gap-4 p-4 ">
+      <div className="flex flex-col gap-4 pl-5 pr-5">
         <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="25"
-              height="25"
-              fill="#000000"
-              viewBox="0 0 256 256"
-              className=""
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            fill="#000000"
+            viewBox="0 0 256 256"
+            className=""
+        >
+        </svg>
+
+          <div className="flex mb-5">
+            <Link
+              style={{ minWidth: "50%", textAlign: "center" }}
+              href="/login"
+              onClick={toggleDrawer}
             >
-              </svg>
+              <Button type={"button"} isLoading={false} variant={"relevante"}>
+              LOGIN
+              </Button>
+            </Link>
+            <Link
+            style={{ minWidth: "50%", textAlign: "center" }}
+              href="/login" 
+              onClick={handleLogout}
+            >
+              <Button type={"button"} isLoading={false} variant={"danger"}>
+              LOGOUT
+              </Button>
+            </Link>
+          </div>
           <Link
             href="/oldClients"
             onClick={toggleDrawer}
@@ -52,9 +73,7 @@ const Drawer: React.FC = () => {
             OLD-CUSTOMERS
             </Button>
           </Link>
-        
-          
-         
+
           <Link
             href="/booking"
             className=" hover:text-gray-700"
@@ -66,7 +85,7 @@ const Drawer: React.FC = () => {
           </Link>
           <Link
             href="/customers"
-            className=" mt-8 "
+            className=" mt-14  "
             onClick={toggleDrawer}
           >
              <Button type={"button"} isLoading={false}>
@@ -94,29 +113,9 @@ const Drawer: React.FC = () => {
             <span className="p-2 rounded-lg">FORM</span>
             </Button>
           </Link>
-
-          <div className="flex mt-8">
-            <Link
-              style={{ minWidth: "50%", textAlign: "center" }}
-              href="/login"
-              onClick={toggleDrawer}
-            >
-              <Button type={"button"} isLoading={false} variant={"relevante"}>
-              LOGIN
-              </Button>
-            </Link>
-            <Link
-            style={{ minWidth: "50%", textAlign: "center" }}
-              href="/login" 
-              onClick={handleLogout}
-            >
-              <Button type={"button"} isLoading={false} variant={"danger"}>
-              LOGOUT
-              </Button>
-            </Link>
-          </div>
       </div>
       </AppDrawer>
+      
     </>
   );
 };

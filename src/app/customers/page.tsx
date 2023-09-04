@@ -259,13 +259,13 @@ if (isLoading) {
       <ul>
       {clientes?.map(client => (
       <li key={client.id} style={{ width: "100%" }}>
-        <div className="flex bg-blue-500" style={{marginTop:"15px",  marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:"  20px ",  borderRight: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderTop: "1px solid #c2c2c2"}} >
-          <div style={{ minWidth: "50%", textAlign:"center" }}>
+        <div className="flex bg-blue-500 mt-5 ml-3 mr-3 rounded-t-2xl"  >
+          <div style={{ minWidth: "50%", textAlign:"center", paddingTop:"5px" }}>
             <h1 className="text-white" style={{fontSize:"21px"}}>
               {client.nome}
             </h1>
           </div>
-          <div style={{  minWidth: "50%", textAlign: "center"}}>
+          <div style={{  minWidth: "50%", textAlign: "center", paddingTop:"5px"}}>
             <h1 className="text-xl font-semibold text-white ">
               {client.telefone}
             </h1>
@@ -274,7 +274,7 @@ if (isLoading) {
           
             {client.servicos && client.servicos.map(servico => (
              <>
-              <div key={servico.id} className="flex bg-white border-t ml-3 mr-3 p-2 rounded-t-2xl">
+              <div key={servico.id} className="flex bg-white border-t-8 border-blue-500 ml-3 mr-3 p-2 ">
                 <div style={{ minWidth: "50%", textAlign: "center" }}>
                   <h2 style={{fontSize:"19px"}}>{servico.selectedProductNane}</h2>
                   <h2 style={{fontSize:"19px"}}>price: {servico.selectedProdutPrice}</h2>
@@ -292,7 +292,7 @@ if (isLoading) {
               </div>
 
 
-              <div className=' bg-white text-white text-center ml-3 mr-3 p-1 rounded-b-2xl' >
+              <div className=' bg-white text-white text-center ml-3 mr-3 p-1 rounded-b-3xl' >
                 <input 
                   className=" w-20 text-black p-1 rounded-2xl border border-gray-400" 
                   
