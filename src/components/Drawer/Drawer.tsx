@@ -34,7 +34,7 @@ const Drawer: React.FC = () => {
         </svg>
       </button>
       <AppDrawer open={isOpen} onClose={toggleDrawer} direction="left">
-        <div className="flex flex-col gap-4 p-4 ">
+      <div className="flex flex-col gap-4 p-4 ">
         <svg
               xmlns="http://www.w3.org/2000/svg"
               width="25"
@@ -45,27 +45,16 @@ const Drawer: React.FC = () => {
             >
               </svg>
           <Link
-            href="/"
-            className="flex items-center  cursor-pointer w-full mb-5 "
+            href="/oldClients"
             onClick={toggleDrawer}
           >
-            
-            <Button type={"button"} isLoading={false} variant={"home"} >
-            <span className="p-2 rounded-lg">HOME</span>
+            <Button type={"button"} isLoading={false} >
+            OLD-CUSTOMERS
             </Button>
-            
           </Link>
-      
+        
           
-          <Link
-            href="/producao"
-            className=" hover:text-gray-700"
-            onClick={toggleDrawer}
-          >
-             <Button type={"button"} isLoading={false} >
-             PRODUCTION
-            </Button>
-          </Link>
+         
           <Link
             href="/booking"
             className=" hover:text-gray-700"
@@ -77,7 +66,7 @@ const Drawer: React.FC = () => {
           </Link>
           <Link
             href="/customers"
-            className=" hover:text-gray-700"
+            className=" mt-2"
             onClick={toggleDrawer}
           >
              <Button type={"button"} isLoading={false}>
@@ -85,37 +74,49 @@ const Drawer: React.FC = () => {
             </Button>
            
           </Link>
+
           <Link
-          
-            href="/oldClients"
-            className=" mt-10"
-            onClick={toggleDrawer}
-          >
-             <Button type={"button"} isLoading={false} variant={"relevante"}>
-             OLD-CUSTOMERS
-            </Button>
-          </Link>
-          <Link
-            
-            href="/login"
-            className=" hover:text-gray-700 "
-            onClick={toggleDrawer}
-          >
-            <Button type={"button"} isLoading={false} variant={"relevante"}>
-            LOGIN
-            </Button>
-          </Link>
-          <Link
-            href="/login" 
+            href="/producao"
             className=" hover:text-gray-700"
-            onClick={handleLogout}
+            onClick={toggleDrawer}
           >
-            <Button type={"button"} isLoading={false} variant={"danger"}>
-            LOGOUT
+             <Button type={"button"} isLoading={false} >
+             PRODUCTION
             </Button>
-            
           </Link>
-          
+
+          <Link
+            href="/"
+            className="flex items-center  cursor-pointer w-full mb-5 "
+            onClick={toggleDrawer}
+          >
+            <Button type={"button"} isLoading={false} variant={"home"} >
+            <span className="p-2 rounded-lg">FORM</span>
+            </Button>
+          </Link>
+
+          <div className="flex">
+            <Link
+              style={{ minWidth: "50%", textAlign: "center" }}
+              href="/login"
+              className=" hover:text-gray-700 "
+              onClick={toggleDrawer}
+            >
+              <Button type={"button"} isLoading={false} variant={"relevante"}>
+              LOGIN
+              </Button>
+            </Link>
+            <Link
+            style={{ minWidth: "50%", textAlign: "center" }}
+              href="/login" 
+              className=" hover:text-gray-700"
+              onClick={handleLogout}
+            >
+              <Button type={"button"} isLoading={false} variant={"danger"}>
+              LOGOUT
+              </Button>
+            </Link>
+          </div>
       </div>
       </AppDrawer>
     </>
