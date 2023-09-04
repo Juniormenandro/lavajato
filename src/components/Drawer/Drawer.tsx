@@ -66,7 +66,7 @@ const Drawer: React.FC = () => {
           </Link>
           <Link
             href="/customers"
-            className=" mt-2"
+            className=" mt-8 "
             onClick={toggleDrawer}
           >
              <Button type={"button"} isLoading={false}>
@@ -95,11 +95,10 @@ const Drawer: React.FC = () => {
             </Button>
           </Link>
 
-          <div className="flex">
+          <div className="flex mt-8">
             <Link
               style={{ minWidth: "50%", textAlign: "center" }}
               href="/login"
-              className=" hover:text-gray-700 "
               onClick={toggleDrawer}
             >
               <Button type={"button"} isLoading={false} variant={"relevante"}>
@@ -109,7 +108,6 @@ const Drawer: React.FC = () => {
             <Link
             style={{ minWidth: "50%", textAlign: "center" }}
               href="/login" 
-              className=" hover:text-gray-700"
               onClick={handleLogout}
             >
               <Button type={"button"} isLoading={false} variant={"danger"}>
