@@ -130,19 +130,19 @@ if (isError) {
   }
  
   return (
-     <>
+    <>
       <Header />
-      <h1 style={{ textAlign: "center", padding: "2%", fontSize:"24px" }}>  PRODUTION</h1>
+      <h1 className=' text-center p-2 text-3xl border bg-white m-3 rounded-2xl '>  PRODUTION</h1>
       <ul>
         {clientes && clientes?.map(client => (
-          <li key={client.id} style={{ width: "100%" }}>
+          <li key={client.id} >
             <div className="flex bg-blue-500 mt-5 ml-3 mr-3 p-2 rounded-t-xl" >
-              <div style={{ minWidth: "50%", textAlign: "center"  }}>
-                <h1 className="text-white" style={{fontSize:"21px"}}>
+              <div className='flex-1 justify-center text-center'>
+                <h1 className="text-white text-2xl">
                   {client.nome}
                 </h1>
               </div>
-              <div style={{  minWidth: "50%", textAlign: "center" }}>
+              <div className=' flex-1 justify-center text-center'>
                 <h1 className="text-xl font-semibold text-white">
                   {client.telefone}
                 </h1>
@@ -150,32 +150,35 @@ if (isError) {
             </div>
             {client.servicos && client.servicos.map(servico => (
             <>
-              <div key={servico.id} className="flex bg-white  ml-3 mr-3 p-2">
-                <div style={{ minWidth: "50%", textAlign: "center" }}>
-                  <h2 style={{fontSize:"19px"}}>{servico.selectedProductNane}</h2>
-                  <h2 style={{fontSize:"19px"}}>price: {servico.selectedProdutPrice}</h2>
-                  <h2 style={{fontSize:"19px"}}>pay: {servico.selectedPayment}</h2>
+              <div key={servico.id} className="flex bg-white  ml-3 mr-3 p-2 text-center ">
+                <div className='flex-1 justify-center '>
+                  <div>
+                    <h2 className=' text-1xl border w-44 '>{servico.selectedProductNane}</h2>
+                    <h2 className=' text-1xl border w-44 '>price: {servico.selectedProdutPrice}</h2>
+                    <h2 className=' text-1xl border w-44 '>pay: {servico.selectedPayment}</h2>
+                  </div>
                 </div>
-                <div style={{  minWidth: "50%", textAlign: "center"   }}>
-                  <h2 style={{fontSize:"19px"}}>end: {servico.selectedTime}</h2>
-                  <h2 style={{fontSize:"19px"}}>brand: {servico.carro}</h2>
-                  <h2 style={{fontSize:"19px"}}>color: {servico.selectedColor}</h2>
+                <div className='flex-1 justify-center'>
+                  <div>
+                    <h2 className=' text-1xl border w-44 '>end: {servico.selectedTime}</h2>
+                    <h2 className=' text-1xl border w-44 '>brand: {servico.carro}</h2>
+                    <h2 className=' text-1xl border w-44 '>color: {servico.selectedColor}</h2>
+                  </div>
                 </div>
               </div>
               <div className=' bg-white text-white text-center ml-3 mr-3 p-1 rounded-b-2xl '>
-              <button
-              className=' bg-blue-500 p-2 rounded-2xl'
-                disabled={!!loadingState[servico.id]}  
-                onClick={() => markAsDone(servico.id)}
-              >
-                {loadingState[servico.id] ? 'Carregando...' : 'FINISH'}
-              </button>
+                <button
+                className=' bg-blue-500 p-1 rounded-xl'
+                  disabled={!!loadingState[servico.id]}  
+                  onClick={() => markAsDone(servico.id)}
+                >
+                  {loadingState[servico.id] ? 'Carregando...' : 'FINISH'}
+                </button>
               </div>
             </>   
             ))}
           </li>
-         ))
-        }
+        ))}
       </ul>
       <br/><br/><br/><br/>
     </>
