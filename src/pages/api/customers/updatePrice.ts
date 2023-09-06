@@ -18,7 +18,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
       const updatedService = await prisma.servicos.update({
         where: { id: String(servicoId) },
         data: {
-          selectedProdutPrice: req.body.selectedProdutPrice,
+          rawPrice: parseInt(req.body.rawPrice, 0),
         },
       });
       res.json(updatedService);

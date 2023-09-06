@@ -7,15 +7,15 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import useSWR, { mutate } from 'swr';
 import { useRouter } from "next/navigation";
+import React from 'react';
 
 
 
 interface Servico {
   selectedColor: string;
- 
   selectedModel: string;
   selectedPayment: string;
-  selectedProdutPrice: string;
+  rawPrice:Number;
   selectedProductNane: string; 
   id: string;
   carro: string;  
@@ -42,54 +42,12 @@ interface Cliente {
   servicos: Servico[];
   Booking: Booking[];
 };
-interface DateSelectorProps {
-  onDateChange: (date: Date, type: string) => void;
-}
-
-function DateSelector({ onDateChange }: DateSelectorProps) {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
-  const [dateType, setDateType] = useState('');
- 
-  //flex-col
-  return (
-    <div className=' flex  '>
-   
-     <select
-     className=' w-28 pl-7 pt-1 pb-1  rounded-lg  bg-blue-500 text-white'
-       value={dateType} onChange={(e) => setDateType(e.target.value)}
-      
-       >
-        <option value="day">Day</option>
-        <option value="week">Week</option>
-        <option value="month">Month</option>
-        <option value="all">all</option>
-      </select>
-
-
-      <DatePicker
-      className= ' p-2 w-28 ml-1    rounded-lg bottom-content   bg-blue-500 text-white '
-        selected={selectedDate}
-        onChange={(date) => {
-          if (date instanceof Date && dateType) {  // Ensure date is a Date object and dateType is not empty
-            setSelectedDate(date);
-            onDateChange(date, dateType);
-          }
-        }}
-      />
-    </div>
-  );
-}
-
-
-
-
-export default function Page() {
   
+export default function Page() {
   
   const [token, setToken] = useState<string | null>(null);
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
   const [newPrice, setNewPrice] = useState<string>('');
-
   const [periodoFiltragem, setPeriodoFiltragem] = useState('all');
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [showReturned, setShowReturned] = useState(false);
@@ -108,12 +66,6 @@ export default function Page() {
 }, [router]);
 
 
-
-
-
-
-
-// Esta lógica agora depende do selectedDate
 const fetchURL = useMemo(() => {
   if (!token) return null;
 
@@ -145,14 +97,6 @@ const fetchURL = useMemo(() => {
 
 
 
-const handleDateChange = (date: Date, type: string) => {
-  console.log("Selected Date:", date);
-  setSelectedDate(date); // Atualiza a data selecionada
-  setPeriodoFiltragem(type); // Atualiza o periodoFiltragem
-
-};
-
-
 //const fetchURL = token ? `${process.env.NEXT_PUBLIC_API_URL}/api/customers` : null;
 // Lógica do SWR
 const { data: clientes, error: isError, isLoading } = useSWR<Cliente[]>(fetchURL ? [fetchURL, token] : null, fetcher, {
@@ -174,7 +118,7 @@ if (!fetchURL) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ selectedProdutPrice: price }),
+        body: JSON.stringify({ rawPrice: price }),
       });
   
       if (!response.ok) {
@@ -200,7 +144,7 @@ if (!fetchURL) {
                   
                 servicos: client.servicos.map(servico => 
                     servico.id === serviceId
-                    ? { ...servico, selectedProdutPrice: newPrice }
+                    ? { ...servico, rawPrice: newPrice }
                     : servico
                 )
             }));
@@ -245,17 +189,14 @@ if (isLoading) {
     <>
     <Header />
        <div className='flex  ml-20 mb-5  ' >
-        <button className=' w-28  bg-blue-500 text-white rounded-lg'
+        <div className=' text-center p-2 text-4xl'>
+          <h1>CUSTOMERS</h1>
+        </div>
+        <button className=' p-1 ml-5 bg-blue-500 text-white rounded-lg'
          onClick={() => setShowReturned(!showReturned)} type={'button'} >
            {showReturned ? 'back. ' : 'Servicos'}
         </button>
-        <div className='ml-1'>
-          <DateSelector onDateChange={handleDateChange} />  
-        </div>
       </div>
-      
-      <h1 style={{ textAlign: "center", padding: "2%", fontSize: "24px" }}>CUSTOMERS</h1>
-    
       <ul>
       {clientes?.map(client => (
       <li key={client.id} style={{ width: "100%" }}>
@@ -273,11 +214,11 @@ if (isLoading) {
         </div>
           
             {client.servicos && client.servicos.map(servico => (
-             <>
+              <React.Fragment key={servico.id}>
               <div key={servico.id} className="flex bg-white border-t-8 border-blue-500 ml-3 mr-3 p-2 ">
                 <div style={{ minWidth: "50%", textAlign: "center" }}>
                   <h2 style={{fontSize:"19px"}}>{servico.selectedProductNane}</h2>
-                  <h2 style={{fontSize:"19px"}}>price: {servico.selectedProdutPrice}</h2>
+                  <h2 style={{fontSize:"19px"}}>price: {servico.rawPrice.toString()} €</h2>
                   <h2 style={{fontSize:"19px"}}>pay: {servico.selectedPayment}</h2>
                 </div>
                 <div style={{ minWidth: "50%", textAlign: "center" }}>
@@ -310,7 +251,7 @@ if (isLoading) {
                     
                 </button>
               </div>
-             </> 
+              </React.Fragment>
             ))}
                        
             {client.Booking && client.Booking.map(book => (
