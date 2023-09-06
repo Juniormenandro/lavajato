@@ -21,7 +21,7 @@ export type ProductType = {
   name: string;
   price: string;
   default_price: string;
-  raw_price: string;
+  raw_price: 0;
 };
 
 export type BookingType = typeof bookingDataInitialState;
@@ -105,7 +105,7 @@ const BookingPage: NextPage = () => {
 return (
   <>
   <Header></Header>
-    <div className="flex flex-col items-center min-h-screen p-10 bg-white  ">
+    <div className="flex flex-col items-center min-h-screen p-10 bg-white ">
             <Toaster position="top-center" />
 
           <div className="w-full max-w-lg">

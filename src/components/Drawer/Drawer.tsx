@@ -45,7 +45,7 @@ const Drawer: React.FC = () => {
         >
         </svg>
 
-          <div className="flex mb-5">
+          <div className="flex ">
             <Link
               style={{ minWidth: "50%", textAlign: "center" }}
               href="/login"
@@ -69,7 +69,7 @@ const Drawer: React.FC = () => {
             href="/oldClients"
             onClick={toggleDrawer}
           >
-            <Button type={"button"} isLoading={false} >
+            <Button type={"button"} isLoading={false} variant={"home"} >
             OLD-CUSTOMERS
             </Button>
           </Link>
@@ -79,10 +79,21 @@ const Drawer: React.FC = () => {
             className=" hover:text-gray-700"
             onClick={toggleDrawer}
           >
-            <Button type={"button"} isLoading={false}>
+            <Button type={"button"} isLoading={false} variant={"home"}>
             BOOKING
             </Button>
           </Link>
+
+          <Link
+            href="/revenue"
+            className=" hover:text-gray-700"
+            onClick={toggleDrawer}
+          >
+             <Button type={"button"} isLoading={false} >
+             REVENUE
+            </Button>
+          </Link>
+
           <Link
             href="/customers"
             className=" mt-14  "
@@ -109,7 +120,7 @@ const Drawer: React.FC = () => {
             className="flex items-center  cursor-pointer w-full mb-5 "
             onClick={toggleDrawer}
           >
-            <Button type={"button"} isLoading={false} variant={"home"} >
+            <Button type={"button"} isLoading={false} variant={"relevante"} >
             <span className="p-2 rounded-lg">FORM</span>
             </Button>
           </Link>

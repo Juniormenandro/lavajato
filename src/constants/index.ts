@@ -1,3 +1,4 @@
+
 export const bookingDataInitialState = {
   
   selectedProductId: "",
@@ -11,7 +12,7 @@ export const bookingDataInitialState = {
   selectedPayment:"",
   selectedTime: "",
   selectedProductDefaultPrice: "",
-  rawPrice: "",
+  rawPrice: 0,
   
 };
 

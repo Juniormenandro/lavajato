@@ -51,7 +51,7 @@ const checkout = async (req: NextApiRequest, res: NextApiResponse) => {
         selectedColor: booking.selectedColor,
         selectedTime: booking.selectedTime,
         selectedProductDefaultPrice: booking.selectedProductDefaultPrice,
-        rawPrice: booking.rawPrice.toString()
+        rawPrice: booking.rawPrice,
       },
     });
     return res.status(201).json({

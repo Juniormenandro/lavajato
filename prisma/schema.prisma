@@ -24,7 +24,7 @@ model servicos {
   selectedColor            String?
   selectedTime             String?
   selectedProductDefaultPrice String?
-  rawPrice                 String?
+  rawPrice                 Int?
   
   clienteId                String   @db.ObjectId // updated to @db.ObjectId
   cliente                  clientes @relation(fields: [clienteId], references: [id]) // foreign key relation to 'clientes'
