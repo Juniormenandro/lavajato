@@ -55,7 +55,7 @@ function App() {
   const getRevenueData = async () => {
     try {
         setLoading(true);
-        const response = await axios.get('http://localhost:3000/api/revenue', {
+        const response = await axios.get('/api/revenue', {
         params: {
             startDate: startDate.toISOString(),
             endDate: endDate.toISOString(),
@@ -137,23 +137,9 @@ function App() {
             </div>
             <Button className=' w-48 mt-10 ' onClick={getRevenueData} type={'button'} isLoading={false}>Obter Dados de Receita</Button>
         </div>
+        
         <div className='m-3'>
-          <h3 className='bg-gray-900 text-2xl rounded-t-xl pb-1'>Receita Semanal</h3>
-          <table border={1}>
-            <tbody>
-              {revenueData?.weeklyRevenue.map((item, index) => (
-                <tr key={index}>
-                  <td className='bg-gray-800 m-1 text-white w-60 pb-2'>{item.selectedProductNane}</td>
-                  <td className='bg-gray-800 m-1 text-white w-40'>{item.selectedPayment}</td>
-                  <td className='bg-gray-800 m-1 text-white w-40'>{item._sum.rawPrice}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <p className=' bg-gray-800 pb-3 rounded-b-xl'></p>
-        </div>
-        <div className='m-3'>
-          <h3 className='bg-gray-900 text-2xl rounded-t-xl pb-1'>Receita Mensal</h3>
+          <h3 className='bg-gray-900 text-2xl rounded-t-xl pb-1'>Receita</h3>
           <table border={1}>
             
             <tbody>
@@ -169,15 +155,9 @@ function App() {
           <p className=' bg-gray-800 pb-3 rounded-b-xl'></p>
         </div>
         <div className='m-3'>
+        
         <div>
-            <h4 className='bg-gray-900 text-2xl rounded-t-xl pb-1'>Receita Semanal Total</h4>
-            {revenueData?.totalWeeklyRevenue.map((item, index) => (
-            <p className='bg-gray-800 pb-2 text-white' key={index}>{item.selectedPayment}: {item._sum.rawPrice}</p>
-            ))}
-            <p className=' bg-gray-800 pb-3 rounded-b-xl mb-3'></p>
-        </div>
-        <div>
-            <h4 className='bg-gray-900 text-2xl rounded-t-xl pb-1'>Receita Mensal Total</h4>
+            <h4 className='bg-gray-900 text-2xl rounded-t-xl pb-1'>Receita Total</h4>
             {revenueData?.totalMonthlyRevenue.map((item, index) => (
             <p className='bg-gray-800 pb-2  text-white' key={index}>{item.selectedPayment}: {item._sum.rawPrice}</p>
             ))}
