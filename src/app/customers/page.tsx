@@ -189,10 +189,10 @@ if (isLoading) {
     <>
     <Header />
        <div className='flex  ml-20 mb-5  ' >
-        <div className=' text-center p-2 text-4xl'>
+        <div className='pr-3 text-3xl'>
           <h1>CUSTOMERS</h1>
         </div>
-        <button className=' p-1 ml-5 bg-blue-500 text-white rounded-lg'
+        <button className=' p-1 ml-3 bg-blue-500 text-white rounded-lg'
          onClick={() => setShowReturned(!showReturned)} type={'button'} >
            {showReturned ? 'back. ' : 'Servicos'}
         </button>
