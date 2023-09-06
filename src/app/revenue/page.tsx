@@ -129,7 +129,7 @@ function App() {
               </tr>
               <tr>
               <td className='bg-white m-1 border-b-2  '></td>
-              <td className='bg-white m-1 border-b-2 '>{item._sum.rawPrice}</td>
+              <td className='bg-white m-1 border-b-2 '>{(item._sum.rawPrice / 100).toFixed(2)}€</td>
               </tr>
               </>
               ))}
@@ -141,7 +141,8 @@ function App() {
           <div>
             <h4 className='bg-blue-500 text-white text-2xl rounded-t-xl pb-1'>Receita Total</h4>
             {revenueData?.totalMonthlyRevenue.map((item, index) => (
-            <p className='bg-white pb-2 border-b-2' key={index}>{item.selectedPayment}: {item._sum.rawPrice}</p>
+            <p className='bg-white pb-2 border-b-2' key={index}>{item.selectedPayment}: {(item._sum.rawPrice / 100).toFixed(2)}€
+            </p>
             ))}
             <p className=' bg-white pb-3 rounded-b-xl'></p>
           </div>

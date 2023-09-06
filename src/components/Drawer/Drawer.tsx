@@ -76,7 +76,6 @@ const Drawer: React.FC = () => {
 
           <Link
             href="/booking"
-            className=" hover:text-gray-700"
             onClick={toggleDrawer}
           >
             <Button type={"button"} isLoading={false} variant={"home"}>
@@ -86,7 +85,7 @@ const Drawer: React.FC = () => {
 
           <Link
             href="/revenue"
-            className=" hover:text-gray-700"
+            className=" mt-14  "
             onClick={toggleDrawer}
           >
              <Button type={"button"} isLoading={false} >
@@ -96,7 +95,7 @@ const Drawer: React.FC = () => {
 
           <Link
             href="/customers"
-            className=" mt-14  "
+            
             onClick={toggleDrawer}
           >
              <Button type={"button"} isLoading={false}>
@@ -107,7 +106,7 @@ const Drawer: React.FC = () => {
 
           <Link
             href="/producao"
-            className=" hover:text-gray-700"
+            className=" mt-14 "
             onClick={toggleDrawer}
           >
              <Button type={"button"} isLoading={false} >

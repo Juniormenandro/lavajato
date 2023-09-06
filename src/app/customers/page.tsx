@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import React from 'react';
 
 
-
 interface Servico {
   selectedColor: string;
   selectedModel: string;
@@ -63,50 +62,50 @@ export default function Page() {
         }
         setToken(userToken);
     }
-}, [router]);
+  }, [router]);
 
 
-const fetchURL = useMemo(() => {
-  if (!token) return null;
+  const fetchURL = useMemo(() => {
+    if (!token) return null;
 
-  const currentDate = selectedDate.toISOString();
+    const currentDate = selectedDate.toISOString();
 
-  let param = "";
-  switch (periodoFiltragem) {
-    case 'day':
-      param = `date=${currentDate}`;
-      break;
-    case 'week':
-      param = `weekDate=${currentDate}`;
-      break;
-    case 'month':
-      param = `monthDate=${currentDate}`;
-      break;
-      case 'all':
-      param = '/';
-      break;
-    default:
-      return null;
+    let param = "";
+      switch (periodoFiltragem) {
+        case 'day':
+          param = `date=${currentDate}`;
+          break;
+        case 'week':
+          param = `weekDate=${currentDate}`;
+          break;
+        case 'month':
+          param = `monthDate=${currentDate}`;
+          break;
+          case 'all':
+          param = '/';
+          break;
+        default:
+          return null;
+      }
+      if (showReturned) {
+        param += '&returned=true';
+      }
+
+    return `${process.env.NEXT_PUBLIC_API_URL}/api/customers?${param}`;
+  }, [token, periodoFiltragem, selectedDate, showReturned]);  // Add 'showReturned' as a dependency
+
+
+
+  //const fetchURL = token ? `${process.env.NEXT_PUBLIC_API_URL}/api/customers` : null;
+  // Lógica do SWR
+  const { data: clientes, error: isError, isLoading } = useSWR<Cliente[]>(fetchURL ? [fetchURL, token] : null, fetcher, {
+    revalidateOnFocus: false,
+  });
+
+
+  if (!fetchURL) {
+    return null;  // Isso pode ser substituído por um fallback ou conteúdo padrão.
   }
-  if (showReturned) {
-    param += '&returned=true';
-  }
-
-  return `${process.env.NEXT_PUBLIC_API_URL}/api/customers?${param}`;
-}, [token, periodoFiltragem, selectedDate, showReturned]);  // Add 'showReturned' as a dependency
-
-
-
-//const fetchURL = token ? `${process.env.NEXT_PUBLIC_API_URL}/api/customers` : null;
-// Lógica do SWR
-const { data: clientes, error: isError, isLoading } = useSWR<Cliente[]>(fetchURL ? [fetchURL, token] : null, fetcher, {
-  revalidateOnFocus: false,
-});
-
-
-if (!fetchURL) {
-  return null;  // Isso pode ser substituído por um fallback ou conteúdo padrão.
-}
 
 
 
@@ -159,125 +158,111 @@ if (!fetchURL) {
         setLoadingState(prev => ({ ...prev, [serviceId]: false }));
         window.location.reload();
     }
-};
+  };
 
 
+  if (isError) {
+    console.error("Erro ao buscar clientes:", isError);
+    
+  }
 
-
-
-
-
-
-
-
-if (isError) {
-  console.error("Erro ao buscar clientes:", isError);
-  
-}
-
-
-if (isLoading) {
-  return (
-    <div className="flex flex-col items-center mt-10">
-      <Spinner />
-    </div>
-  );
-}
-
+  if (isLoading) {
+    return (
+      <div className="flex flex-col items-center mt-10">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <>
     <Header />
-       <div className='flex  ml-20 mb-5  ' >
+      <div className='flex  ml-20 mb-5  ' >
         <div className='pr-3 text-3xl'>
           <h1>CUSTOMERS</h1>
         </div>
         <button className=' p-1 ml-3 bg-blue-500 text-white rounded-lg'
-         onClick={() => setShowReturned(!showReturned)} type={'button'} >
-           {showReturned ? 'back. ' : 'Servicos'}
+          onClick={() => setShowReturned(!showReturned)} type={'button'} >
+          {showReturned ? 'back. ' : 'Servicos'}
         </button>
       </div>
       <ul>
-      {clientes?.map(client => (
-      <li key={client.id} style={{ width: "100%" }}>
-        <div className="flex bg-blue-500 mt-5 ml-3 mr-3 rounded-t-2xl"  >
-          <div style={{ minWidth: "50%", textAlign:"center", paddingTop:"5px" }}>
-            <h1 className="text-white" style={{fontSize:"21px"}}>
-              {client.nome}
-            </h1>
-          </div>
-          <div style={{  minWidth: "50%", textAlign: "center", paddingTop:"5px"}}>
-            <h1 className="text-xl font-semibold text-white ">
-              {client.telefone}
-            </h1>
-          </div>
-        </div>
-          
+        {clientes?.map(client => (
+          <li key={client.id} >
+            <div className="flex justify-center text-center bg-blue-500 mt-5 ml-3 mr-3 rounded-t-2xl"  >
+              <div className=' flex-1 justify-center p-1'>
+                <h1 className="text-white text-[21px]">
+                  {client.nome}
+                </h1>
+              </div>
+              <div className=' flex-1 justify-center p-1 mt-1'>
+                <h1 className="text-xl font-semibold text-white ">
+                  {client.telefone}
+                </h1>
+              </div>
+            </div>
+            
             {client.servicos && client.servicos.map(servico => (
               <React.Fragment key={servico.id}>
-              <div key={servico.id} className="flex bg-white border-t-8 border-blue-500 ml-3 mr-3 p-2 ">
-                <div style={{ minWidth: "50%", textAlign: "center" }}>
-                  <h2 style={{fontSize:"19px"}}>{servico.selectedProductNane}</h2>
-                  <h2 style={{fontSize:"19px"}}>price: {servico.rawPrice.toString()} €</h2>
-                  <h2 style={{fontSize:"19px"}}>pay: {servico.selectedPayment}</h2>
+                <div key={servico.id} className="flex justify-center text-center bg-white border-t-8 border-blue-500 ml-3 mr-3 p-2 ">
+                  <div className='flex-1 flex justify-center'>
+                    <div>
+                      <h2 className=' text-1xl border w-44 '>{servico.selectedProductNane}</h2>
+                      <h2 className=' text-1xl border w-44 '>price: {servico.rawPrice ? (Number(servico.rawPrice) / 100).toFixed(2) : "0.00"} €</h2>
+                      <h2 className=' text-1xl border w-44 '>pay: {servico.selectedPayment}</h2>
+                    </div>
+                  </div>
+                  <div className='flex-1 flex justify-center'>
+                    <div>
+                      <h2 className=' text-1xl border w-44 '>
+                      {servico.data && typeof servico.data === 'string' 
+                        ? new Date(servico.data).toLocaleDateString('pt-BR') 
+                        : 'Data não definida'}
+                      </h2>
+                      <h2 className=' text-1xl border w-44 '>brand: {servico.carro}</h2>
+                      <h2 className=' text-1xl border w-44 '>color: {servico.selectedColor}</h2>
+                    </div>
+                  </div>
                 </div>
-                <div style={{ minWidth: "50%", textAlign: "center" }}>
-                <h2 style={{fontSize:"19px"}}>
-                  {servico.data && typeof servico.data === 'string' 
-                    ? new Date(servico.data).toLocaleDateString('pt-BR') 
-                    : 'Data não definida'}
-                </h2>
-                  <h2 style={{fontSize:"19px"}}>brand: {servico.carro}</h2>
-                  <h2 style={{fontSize:"19px"}}>color: {servico.selectedColor}</h2>
+                <div className=' bg-white text-white text-center ml-3 mr-3 p-1 rounded-b-3xl' >
+                  <input 
+                    className=" w-20 text-black p-1 rounded-2xl border border-gray-400" 
+                    type="text" 
+                    value={newPrice} 
+                    onChange={(e) => setNewPrice(e.target.value)} 
+                    placeholder="Price" 
+                  />
+                  <button 
+                    className=' bg-blue-500 p-1 rounded-2xl m-2'
+                    disabled={!!loadingState[servico.id]} 
+                    onClick={() => handleUpdate(servico.id) }>
+                      {loadingState[servico.id] ? 'Carregando...' : 'Update'}
+                      
+                  </button>
                 </div>
-              </div>
-
-
-              <div className=' bg-white text-white text-center ml-3 mr-3 p-1 rounded-b-3xl' >
-                <input 
-                  className=" w-20 text-black p-1 rounded-2xl border border-gray-400" 
-                  
-                  type="text" 
-                  value={newPrice} 
-                  onChange={(e) => setNewPrice(e.target.value)} 
-                  placeholder="Price" 
-                />
-                
-                <button 
-                  className=' bg-blue-500 p-1 rounded-2xl m-2'
-                  disabled={!!loadingState[servico.id]} 
-                  onClick={() => handleUpdate(servico.id) }>
-                    {loadingState[servico.id] ? 'Carregando...' : 'Update'}
-                    
-                </button>
-              </div>
               </React.Fragment>
-            ))}
-                       
+            ))}         
             {client.Booking && client.Booking.map(book => (
-                
-              <div key={book.id} className="flex" style={{paddingBottom: "20px" ,marginRight:"2%",  marginLeft:"2%", borderLeft: "1px solid #c2c2c2",   borderRight: "1px solid #c2c2c2", borderBottom: "1px solid #c2c2c2", borderRadius:" 0 0 20px 20px ", }}>
-                
-                <div  style={{ minWidth: "50%", textAlign: "center" }}>
-                    <h2 style={{fontSize:"19px"}}>DAY: {book.selectedDate}</h2>
-                    <h2 style={{fontSize:"19px"}}>WEEK: {book.selectedDayOfWeek}</h2>
-                    <h2 style={{fontSize:"19px"}}>MONTH: {book.selectedMonth}</h2>
+              <div key={book.id} className='flex justify-center text-center bg-white border-t-8 border-blue-500 ml-3 mr-3 p-2 '>
+                <div className='flex-1 flex justify-center '>
+                  <div>
+                    <h2 className=' text-1xl border w-44'>DAY: {book.selectedDate}</h2>
+                    <h2 className=' text-1xl border w-44'>WEEK: {book.selectedDayOfWeek}</h2>
+                    <h2 className=' text-1xl border w-44'>MONTH: {book.selectedMonth}</h2>
+                  </div> 
+                </div>
+                <div className='flex-1 flex justify-center'>
+                  <div>
+                    <h2 className=' text-1xl border w-44 '>TIME: {book.selectedTime}</h2>
+                    <h2 className=' text-1xl border w-44 '>PRICE: {book.selectedProductDefaultPrice} €</h2>
+                    <h2 className=' text-1xl border w-44 '>YEAR: {book.selectedYear}</h2>
                   </div>
-                  <div style={{ minWidth: "50%", textAlign: "center"   }}>
-                    <h2 style={{fontSize:"19px"}}>TIME: {book.selectedTime}</h2>
-                    <h2 style={{fontSize:"19px"}}>PRICE: {book.selectedProductDefaultPrice} €</h2>
-                    <h2 style={{fontSize:"19px"}}>YEAR: {book.selectedYear}</h2>
-                  </div>
-
-            </div>
+                </div>
+              </div>
             ))}
-
           </li>
         ))}
       </ul>
-
-      
-  
     </>
   );
 }
