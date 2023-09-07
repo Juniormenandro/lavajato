@@ -154,15 +154,15 @@ if (isError) {
                 <div className='flex-1 justify-center '>
                   <div>
                     <h2 className=' text-1xl border w-44 '>{servico.selectedProductNane}</h2>
-                    <h2 className=' text-1xl border w-44 '>price: {servico.selectedProdutPrice}</h2>
-                    <h2 className=' text-1xl border w-44 '>pay: {servico.selectedPayment}</h2>
+                    <h2 className=' text-1xl border w-44 '>{servico.selectedProdutPrice}</h2>
+                    <h2 className=' text-1xl border w-44 '>{servico.selectedPayment}</h2>
                   </div>
                 </div>
                 <div className='flex-1 justify-center'>
                   <div>
-                    <h2 className=' text-1xl border w-44 '>end: {servico.selectedTime}</h2>
-                    <h2 className=' text-1xl border w-44 '>brand: {servico.carro}</h2>
-                    <h2 className=' text-1xl border w-44 '>color: {servico.selectedColor}</h2>
+                    <h2 className=' text-1xl border w-44 '>{servico.selectedTime}</h2>
+                    <h2 className=' text-1xl border w-44 '>{servico.carro}</h2>
+                    <h2 className=' text-1xl border w-44 '>{servico.selectedColor}</h2>
                   </div>
                 </div>
               </div>

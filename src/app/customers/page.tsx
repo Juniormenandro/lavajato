@@ -208,8 +208,8 @@ export default function Page() {
                   <div className='flex-1 flex justify-center'>
                     <div>
                       <h2 className=' text-1xl border w-44 '>{servico.selectedProductNane}</h2>
-                      <h2 className=' text-1xl border w-44 '>price: {servico.rawPrice ? (Number(servico.rawPrice) / 100).toFixed(2) : "0.00"} €</h2>
-                      <h2 className=' text-1xl border w-44 '>pay: {servico.selectedPayment}</h2>
+                      <h2 className=' text-1xl border w-44 '>{servico.rawPrice ? (Number(servico.rawPrice) / 100).toFixed(2) : "0.00"} €</h2>
+                      <h2 className=' text-1xl border w-44 '>{servico.selectedPayment}</h2>
                     </div>
                   </div>
                   <div className='flex-1 flex justify-center'>
@@ -219,8 +219,8 @@ export default function Page() {
                         ? new Date(servico.data).toLocaleDateString('pt-BR') 
                         : 'Data não definida'}
                       </h2>
-                      <h2 className=' text-1xl border w-44 '>brand: {servico.carro}</h2>
-                      <h2 className=' text-1xl border w-44 '>color: {servico.selectedColor}</h2>
+                      <h2 className=' text-1xl border w-44 '>{servico.carro}</h2>
+                      <h2 className=' text-1xl border w-44 '>{servico.selectedColor}</h2>
                     </div>
                   </div>
                 </div>
