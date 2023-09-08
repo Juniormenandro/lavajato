@@ -150,19 +150,19 @@ if (isError) {
             </div>
             {client.servicos && client.servicos.map(servico => (
             <>
-              <div key={servico.id} className="flex bg-white  ml-3 mr-3 p-2 text-center ">
-                <div className='flex-1 justify-center '>
-                  <div>
-                    <h2 className=' text-1xl border w-44 '>{servico.selectedProductNane}</h2>
-                    <h2 className=' text-1xl border w-44 '>{servico.selectedProdutPrice}</h2>
-                    <h2 className=' text-1xl border w-44 '>{servico.selectedPayment}</h2>
+              <div key={servico.id} className="flex bg-white ml-3 mr-3 p-2 text-center ">
+                <div className='flex-1 justify-center w-1/2 '>
+                  <div className=' w-full'>
+                    <h2 className=' text-1xl border '>{servico.selectedProductNane}</h2>
+                    <h2 className=' text-1xl border '>{servico.selectedProdutPrice}</h2>
+                    <h2 className=' text-1xl border '>{servico.selectedPayment}</h2>
                   </div>
                 </div>
                 <div className='flex-1 justify-center'>
-                  <div>
-                    <h2 className=' text-1xl border w-44 '>{servico.selectedTime}</h2>
-                    <h2 className=' text-1xl border w-44 '>{servico.carro}</h2>
-                    <h2 className=' text-1xl border w-44 '>{servico.selectedColor}</h2>
+                  <div className=' w-full'>
+                    <h2 className=' text-1xl border '>{servico.selectedTime}</h2>
+                    <h2 className=' text-1xl border '>{servico.carro}</h2>
+                    <h2 className=' text-1xl border '>{servico.selectedColor}</h2>
                   </div>
                 </div>
               </div>

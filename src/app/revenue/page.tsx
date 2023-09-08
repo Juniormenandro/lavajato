@@ -117,15 +117,15 @@ function App() {
   <>
   <Header />
     <div className=' text-center ' >
-      <div className='m-5'>
+      <div className='m-5 '>
           <h3 className='bg-blue-500 text-white text-2xl rounded-t-xl pb-1'>Receita</h3>
-          <table border={1}>
-            <tbody>
+          <table className=' w-full' border={1}>
+            <tbody className=''>
               {revenueData?.monthlyRevenue.map((item, index) => (
               <>
-              <tr key={index}>
-                <td className='bg-white m-1 w-60 pb-2'>{item.selectedProductNane}</td>
-                <td className='bg-white m-1 w-40'>{item.selectedPayment}</td>
+              <tr className='' key={index}>
+                <td className='bg-white m-1 pt-2'>{item.selectedProductNane}</td>
+                <td className='bg-white m-1 '>{item.selectedPayment}</td>
               </tr>
               <tr>
               <td className='bg-white m-1 border-b-2  '></td>

@@ -177,14 +177,16 @@ export default function Page() {
   return (
     <>
     <Header />
-      <div className='flex  ml-20 mb-5  ' >
-        <div className='pr-3 text-3xl'>
+      <div className='flex justify-center ' >
+        <div className='text-3xl text-center bg-white p-2 rounded-2xl'>
           <h1>CUSTOMERS</h1>
         </div>
-        <button className=' p-1 ml-3 bg-blue-500 text-white rounded-lg'
+        <div>
+        <button className=' p-2 mt-1 ml-10  text-2xl bg-blue-500 text-white rounded-lg'
           onClick={() => setShowReturned(!showReturned)} type={'button'} >
           {showReturned ? 'back. ' : 'Servicos'}
         </button>
+        </div>
       </div>
       <ul>
         {clientes?.map(client => (
@@ -205,25 +207,26 @@ export default function Page() {
             {client.servicos && client.servicos.map(servico => (
               <React.Fragment key={servico.id}>
                 <div key={servico.id} className="flex justify-center text-center bg-white border-t-8 border-blue-500 ml-3 mr-3 p-2 ">
-                  <div className='flex-1 flex justify-center'>
-                    <div>
-                      <h2 className=' text-1xl border w-44 '>{servico.selectedProductNane}</h2>
-                      <h2 className=' text-1xl border w-44 '>{servico.rawPrice ? (Number(servico.rawPrice) / 100).toFixed(2) : "0.00"} €</h2>
-                      <h2 className=' text-1xl border w-44 '>{servico.selectedPayment}</h2>
+                  <div className='flex-1 flex justify-center w-1/2'>
+                    <div className=' w-full'>
+                      <h2 className=' text-1xl border'>{servico.selectedProductNane}</h2>
+                      <h2 className=' text-1xl border'>{servico.rawPrice ? (Number(servico.rawPrice) / 100).toFixed(2) : "0.00"} €</h2>
+                      <h2 className=' text-1xl border'>{servico.selectedPayment}</h2>
                     </div>
                   </div>
-                  <div className='flex-1 flex justify-center'>
-                    <div>
-                      <h2 className=' text-1xl border w-44 '>
+                  <div className='flex-1 flex justify-center w-1/2'>
+                    <div className=' w-full'>
+                      <h2 className=' text-1xl border'>
                       {servico.data && typeof servico.data === 'string' 
                         ? new Date(servico.data).toLocaleDateString('pt-BR') 
                         : 'Data não definida'}
                       </h2>
-                      <h2 className=' text-1xl border w-44 '>{servico.carro}</h2>
-                      <h2 className=' text-1xl border w-44 '>{servico.selectedColor}</h2>
+                      <h2 className=' text-1xl border w-full'>{servico.carro}</h2>
+                      <h2 className=' text-1xl border w-full'>{servico.selectedColor}</h2>
                     </div>
                   </div>
                 </div>
+
                 <div className=' bg-white text-white text-center ml-3 mr-3 p-1 rounded-b-3xl' >
                   <input 
                     className=" w-20 text-black p-1 rounded-2xl border border-gray-400" 
@@ -244,18 +247,18 @@ export default function Page() {
             ))}         
             {client.Booking && client.Booking.map(book => (
               <div key={book.id} className='flex justify-center text-center bg-white border-t-8 border-blue-500 ml-3 mr-3 p-2 '>
-                <div className='flex-1 flex justify-center '>
-                  <div>
-                    <h2 className=' text-1xl border w-44'>DAY: {book.selectedDate}</h2>
-                    <h2 className=' text-1xl border w-44'>WEEK: {book.selectedDayOfWeek}</h2>
-                    <h2 className=' text-1xl border w-44'>MONTH: {book.selectedMonth}</h2>
+                <div className='flex-1 flex justify-center w-1/2 '>
+                  <div className=' w-full'>
+                    <h2 className=' text-1xl border '>DAY: {book.selectedDate}</h2>
+                    <h2 className=' text-1xl border '>WEEK: {book.selectedDayOfWeek}</h2>
+                    <h2 className=' text-1xl border '>MONTH: {book.selectedMonth}</h2>
                   </div> 
                 </div>
                 <div className='flex-1 flex justify-center'>
-                  <div>
-                    <h2 className=' text-1xl border w-44 '>TIME: {book.selectedTime}</h2>
-                    <h2 className=' text-1xl border w-44 '>PRICE: {book.selectedProductDefaultPrice} €</h2>
-                    <h2 className=' text-1xl border w-44 '>YEAR: {book.selectedYear}</h2>
+                  <div className=' w-full'>
+                    <h2 className=' text-1xl border  '>TIME: {book.selectedTime}</h2>
+                    <h2 className=' text-1xl border  '>PRICE: {book.selectedProductDefaultPrice} €</h2>
+                    <h2 className=' text-1xl border  '>YEAR: {book.selectedYear}</h2>
                   </div>
                 </div>
               </div>
