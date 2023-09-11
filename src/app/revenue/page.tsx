@@ -124,7 +124,7 @@ function App() {
               {revenueData?.monthlyRevenue.map((item, index) => (
               <>
               <tr className='' key={index}>
-                <td className='bg-white m-1 pt-2'>{item.selectedProductNane}</td>
+                <td className='bg-white m-1 pt-3'>{item.selectedProductNane}</td>
                 <td className='bg-white m-1 '>{item.selectedPayment}</td>
               </tr>
               <tr>
