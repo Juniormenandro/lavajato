@@ -1,8 +1,18 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prismaClient";
+import verifyToken from "@/utils/verifyToken";
+
 
 async function calculateWeeklyAndMonthlyRevenue(req: NextApiRequest, res: NextApiResponse) {
+  
+  const token = verifyToken(req);
+
   try {
+
+    if (!token) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
     const { startDate, endDate } = req.query;
 
     const startDateTime = new Date(startDate as string);

@@ -113,14 +113,6 @@ useEffect(() => {
   }
 }, [router]);
 
-
-if (isError) {
-  
-  return <div>Erro detectado: {JSON.stringify(isError)}</div>;
-}
-
-
-
   if (isLoading) {
     return (
       <div className="flex flex-col items-center mt-10">
@@ -128,6 +120,7 @@ if (isError) {
       </div>
     );
   }
+  
  
   return (
     <>
