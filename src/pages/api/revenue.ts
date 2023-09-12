@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prismaClient";
 import verifyToken from "@/utils/verifyToken";
 
-
 async function calculateWeeklyAndMonthlyRevenue(req: NextApiRequest, res: NextApiResponse) {
   
   const token = verifyToken(req);

@@ -65,37 +65,56 @@ const Drawer: React.FC = () => {
               </Button>
             </Link>
           </div>
+
+          <div className="flex ">
           <Link
+            style={{ minWidth: "50%", textAlign: "center" }}
+            className=" mt-14  "
             href="/oldClients"
             onClick={toggleDrawer}
           >
             <Button type={"button"} isLoading={false} variant={"home"} >
-            OLD-CUSTOMERS
+            OLD-CUST
             </Button>
           </Link>
 
           <Link
+            style={{ minWidth: "50%", textAlign: "center" }}
+            className=" mt-14  "
             href="/booking"
             onClick={toggleDrawer}
           >
-            <Button type={"button"} isLoading={false} variant={"home"}>
+            <Button type={"button"} isLoading={false} >
             BOOKING
             </Button>
           </Link>
+          </div>
 
+          <div className="flex ">
           <Link
+            style={{ minWidth: "50%", textAlign: "center" }}
             href="/revenue"
-            className=" mt-14  "
             onClick={toggleDrawer}
           >
-             <Button type={"button"} isLoading={false} >
+             <Button type={"button"} isLoading={false} variant={"home"} >
              REVENUE
             </Button>
           </Link>
+          <Link
+            style={{ minWidth: "50%", textAlign: "center" }}
+            href="/expenses"
+            onClick={toggleDrawer}
+          >
+             <Button type={"button"} isLoading={false} >
+             EXPENSES
+            </Button>
+          </Link>
+          </div>
 
+          
           <Link
             href="/customers"
-            
+            className=" mt-14 "
             onClick={toggleDrawer}
           >
              <Button type={"button"} isLoading={false}>
@@ -106,7 +125,6 @@ const Drawer: React.FC = () => {
 
           <Link
             href="/producao"
-            className=" mt-14 "
             onClick={toggleDrawer}
           >
              <Button type={"button"} isLoading={false} >
