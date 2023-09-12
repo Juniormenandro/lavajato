@@ -101,7 +101,7 @@ export default function App() {
                                 <td>
                                     {item.recibo ? (
                                     <a href={item.recibo} target="_blank" rel="noopener noreferrer">
-                                        <Image src={item.recibo || '/path/to/fallback/image.jpg'} alt="Recibo" width={150} height={100} />
+                                        <Image src={item.recibo || '/path/to/fallback/image.jpg'} alt="Recibo" width={100} height={100} />
                                     </a>
                                     ) : (
                                     <span>Sem imagem disponível</span>
