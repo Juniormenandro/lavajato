@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import Header from '../header';
 import Link from 'next/link';
 import Button from '@/components/Button/Button';
+import { useRouter } from "next/navigation";
+
 
 export default function Home() {
   const [recibo, setRecibo] = useState();
@@ -11,7 +13,7 @@ export default function Home() {
   const [nome, setNome] = useState("");
   const [preco, setPreco] = useState("");
   
-
+  const router = useRouter();
 
   function handleOnChange(changeEvent) {
     const reader = new FileReader();
@@ -64,7 +66,8 @@ export default function Home() {
       });
 
       const result = await response.json();
-      console.log(result);
+      //console.log(result);
+      router.push('/expenses');
     } catch (error) {
       console.error(error);
     }
@@ -131,19 +134,10 @@ export default function Home() {
           }}>
             <input type="text" name="preco" placeholder="Preço" value={preco} onChange={(e) => setPreco(e.target.value)} required />
           </p>
-          <p style={{
-            border: "solid 1px gray",
-            fontSize:"22px",
-            borderRadius:"10px",
-            padding:"1%",
-            marginTop:"3%",
-            marginBottom:"3%"
-          }}>
-            <input type="file" name="file" onChange={handleOnChange} required />
+          <p className="border border-gray-300 text-xl rounded-lg p-1 mt-3 mb-3">
+          <input type="file" name="file" className="w-full h-full text-sm" onChange={handleOnChange} required />
           </p>
-          
           <img src={recibo} />
-          
           {recibo && !uploadData && (
             <p>
               <button style={{
