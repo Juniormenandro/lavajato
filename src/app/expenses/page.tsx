@@ -11,6 +11,8 @@ import Image from 'next/image';
 import Spinner from "@/components/Spinner/Spinner";
 import { fetcher } from '@/utils/fetcher/fetcher';
 import { despesas } from '@prisma/client';
+import Link from 'next/link';
+import Button from '@/components/Button/Button';
 
 
   
@@ -20,12 +22,11 @@ export default function App() {
   const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
   
-
   const [startDate, setStartDate] = useState(() => {
-    const start = new Date('2021-07-01T00:00:00');
+    const start = new Date();
+    start.setHours(0, 0, 0, 0);
     return start;
   });
-  
   const [endDate, setEndDate] = useState(() => {
     const end = new Date();
     end.setHours(23, 59, 59, 999);
@@ -75,9 +76,33 @@ export default function App() {
   return (
   <>
   <Header />
-    <div className=' text-center ' >
+    <div className=' text-center  ' >
+      <div className='ml-20 mr-20'>
+        <Link  href="/upload" >
+          <Button type={"button"} isLoading={false}  variant={"relevante"}>
+            UPLOAD EXPENSES
+          </Button>
+        </Link>
+      </div>
+      <div className='bg-white m-5 rounded-xl ' >
+        <h1 className= ' bg-blue-500 text-white text-2xl rounded-t-xl pb-1'>Selecionar Datas</h1>
+        <div className='flex justify-center'>
+          <label className='m-3 flex-1 flex justify-center' >
+            <div>
+              <h2 className='text-white'>Início:</h2>
+              <DatePicker className=' border-2 w-28 rounded-xl pl-2' selected={startDate} onChange={(date) => setStartDate(date || new Date())} dateFormat="yyyy-MM-dd" />
+            </div>
+          </label>
+          <label className='m-3 flex-1 flex justify-center'>
+            <div>
+              <h2 className='text-white'>Término:</h2>
+              <DatePicker className='border-2 w-28 rounded-xl pl-2' selected={endDate} onChange={(date) => setEndDate(date || new Date())} dateFormat="yyyy-MM-dd" />
+            </div>
+          </label>
+        </div>
+      </div>    
       <div className='m-5 '>
-        <h3 className='bg-blue-500 text-white text-2xl rounded-t-xl pb-1'>Expenses</h3>
+        <h3 className='bg-blue-500 text-white text-2xl rounded-t-xl pb-1'>EXPENSES</h3>
         <table className=' w-full' border={1}>
             <tbody>
                 {monthlyRevenue?.map(item => (
@@ -116,26 +141,7 @@ export default function App() {
         </table>
         <p className=' bg-white pb-3 rounded-b-xl'></p>
     </div>
-    <div className='bg-white m-5 rounded-xl ' >
-        <h1 className= ' bg-blue-500 text-white text-2xl rounded-t-xl pb-1'>Selecionar Datas</h1>
-        <div className='flex justify-center'>
-          <label className='m-3 flex-1 flex justify-center' >
-            <div>
-              <h2 className='text-white'>Início:</h2>
-              <DatePicker className=' border-2 w-28 rounded-xl pl-2' selected={startDate} onChange={(date) => setStartDate(date || new Date())} dateFormat="yyyy-MM-dd" />
-            </div>
-          </label>
-          <label className='m-3 flex-1 flex justify-center'>
-            <div>
-              <h2 className='text-white'>Término:</h2>
-              <DatePicker className='border-2 w-28 rounded-xl pl-2' selected={endDate} onChange={(date) => setEndDate(date || new Date())} dateFormat="yyyy-MM-dd" />
-            </div>
-          </label>
-        </div>
-        <div className='p-5'>
-
-        </div>
-      </div>
+    
     </div>
     <div className='h-96'></div>
     <div className='h-96'></div>

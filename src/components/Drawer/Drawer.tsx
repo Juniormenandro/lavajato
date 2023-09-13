@@ -73,7 +73,7 @@ const Drawer: React.FC = () => {
             href="/oldClients"
             onClick={toggleDrawer}
           >
-            <Button type={"button"} isLoading={false} variant={"home"} >
+            <Button type={"button"} isLoading={false} variant={"relevante"} >
             OLD-CUST
             </Button>
           </Link>
@@ -96,7 +96,7 @@ const Drawer: React.FC = () => {
             href="/revenue"
             onClick={toggleDrawer}
           >
-             <Button type={"button"} isLoading={false} variant={"home"} >
+             <Button type={"button"} isLoading={false} variant={"relevante"} >
              REVENUE
             </Button>
           </Link>

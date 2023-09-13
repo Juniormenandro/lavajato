@@ -92,6 +92,26 @@ export default function App() {
   <>
   <Header />
     <div className=' text-center ' >
+    <div className='bg-white m-5 rounded-xl ' >
+        <h1 className= ' bg-blue-500 text-white text-2xl rounded-t-xl pb-1'>Selecionar Datas</h1>
+        <div className='flex justify-center'>
+          <label className='m-3 flex-1 flex justify-center' >
+            <div>
+              <h2 className='text-white'>Início:</h2>
+              <DatePicker className=' border-2 w-28 rounded-xl pl-2' selected={startDate} onChange={(date) => setStartDate(date || new Date())} dateFormat="yyyy-MM-dd" />
+            </div>
+          </label>
+          <label className='m-3 flex-1 flex justify-center'>
+            <div>
+              <h2 className='text-white'>Término:</h2>
+              <DatePicker className='border-2 w-28 rounded-xl pl-2' selected={endDate} onChange={(date) => setEndDate(date || new Date())} dateFormat="yyyy-MM-dd" />
+            </div>
+          </label>
+        </div>
+        <div className='p-5'>
+
+        </div>
+      </div>
       <div className='m-5 '>
           <h3 className='bg-blue-500 text-white text-2xl rounded-t-xl pb-1'>Receita</h3>
           <table className=' w-full' border={1}>
@@ -122,26 +142,6 @@ export default function App() {
             <p className=' bg-white pb-3 rounded-b-xl'></p>
           </div>
         </div>
-      <div className='bg-white m-5 rounded-xl ' >
-        <h1 className= ' bg-blue-500 text-white text-2xl rounded-t-xl pb-1'>Selecionar Datas</h1>
-        <div className='flex justify-center'>
-          <label className='m-3 flex-1 flex justify-center' >
-            <div>
-              <h2 className='text-white'>Início:</h2>
-              <DatePicker className=' border-2 w-28 rounded-xl pl-2' selected={startDate} onChange={(date) => setStartDate(date || new Date())} dateFormat="yyyy-MM-dd" />
-            </div>
-          </label>
-          <label className='m-3 flex-1 flex justify-center'>
-            <div>
-              <h2 className='text-white'>Término:</h2>
-              <DatePicker className='border-2 w-28 rounded-xl pl-2' selected={endDate} onChange={(date) => setEndDate(date || new Date())} dateFormat="yyyy-MM-dd" />
-            </div>
-          </label>
-        </div>
-        <div className='p-5'>
-
-        </div>
-      </div>
     </div>
     <div className='h-96'></div>
     <div className='h-96'></div>

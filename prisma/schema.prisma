@@ -60,13 +60,11 @@ model clientes {
 
 model despesas {
   id     String   @id @default(auto()) @map("_id") @db.ObjectId
-  v      Int      @map("__v")
   data   DateTime @db.Date
   nome   String
   preco  Int?
   recibo String?
-  tipo   String
-  valor  Int?
+
 }
 
 model faturamentodiarios {
