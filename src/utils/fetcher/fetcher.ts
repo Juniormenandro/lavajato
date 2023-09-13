@@ -23,7 +23,7 @@ export const fetcher = async <T>(
   if(endDate) urlWithParams.searchParams.append('endDate', endDate);
 
   const response = await fetch(urlWithParams.toString(), combinedInit);
-  console.log("Request Headers:", combinedInit.headers);  // Verifique os headers aqui
+  //console.log("Request Headers:", combinedInit.headers);  // Verifique os headers aqui
 
   if (!response.ok) {
     const errorMessage = await response.text();

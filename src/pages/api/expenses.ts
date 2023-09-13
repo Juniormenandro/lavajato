@@ -19,17 +19,28 @@ async function calculateWeeklyAndMonthlyRevenue(req: NextApiRequest, res: NextAp
 
   
 
-    const monthlyRevenue = await prisma.despesas.findMany({
-        where: {
-            data: {
-              gte: startDateTime,
-              lte: endDateTime,
-            },
-          },
+    const totalRevenue = await prisma.despesas.aggregate({
+      _sum: {
+        preco: true,
+      },
+      where: {
+        data: {
+          gte: startDateTime,
+          lte: endDateTime,
+        },
+      },
     });
-
- 
-    res.status(200).json( monthlyRevenue );
+    
+    const detailedData = await prisma.despesas.findMany({
+      where: {
+        data: {
+          gte: startDateTime,
+          lte: endDateTime,
+        },
+      },
+    });
+    
+    res.status(200).json({ totalRevenue, detailedData });
   } catch (error) {
     console.error('Erro ao calcular o faturamento:', error);
     res.status(500).json({ error: 'Erro interno do servidor' });

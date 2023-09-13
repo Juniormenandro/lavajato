@@ -2,8 +2,6 @@
 "use client";
 import { useState, useEffect } from 'react';
 import Header from '../header';
-import Link from 'next/link';
-import Button from '@/components/Button/Button';
 import { useRouter } from "next/navigation";
 
 
@@ -77,13 +75,6 @@ export default function Home() {
   return (
     <>
     <Header />
-    <div className='ml-20 mr-20'>
-        <Link  href="/expenses" >
-          <Button type={"button"} isLoading={false}  variant={"relevante"}>
-            BACK EXPENSES
-          </Button>
-        </Link>
-      </div>
     <div style={{
       maxWidth: "80rem",
       minHeight: "100vh",

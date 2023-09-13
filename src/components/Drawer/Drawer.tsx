@@ -60,7 +60,7 @@ const Drawer: React.FC = () => {
               href="/login" 
               onClick={handleLogout}
             >
-              <Button type={"button"} isLoading={false} variant={"danger"}>
+              <Button type={"button"} isLoading={false} >
               LOGOUT
               </Button>
             </Link>
@@ -91,14 +91,35 @@ const Drawer: React.FC = () => {
           </div>
 
           <div className="flex ">
+            <Link
+            style={{ minWidth: "50%", textAlign: "center" }}
+            href="/netrevenue"
+            onClick={toggleDrawer}
+          >
+             <Button type={"button"} isLoading={false} variant={"relevante"} >
+              NET-REV
+            </Button>
+          </Link>
           <Link
             style={{ minWidth: "50%", textAlign: "center" }}
             href="/revenue"
             onClick={toggleDrawer}
           >
-             <Button type={"button"} isLoading={false} variant={"relevante"} >
+             <Button type={"button"} isLoading={false}  >
              REVENUE
             </Button>
+          </Link>
+          </div>
+
+          <div className="flex ">
+          <Link
+            style={{ minWidth: "50%", textAlign: "center" }}
+            href="/upload"
+            onClick={toggleDrawer}
+          >
+             <Button type={"button"} isLoading={false} variant={"relevante"} >
+               ADD-EXP
+             </Button>
           </Link>
           <Link
             style={{ minWidth: "50%", textAlign: "center" }}
@@ -110,6 +131,8 @@ const Drawer: React.FC = () => {
             </Button>
           </Link>
           </div>
+
+
 
           
           <Link
@@ -137,7 +160,7 @@ const Drawer: React.FC = () => {
             className="flex items-center  cursor-pointer w-full mb-5 "
             onClick={toggleDrawer}
           >
-            <Button type={"button"} isLoading={false} variant={"relevante"} >
+            <Button type={"button"} isLoading={false} variant={"danger"} >
             <span className="p-2 rounded-lg">FORM</span>
             </Button>
           </Link>

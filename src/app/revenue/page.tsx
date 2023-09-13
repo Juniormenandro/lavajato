@@ -1,7 +1,6 @@
 
 "use client";
 import React, { useEffect, useState } from 'react';
-
 import useSWR, { mutate } from 'swr';
 import { useRouter } from "next/navigation";
 import Header from '../header';
@@ -55,8 +54,6 @@ export default function App() {
   
     useEffect(() => {
       const userToken = localStorage.getItem('token');
-      console.log("User Token:", userToken);  // Adicione esta linha para verificar o token
-
       if (!userToken) {
         alert('O usuário não está logado!');
         router.push("/login");
