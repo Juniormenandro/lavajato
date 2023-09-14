@@ -178,11 +178,11 @@ export default function Page() {
     <>
     <Header />
       <div className='flex justify-center ' >
-        <div className='text-3xl text-center bg-white p-2 rounded-2xl'>
+        <div className='text-2xl text-center bg-white p-2 rounded-2xl'>
           <h1>CUSTOMERS</h1>
         </div>
         <div>
-        <button className=' p-2 mt-1 ml-10  text-2xl bg-blue-500 text-white rounded-lg'
+        <button className=' p-2 mt-1 ml-10  text-1xl bg-blue-500 text-white rounded-lg'
           onClick={() => setShowReturned(!showReturned)} type={'button'} >
           {showReturned ? 'back. ' : 'Servicos'}
         </button>
@@ -206,10 +206,10 @@ export default function Page() {
             
             {client.servicos && client.servicos.map(servico => (
               <React.Fragment key={servico.id}>
-                <div key={servico.id} className="flex justify-center text-center bg-white border-t-4  ml-3 mr-3 p-2 ">
+                <div key={servico.id} className="flex  text-center bg-white ml-3 mr-3 p-2 ">
                   <div className='flex-1 flex justify-center w-1/2'>
                     <div className=' w-full'>
-                      <h2 className=' text-[16px] border'>{servico.selectedProductNane}</h2>
+                      <h2 className=' text-[17px] pb-[1px] border'>{servico.selectedProductNane}</h2>
                       <h2 className=' text-[18px] border'>{servico.rawPrice ? (Number(servico.rawPrice) / 100).toFixed(2) : "0.00"} €</h2>
                       <h2 className=' text-[18px] border'>{servico.selectedPayment}</h2>
                     </div>

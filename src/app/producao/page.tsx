@@ -129,14 +129,14 @@ useEffect(() => {
       <ul>
         {clientes && clientes?.map(client => (
           <li key={client.id} >
-            <div className="flex bg-blue-500 mt-5 ml-3 mr-3 p-2 rounded-t-xl" >
+            <div className="flex bg-white mt-5 ml-3 mr-3 p-2 rounded-t-xl" >
               <div className='flex-1 justify-center text-center'>
-                <h1 className="text-white text-2xl">
+                <h1 className="text-[22px] font-semibold">
                   {client.nome}
                 </h1>
               </div>
               <div className=' flex-1 justify-center text-center'>
-                <h1 className="text-xl font-semibold text-white">
+                <h1 className="text-[23px] font-semibold">
                   {client.telefone}
                 </h1>
               </div>
@@ -146,16 +146,16 @@ useEffect(() => {
               <div key={servico.id} className="flex bg-white ml-3 mr-3 p-2 text-center ">
                 <div className='flex-1 justify-center w-1/2 '>
                   <div className=' w-full'>
-                    <h2 className=' text-1xl border '>{servico.selectedProductNane}</h2>
-                    <h2 className=' text-1xl border '>{servico.selectedProdutPrice}</h2>
-                    <h2 className=' text-1xl border '>{servico.selectedPayment}</h2>
+                    <h2 className=' text-[17px] pb-[1px] border '>{servico.selectedProductNane}</h2>
+                    <h2 className=' text-[18px] border '>{servico.selectedProdutPrice}</h2>
+                    <h2 className=' text-[18px] border '>{servico.selectedPayment}</h2>
                   </div>
                 </div>
                 <div className='flex-1 justify-center'>
                   <div className=' w-full'>
-                    <h2 className=' text-1xl border '>{servico.selectedTime}</h2>
-                    <h2 className=' text-1xl border '>{servico.carro}</h2>
-                    <h2 className=' text-1xl border '>{servico.selectedColor}</h2>
+                    <h2 className=' text-[18px] border '>{servico.selectedTime}</h2>
+                    <h2 className=' text-[18px] border '>{servico.carro}</h2>
+                    <h2 className=' text-[18px] border '>{servico.selectedColor}</h2>
                   </div>
                 </div>
               </div>
