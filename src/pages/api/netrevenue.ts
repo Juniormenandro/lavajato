@@ -81,7 +81,7 @@ async function getWeeklyAndMonthlyExpense(startDateTime: Date, endDateTime: Date
   });
 
   return {
-    totalRevenue: response._sum
+    totalRevenue: response._sum 
   };
 }
 

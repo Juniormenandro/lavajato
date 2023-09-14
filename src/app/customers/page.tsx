@@ -191,14 +191,14 @@ export default function Page() {
       <ul>
         {clientes?.map(client => (
           <li key={client.id} >
-            <div className="flex justify-center text-center bg-blue-500 mt-5 ml-3 mr-3 rounded-t-2xl"  >
-              <div className=' flex-1 justify-center p-1'>
-                <h1 className="text-white text-[21px]">
+            <div className="flex justify-center text-center bg-white mt-5 ml-3 mr-3 rounded-t-2xl"  >
+              <div className=' flex-1 justify-center'>
+                <h1 className="text-[22px] font-semibold">
                   {client.nome}
                 </h1>
               </div>
-              <div className=' flex-1 justify-center p-1 mt-1'>
-                <h1 className="text-xl font-semibold text-white ">
+              <div className=' flex-1 justify-center'>
+                <h1 className="text-[23px] font-semibold ">
                   {client.telefone}
                 </h1>
               </div>
@@ -206,28 +206,28 @@ export default function Page() {
             
             {client.servicos && client.servicos.map(servico => (
               <React.Fragment key={servico.id}>
-                <div key={servico.id} className="flex justify-center text-center bg-white border-t-8 border-blue-500 ml-3 mr-3 p-2 ">
+                <div key={servico.id} className="flex justify-center text-center bg-white border-t-4  ml-3 mr-3 p-2 ">
                   <div className='flex-1 flex justify-center w-1/2'>
                     <div className=' w-full'>
-                      <h2 className=' text-1xl border'>{servico.selectedProductNane}</h2>
-                      <h2 className=' text-1xl border'>{servico.rawPrice ? (Number(servico.rawPrice) / 100).toFixed(2) : "0.00"} €</h2>
-                      <h2 className=' text-1xl border'>{servico.selectedPayment}</h2>
+                      <h2 className=' text-[16px] border'>{servico.selectedProductNane}</h2>
+                      <h2 className=' text-[18px] border'>{servico.rawPrice ? (Number(servico.rawPrice) / 100).toFixed(2) : "0.00"} €</h2>
+                      <h2 className=' text-[18px] border'>{servico.selectedPayment}</h2>
                     </div>
                   </div>
                   <div className='flex-1 flex justify-center w-1/2'>
                     <div className=' w-full'>
-                      <h2 className=' text-1xl border'>
+                      <h2 className=' text-[18px] border'>
                       {servico.data && typeof servico.data === 'string' 
                         ? new Date(servico.data).toLocaleDateString('pt-BR') 
                         : 'Data não definida'}
                       </h2>
-                      <h2 className=' text-1xl border w-full'>{servico.carro}</h2>
-                      <h2 className=' text-1xl border w-full'>{servico.selectedColor}</h2>
+                      <h2 className=' text-[18px] border w-full'>{servico.carro}</h2>
+                      <h2 className=' text-[18px] border w-full'>{servico.selectedColor}</h2>
                     </div>
                   </div>
                 </div>
 
-                <div className=' bg-white text-white text-center ml-3 mr-3 p-1 rounded-b-3xl' >
+                <div className=' bg-white text-white text-center ml-3 mr-3 rounded-b-2xl' >
                   <input 
                     className=" w-20 text-black p-1 rounded-2xl border border-gray-400" 
                     type="text" 
@@ -236,7 +236,7 @@ export default function Page() {
                     placeholder="Price" 
                   />
                   <button 
-                    className=' bg-blue-500 p-1 rounded-2xl m-2'
+                    className=' bg-blue-500 p-1 rounded-2xl m-1'
                     disabled={!!loadingState[servico.id]} 
                     onClick={() => handleUpdate(servico.id) }>
                       {loadingState[servico.id] ? 'Carregando...' : 'Update'}
@@ -249,16 +249,16 @@ export default function Page() {
               <div key={book.id} className='flex justify-center text-center bg-white border-t-8 border-blue-500 ml-3 mr-3 p-2 '>
                 <div className='flex-1 flex justify-center w-1/2 '>
                   <div className=' w-full'>
-                    <h2 className=' text-1xl border '>DAY: {book.selectedDate}</h2>
-                    <h2 className=' text-1xl border '>WEEK: {book.selectedDayOfWeek}</h2>
-                    <h2 className=' text-1xl border '>MONTH: {book.selectedMonth}</h2>
+                    <h2 className=' text-[18px] border '>DAY: {book.selectedDate}</h2>
+                    <h2 className=' text-[18px] border '>WEEK: {book.selectedDayOfWeek}</h2>
+                    <h2 className=' text-[18px] border '>MONTH: {book.selectedMonth}</h2>
                   </div> 
                 </div>
                 <div className='flex-1 flex justify-center'>
                   <div className=' w-full'>
-                    <h2 className=' text-1xl border  '>TIME: {book.selectedTime}</h2>
-                    <h2 className=' text-1xl border  '>PRICE: {book.selectedProductDefaultPrice} €</h2>
-                    <h2 className=' text-1xl border  '>YEAR: {book.selectedYear}</h2>
+                    <h2 className=' text-[18px] border  '>TIME: {book.selectedTime}</h2>
+                    <h2 className=' text-[18px] border  '>PRICE: {book.selectedProductDefaultPrice} €</h2>
+                    <h2 className=' text-[18px] border  '>YEAR: {book.selectedYear}</h2>
                   </div>
                 </div>
               </div>

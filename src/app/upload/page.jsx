@@ -76,13 +76,12 @@ export default function Home() {
     <>
     <Header />
     <div style={{
-      maxWidth: "80rem",
+      width:"100%",
       minHeight: "100vh",
       padding:"2rem",
     }}>
       <main style={{
         alignItems: "center",
-        textAlign: "center",
         backgroundColor:"white",
         borderRadius:"20px"
       }}>
@@ -93,6 +92,7 @@ export default function Home() {
           backgroundColor:"blueviolet",
           borderTopLeftRadius:"20px",
           borderTopRightRadius:"20px",
+          textAlign: "center",
           padding:"1%",
           color:"white"
         }}>
