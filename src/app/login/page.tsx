@@ -92,9 +92,9 @@ const SignIn: NextPage = () => {
         </form>
 
         <p className="mt-4 text-center">
-          {"Don't have an account?"}{" "}
-          <Link href="/signup" className="text-blue-500 hover:text-blue-700">
-            Sign Up
+          {"Don't have an account?"}{""}
+          <Link href="/" className="text-blue-500 hover:text-blue-700">
+           /signup
           </Link>
         </p>
       </div>
