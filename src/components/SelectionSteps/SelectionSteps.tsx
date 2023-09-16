@@ -60,7 +60,7 @@ const availableColorSlots = [
   "red",
   "green",
   "yellow",
-  "outros",
+  "OTHERS"
 ];
 
 

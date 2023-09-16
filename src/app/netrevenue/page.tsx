@@ -81,8 +81,10 @@ export default function NetRevenue() {
     <>
     <Header />
     <div className='text-center'>
+      <div className='text-2xl text-center mr-5 ml-5 font-semibold bg-white p-2 rounded-2xl'>
+        <h1>NET REVENUE</h1>
+      </div>
     <div className=' m-5 rounded-xl border-black border-spacing-2 ' >
-      
       <div className='flex justify-center'>
         <label className='flex-1 flex justify-center' >
           <div 
@@ -118,7 +120,7 @@ export default function NetRevenue() {
       </div>
     </div>
         <div className='bg-white m-5 rounded-xl ' >
-            <h1 className= ' bg-blue-500 text-white text-2xl rounded-t-xl pb-1'>total balance</h1>
+            <h1 className= ' bg-white text-2xl border-b-2 rounded-t-xl pb-1'>total balance</h1>
             <div className='flex justify-center'>
                 { netProfitData && netProfitData.netProfit && (
                     <div>

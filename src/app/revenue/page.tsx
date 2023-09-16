@@ -91,6 +91,9 @@ export default function App() {
   <>
   <Header />
     <div className=' text-center ' >
+      <div className='text-2xl text-center mr-5 ml-5 font-semibold bg-white p-2 rounded-2xl'>
+        <h1>REVENUE</h1>
+      </div>
       <div className=' m-5 rounded-xl border-black border-spacing-2 ' >
         <div className='flex justify-center'>
           <label className='flex-1 flex justify-center' >
@@ -127,7 +130,7 @@ export default function App() {
         </div>
       </div>
       <div className='m-5 '>
-          <h3 className='bg-blue-500 text-white text-2xl rounded-t-xl pb-1'>Receita</h3>
+          <h3 className='bg-white border-b-2 text-2xl rounded-t-xl pb-1'>Receita</h3>
           <table className=' w-full' border={1}>
             <tbody className=''>
               {RevenueData?.monthlyRevenue.map((item: { selectedProductNane: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; selectedPayment: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; _sum: { rawPrice: number; }; }, index: React.Key | null | undefined) => (
@@ -144,11 +147,11 @@ export default function App() {
               ))}
             </tbody>
           </table>
-          <p className=' bg-white pb-3 rounded-b-xl'></p>
+          <p className=' bg-white  pb-3 rounded-b-xl'></p>
         </div>
         <div className='m-5'>
           <div>
-            <h4 className='bg-blue-500 text-white text-2xl rounded-t-xl pb-1'>Receita Total</h4>
+            <h4 className='bg-white border-b-2 text-2xl rounded-t-xl pb-1'>Receita Total</h4>
             {RevenueData?.totalMonthlyRevenue.map((item: { selectedPayment: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; _sum: { rawPrice: number; }; }, index: React.Key | null | undefined) => (
             <p className='bg-white pb-2 border-b-2' key={index}>{item.selectedPayment}: {(item._sum.rawPrice / 100).toFixed(2)}€
             </p>

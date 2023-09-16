@@ -93,6 +93,9 @@ export default function App() {
   <>
   <Header />
     <div className=' text-center  ' >
+      <div className='text-2xl text-center mr-5 ml-5 mb-5 font-semibold bg-white p-2 rounded-2xl'>
+        <h1>EXPENSE</h1>
+      </div>
     <div className=' m-5 rounded-xl border-black border-spacing-2 ' >
       
       <div className='flex justify-center'>
@@ -131,14 +134,14 @@ export default function App() {
     </div>
       <div className='m-5'>
         <div>
-          <h4 className='bg-blue-500 text-white text-2xl rounded-t-xl pb-1'>Total Expenses</h4>
+          <h4 className='bg-white border-b-2 text-2xl rounded-t-xl pb-1'>Total Expenses</h4>
             <p className='bg-white pb-3 rounded-b-xl'>
               {formatEuro(RevenueData?.totalRevenue?._sum?.preco ?? null)}
             </p>
         </div>
       </div>    
       <div className='m-5 '>
-        <h3 className='bg-blue-500 text-white text-2xl rounded-t-xl pb-1'>EXPENSES</h3>
+        <h3 className='bg-white border-b-2 text-2xl rounded-t-xl pb-1'>EXPENSES</h3>
         <table className=' w-full' border={1}>
           <tbody>
             {RevenueData?.detailedData && RevenueData.detailedData.map((item) => (

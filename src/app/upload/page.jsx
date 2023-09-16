@@ -80,28 +80,20 @@ export default function Home() {
       minHeight: "100vh",
       padding:"2rem",
     }}>
+
+      <div className='text-2xl text-center mr-5 ml-5 mb-5 font-semibold bg-white p-2 rounded-2xl'>
+        <h1>CHARGE-EXPENSE</h1>
+      </div>
       <main style={{
         alignItems: "center",
         backgroundColor:"white",
         borderRadius:"20px"
       }}>
-        <h1 style={{
-          margin: "0",
-          height:"auto",
-          fontSize: "2rem",
-          backgroundColor:"blueviolet",
-          borderTopLeftRadius:"20px",
-          borderTopRightRadius:"20px",
-          textAlign: "center",
-          padding:"1%",
-          color:"white"
-        }}>
-          add expenses
-        </h1>
-
+        
+        
         <form style={{
           borderRadius: ".5em",
-          padding:"4%"
+          padding:"5%"
         }} method="post"  onSubmit={handleOnSubmit}>
 
           <p style={{
