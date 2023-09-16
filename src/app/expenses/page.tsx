@@ -64,7 +64,9 @@ export default function App() {
   
   const isLoading = !RevenueData && !isError;
   
-
+  const [isStartDatePickerFocused, setIsStartDatePickerFocused] = React.useState(false);
+  const [isEndDatePickerFocused, setIsEndDatePickerFocused] = React.useState(false);
+  
 
   useEffect(() => {
     if (isError) {
@@ -91,23 +93,42 @@ export default function App() {
   <>
   <Header />
     <div className=' text-center  ' >
-      <div className='bg-white m-5 rounded-xl ' >
-        <h1 className= ' bg-blue-500 text-white text-2xl rounded-t-xl pb-1'>Select Date</h1>
-        <div className='flex justify-center'>
-          <label className='m-3 flex-1 flex justify-center' >
-            <div>
-              <h2 className='text-white'>Início:</h2>
-              <DatePicker className=' border-2 w-28 rounded-xl pl-2' selected={startDate} onChange={(date) => setStartDate(date || new Date())} dateFormat="yyyy-MM-dd" />
-            </div>
-          </label>
-          <label className='m-3 flex-1 flex justify-center'>
-            <div>
-              <h2 className='text-white'>Término:</h2>
-              <DatePicker className='border-2 w-28 rounded-xl pl-2' selected={endDate} onChange={(date) => setEndDate(date || new Date())} dateFormat="yyyy-MM-dd" />
-            </div>
-          </label>
-        </div>
+    <div className=' m-5 rounded-xl border-black border-spacing-2 ' >
+      
+      <div className='flex justify-center'>
+        <label className='flex-1 flex justify-center' >
+          <div 
+            className={` rounded-xl bg-white  -z-10 ${isStartDatePickerFocused ? 'z-500' : ''}`} 
+            >
+            <h1 className='bg-blue-500 text-white rounded-xl mt-4 m-2'> Start-Date</h1> 
+          <DatePicker 
+            className='border-2 w-28 rounded-xl pl-2 m-2'
+            selected={startDate} 
+            onChange={(date) => setStartDate(date || new Date())} 
+            dateFormat="yyyy-MM-dd" 
+            onFocus={() => setIsStartDatePickerFocused(true)}
+            onBlur={() => setIsStartDatePickerFocused(false)}
+          />
+          </div>
+        </label>
+        <label className=' flex-1 flex justify-center'>
+          <div 
+           className={` rounded-xl bg-white  -z-10 ${isEndDatePickerFocused ? 'z-500' : ''}`} 
+
+          >
+          <h1 className='bg-blue-500 text-white rounded-xl mt-4 m-2'> End-Date</h1>
+            <DatePicker 
+              className='border-2 w-28 rounded-xl pl-2 m-2'
+              selected={endDate} 
+              onChange={(date) => setEndDate(date || new Date())} 
+              dateFormat="yyyy-MM-dd" 
+              onFocus={() => setIsEndDatePickerFocused(true)}
+              onBlur={() => setIsEndDatePickerFocused(false)}
+            />
+          </div>
+        </label>
       </div>
+    </div>
       <div className='m-5'>
         <div>
           <h4 className='bg-blue-500 text-white text-2xl rounded-t-xl pb-1'>Total Expenses</h4>

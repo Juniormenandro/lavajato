@@ -18,10 +18,9 @@ const Drawer: React.FC = () => {
 
 
   return (
-    <>
-    
-      <button
-      className="bg-blue-400 m-3 rounded-lg"
+  <>
+    <button
+      className="bg-blue-400 m-3  rounded-lg"
       onClick={toggleDrawer}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -33,141 +32,109 @@ const Drawer: React.FC = () => {
           <path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path>
         </svg>
       </button>
-      <AppDrawer open={isOpen} onClose={toggleDrawer} direction="left">
-      <div className="flex flex-col gap-4 pl-5 pr-5">
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
-            fill="#000000"
-            viewBox="0 0 256 256"
-            className=""
-        >
-        </svg>
-
-          <div className="flex ">
-            <Link
-              style={{ minWidth: "50%", textAlign: "center" }}
-              href="/login"
-              onClick={toggleDrawer}
-            >
-              <Button type={"button"} isLoading={false} variant={"relevante"}>
-              LOGIN
-              </Button>
-            </Link>
-            <Link
-            style={{ minWidth: "50%", textAlign: "center" }}
-              href="/login" 
-              onClick={handleLogout}
-            >
+      
+    <AppDrawer open={isOpen} onClose={toggleDrawer} direction="left" style={{zIndex: 9999, backgroundColor:"paleturquoise"}} >
+      
+      <div className="flex flex-col gap-3 pl-5 pr-5 drawerhome">
+          <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="25"
+              fill="#000000"
+              viewBox="0 0 256 256"
+          >
+          </svg>
+          <div className="flex justify-center text-center">
+            <Link className="flex-1 mr-1 justify-center" href="/login"  onClick={toggleDrawer} >
               <Button type={"button"} isLoading={false} >
-              LOGOUT
+                <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+                  LOGIN
+                </h1>
+              </Button>
+            </Link>
+
+            <Link className="flex-1 ml-1 justify-center" href="/login"  onClick={handleLogout} >
+              <Button type={"button"} isLoading={false} >
+                <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+                  LOGOUT
+                </h1>
               </Button>
             </Link>
           </div>
-
-          <div className="flex ">
-          <Link
-            style={{ minWidth: "50%", textAlign: "center" }}
-            className=" mt-14  "
-            href="/oldClients"
-            onClick={toggleDrawer}
-          >
-            <Button type={"button"} isLoading={false} variant={"relevante"} >
-            OLD-CUST
+          <Link className="mt-10" href="/oldClients" onClick={toggleDrawer}>
+            <Button type={"button"} isLoading={false}  >
+              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+                OLD-CUSTOMERS
+              </h1>
             </Button>
           </Link>
 
-          <Link
-            style={{ minWidth: "50%", textAlign: "center" }}
-            className=" mt-14  "
-            href="/booking"
-            onClick={toggleDrawer}
-          >
+          <Link href="/booking" onClick={toggleDrawer}>
             <Button type={"button"} isLoading={false} >
-            BOOKING
+              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+                BOOKING
+              </h1>
             </Button>
           </Link>
-          </div>
+        
+          <Link href="/netrevenue" onClick={toggleDrawer}>
+            <Button type={"button"} isLoading={false}  >
+              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+                NET-REVENUE
+              </h1>
+            </Button>
+          </Link>
 
-          <div className="flex ">
-            <Link
-            style={{ minWidth: "50%", textAlign: "center" }}
-            href="/netrevenue"
-            onClick={toggleDrawer}
-          >
-             <Button type={"button"} isLoading={false} variant={"relevante"} >
-              NET-REV
-            </Button>
-          </Link>
-          <Link
-            style={{ minWidth: "50%", textAlign: "center" }}
-            href="/revenue"
-            onClick={toggleDrawer}
-          >
+          <Link  href="/revenue"  onClick={toggleDrawer}  >
              <Button type={"button"} isLoading={false}  >
-             REVENUE
+              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+                REVENUE
+              </h1>
+ 
             </Button>
           </Link>
-          </div>
-
-          <div className="flex ">
-          <Link
-            style={{ minWidth: "50%", textAlign: "center" }}
-            href="/upload"
-            onClick={toggleDrawer}
-          >
-             <Button type={"button"} isLoading={false} variant={"relevante"} >
-               ADD-EXP
+       
+          <Link href="/upload"
+            onClick={toggleDrawer} >
+             <Button type={"button"} isLoading={false}  >
+              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+                ADD-EXPENSES
+              </h1>
              </Button>
           </Link>
-          <Link
-            style={{ minWidth: "50%", textAlign: "center" }}
-            href="/expenses"
-            onClick={toggleDrawer}
-          >
+
+          <Link href="/expenses" onClick={toggleDrawer} >
+            <Button type={"button"} isLoading={false} >
+              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+                EXPENSES
+              </h1>
+            </Button>
+          </Link>
+
+          <Link href="/customers" onClick={toggleDrawer}>
+            <Button type={"button"} isLoading={false} >
+              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+                CUSTOMERS
+              </h1>
+            </Button>
+          </Link>
+
+          <Link className="mt-10"  href="/producao" onClick={toggleDrawer} >
              <Button type={"button"} isLoading={false} >
-             EXPENSES
-            </Button>
-          </Link>
-          </div>
-
-
-
-          
-          <Link
-            href="/customers"
-            className=" mt-14 "
-            onClick={toggleDrawer}
-          >
-             <Button type={"button"} isLoading={false}>
-             CUSTOMERS
-            </Button>
-           
-          </Link>
-
-          <Link
-            href="/producao"
-            onClick={toggleDrawer}
-          >
-             <Button type={"button"} isLoading={false} >
-             PRODUCTION
+              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+                PRODUCTION
+              </h1>
             </Button>
           </Link>
 
-          <Link
-            href="/"
-            className="flex items-center  cursor-pointer w-full mb-5 "
-            onClick={toggleDrawer}
-          >
+          <Link href="/" className="flex items-center  cursor-pointer w-full mb-5 " onClick={toggleDrawer} >
             <Button type={"button"} isLoading={false} variant={"danger"} >
-            <span className="p-2 rounded-lg">FORM</span>
+              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">FORM</h1>
             </Button>
           </Link>
       </div>
-      </AppDrawer>
-      
-    </>
+    </AppDrawer>
+  </>
   );
 };
 
