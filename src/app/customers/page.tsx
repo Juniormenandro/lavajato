@@ -53,6 +53,9 @@ export default function Page() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [showReturned, setShowReturned] = useState(false);
   const router = useRouter();
+  const [isStartDatePickerFocused, setIsStartDatePickerFocused] = React.useState(false);
+  const [isEndDatePickerFocused, setIsEndDatePickerFocused] = React.useState(false);
+  
   
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -184,13 +187,31 @@ export default function Page() {
           <h1>CUSTOMERS</h1>
         </div>
         <div>
-        <button className=' p-2 mt-1 ml-10  text-1xl bg-blue-500 text-white rounded-lg'
+        <button className=' p-2 mt-1 ml-10  text-1xl bg-cyan-50 text-blue-500 border-2 border-blue-500 font-semibold rounded-lg'
           onClick={() => setShowReturned(!showReturned)} type={'button'} >
           {showReturned ? 'back. ' : 'Servicos'}
         </button>
         </div>
       </div>
-      
+      <div className="flex justify-center text-center">
+          <Link className="mt-10 mr-2 -z-1" href="/oldClients" >
+            <button type={"button"}  >
+              <h1 className=" p-3 bg-cyan-50 border-2 border-blue-500 font-semibold text-blue-500 rounded-lg">
+                OLD-CUSTOMERS
+              </h1>
+            </button>
+          </Link>
+
+          <Link className="mt-10 -z-1" href="/booking" >
+            <button type={"button"} >
+              <h1 className=" p-3 bg-cyan-50 border-2 border-blue-500 font-semibold text-blue-500 rounded-lg">
+                BOOKING
+              </h1>
+            </button>
+          </Link>
+
+          
+          </div>
       <ul>
         {clientes?.map(client => (
           <li key={client.id} >
