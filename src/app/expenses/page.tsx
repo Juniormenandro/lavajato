@@ -10,6 +10,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Image from 'next/image';
 import Spinner from "@/components/Spinner/Spinner";
 import { fetcher } from '@/utils/fetcher/fetcher';
+import Link from 'next/link';
 
 
 interface RevenueData {
@@ -96,6 +97,20 @@ export default function App() {
       <div className='text-2xl text-center mr-5 ml-5 mb-5 font-semibold bg-white p-2 rounded-2xl'>
         <h1>EXPENSE</h1>
       </div>
+      <Link className="mt-10 mr-2 -z-1" href="/netrevenue" >
+          <button type={"button"}  >
+            <h1 className=" p-1 bg-white border-4 border-blue-500 font-semibold text-blue-500 rounded-lg">
+             NET-REVENUE
+            </h1>
+          </button>
+        </Link>
+        <Link className="mt-10 -z-1" href="/expenses" >
+          <button type={"button"} >
+            <h1 className=" p-1 bg-white border-4 border-blue-500 font-semibold text-blue-500 rounded-lg">
+              EXPENSES
+            </h1>
+          </button>
+        </Link>
     <div className=' m-5 rounded-xl border-black border-spacing-2 ' >
       
       <div className='flex justify-center'>

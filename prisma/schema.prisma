@@ -84,10 +84,10 @@ model registrohoras {
 
 
 model User {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  email      String    @unique
-  name       String?
-  password   String?
- 
-  active     Boolean?
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  email    String   @unique
+  name     String?
+  password String?
+  role     String   @default("USER")
+  active   Boolean?
 }

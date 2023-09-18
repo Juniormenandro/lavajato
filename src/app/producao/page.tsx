@@ -125,7 +125,7 @@ useEffect(() => {
   return (
     <>
       <Header />
-      <h1 className=' text-center p-2 text-3xl border bg-white m-3 rounded-2xl '>  PRODUTION</h1>
+      <h1 className=' text-center p-2 text-3xl border bg-white m-3 font-semibold rounded-2xl '>  PRODUTION</h1>
       <ul>
         {clientes && clientes?.map(client => (
           <li key={client.id} >

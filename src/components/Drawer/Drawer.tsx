@@ -61,32 +61,17 @@ const Drawer: React.FC = () => {
               </Button>
             </Link>
           </div>
-        
-          <Link href="/netrevenue" onClick={toggleDrawer}>
-            <Button type={"button"} isLoading={false}  >
-              <h1 className=" p-1  bg-cyan-50  font-semibold text-blue-500 rounded-lg">
-                NET-REVENUE
-              </h1>
-            </Button>
-          </Link>
 
-          <Link  href="/revenue"  onClick={toggleDrawer}  >
+          <Link href="/netrevenue"
+            className="mt-10"
+            onClick={toggleDrawer} >
              <Button type={"button"} isLoading={false}  >
               <h1 className=" p-1  bg-cyan-50  font-semibold text-blue-500 rounded-lg">
-                REVENUE
+              NET-REVENUE
               </h1>
- 
-            </Button>
+             </Button>
           </Link>
-
-          <Link href="/expenses" onClick={toggleDrawer} >
-            <Button type={"button"} isLoading={false} >
-              <h1 className=" p-1  bg-cyan-50  font-semibold text-blue-500 rounded-lg">
-                EXPENSES
-              </h1>
-            </Button>
-            
-          </Link>
+          
           <Link href="/upload"
             onClick={toggleDrawer} >
              <Button type={"button"} isLoading={false}  >

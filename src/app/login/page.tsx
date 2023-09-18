@@ -97,6 +97,11 @@ const SignIn: NextPage = () => {
            /signup
           </Link>
         </p>
+        <p className="mt-4 text-center">
+          <Link href="/createadmin" className="text-red-500 hover:text-blue-700">
+           /CreateAdmin
+          </Link>
+        </p>
       </div>
       <Toaster
         position="top-center"

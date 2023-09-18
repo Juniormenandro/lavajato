@@ -8,6 +8,9 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Spinner from "@/components/Spinner/Spinner"; 
 import { fetcher } from '@/utils/fetcher/fetcher';  
+import Link from 'next/link';
+import Button from '@/components/Button/Button';
+
 
 
 interface NetProfit {
@@ -81,9 +84,24 @@ export default function NetRevenue() {
     <>
     <Header />
     <div className='text-center'>
-      <div className='text-2xl text-center mr-5 ml-5 font-semibold bg-white p-2 rounded-2xl'>
+      <div className='text-2xl text-center mb-5 mr-5 ml-5 font-semibold bg-white p-2 rounded-2xl'>
         <h1>NET REVENUE</h1>
       </div>
+      <Link className="mt-10 mr-2 -z-1" href="/revenue" >
+        <button type={"button"}  >
+          <h1 className=" p-1 bg-white border-4 border-blue-500 font-semibold text-blue-500 rounded-lg">
+            REVENUE
+          </h1>
+        </button>
+      </Link>
+      <Link className="mt-10 -z-1" href="/expenses" >
+        <button type={"button"} >
+          <h1 className=" p-1 bg-white border-4 border-blue-500 font-semibold text-blue-500 rounded-lg">
+            EXPENSES
+          </h1>
+        </button>
+      </Link>
+      
     <div className=' m-5 rounded-xl border-black border-spacing-2 ' >
       <div className='flex justify-center'>
         <label className='flex-1 flex justify-center' >
@@ -132,6 +150,7 @@ export default function NetRevenue() {
             </div>
         </div>
     </div>
+   
     <div className='h-96'></div>
     <div className='h-96'></div>
     </>
