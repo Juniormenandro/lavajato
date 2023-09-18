@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prismaClient";
 import verifyToken from "@/utils/verifyToken";
+import withAdminProtection from "@/utils/withAdminProtection";
 
 async function calculateMonthlyRevenue(req: NextApiRequest, res: NextApiResponse) {
   
@@ -50,6 +51,6 @@ async function calculateMonthlyRevenue(req: NextApiRequest, res: NextApiResponse
   }
 }
 
-export default calculateMonthlyRevenue;
+export default withAdminProtection(calculateMonthlyRevenue);
 
  

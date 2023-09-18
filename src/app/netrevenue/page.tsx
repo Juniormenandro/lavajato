@@ -89,14 +89,14 @@ export default function NetRevenue() {
       </div>
       <Link className="mt-10 mr-2 -z-1" href="/revenue" >
         <button type={"button"}  >
-          <h1 className=" p-1 bg-white border-4 border-blue-500 font-semibold text-blue-500 rounded-lg">
+         <h1 className=" p-2 bg-white border-4 border-blue-500 font-semibold text-blue-500 rounded-xl">
             REVENUE
           </h1>
         </button>
       </Link>
       <Link className="mt-10 -z-1" href="/expenses" >
         <button type={"button"} >
-          <h1 className=" p-1 bg-white border-4 border-blue-500 font-semibold text-blue-500 rounded-lg">
+          <h1 className=" p-2 bg-white border-4 border-blue-500 font-semibold text-blue-500 rounded-xl">
             EXPENSES
           </h1>
         </button>

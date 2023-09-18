@@ -1,6 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prismaClient";
 import verifyToken from "@/utils/verifyToken";
+import withAdminProtection from "@/utils/withAdminProtection";
+
+
 async function calculateNetProfit(req: NextApiRequest, res: NextApiResponse) {
   
   const token = verifyToken(req);
@@ -85,4 +88,4 @@ async function getWeeklyAndMonthlyExpense(startDateTime: Date, endDateTime: Date
   };
 }
 
-export default calculateNetProfit;
+export default withAdminProtection(calculateNetProfit);

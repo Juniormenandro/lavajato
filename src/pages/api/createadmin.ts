@@ -22,7 +22,7 @@ const createAdminHandler = async (req: NextApiRequest, res: NextApiResponse) => 
           name,
           password: hashedPassword,
           role: 'ADMIN',
-          active: true,
+          active: true, 
         },
       });
 

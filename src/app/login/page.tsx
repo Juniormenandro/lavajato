@@ -4,7 +4,6 @@ import Button from "@/components/Button/Button";
 import { NextPage } from "next";
 import { useForm } from "react-hook-form";
 import TextInput from "@/components/TextInput/TextInput";
-import GoogleIcon from "@/icons/GoogleIcon/GoogleIcon";
 import Link from "next/link";
 import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -56,7 +55,7 @@ const SignIn: NextPage = () => {
 
       setTimeout(() => {
         router.push("/");
-      }, 2000);
+      }, 1000);
     } catch (error) {
       toast.error(`An error occured`);
       console.error("An error occurred:", error);
@@ -93,13 +92,14 @@ const SignIn: NextPage = () => {
 
         <p className="mt-4 text-center">
           {"Don't have an account?"}{""}
-          <Link href="/" className="text-blue-500 hover:text-blue-700">
+          <Link href="/signup" className="text-blue-500 hover:text-blue-700">
            /signup
           </Link>
         </p>
         <p className="mt-4 text-center">
-          <Link href="/createadmin" className="text-red-500 hover:text-blue-700">
-           /CreateAdmin
+        {"Don't have admin an account?"}{""}
+          <Link href="/" className="text-blue-500 hover:text-blue-700">
+            createadmin
           </Link>
         </p>
       </div>
@@ -116,4 +116,4 @@ const SignIn: NextPage = () => {
   );
 };
 
-export default SignIn;
+export default SignIn; 

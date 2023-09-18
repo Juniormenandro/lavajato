@@ -4,12 +4,12 @@ import Button from "@/components/Button/Button";
 import { NextPage } from "next";
 import { useForm } from "react-hook-form";
 import TextInput from "@/components/TextInput/TextInput";
-import GoogleIcon from "@/icons/GoogleIcon/GoogleIcon";
 import Link from "next/link";
 import { Toaster, toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 type FormData = {
-  name: string;
+  name: string; 
   surname: string;
   email: string;
   password: string;
@@ -21,6 +21,7 @@ const SignUp: NextPage = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormData>();
+  const router = useRouter();
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -39,6 +40,7 @@ const SignUp: NextPage = () => {
       await response.json();
 
       toast.success("Successfully registered!");
+      router.push("/login");
     } catch (error) {
       toast.error(`An error occured`);
       console.log(error);
@@ -79,17 +81,7 @@ const SignUp: NextPage = () => {
             register={register}
             type="password"
           />
-          <Button
-            isLoading={false}
-            type="button"
-            className="mt-3"
-            variant="white"
-          >
-            <div className="flex items-center justify-center">
-              <GoogleIcon />
-              <span className="ml-2 text-black">Continue with Google</span>
-            </div>
-          </Button>
+          
           <Button isLoading={isSubmitting} type="submit" className="mt-3">
             Sign Up
           </Button>

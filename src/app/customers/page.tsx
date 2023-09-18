@@ -4,12 +4,10 @@ import { useState, useEffect, useMemo } from 'react';
 import Header from '../header';
 import Spinner from "@/components/Spinner/Spinner";
 import { fetcher } from '@/utils/fetcher/fetcher';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import useSWR, { mutate } from 'swr';
 import { useRouter } from "next/navigation";
 import React from 'react';
-import Button from '@/components/Button/Button';
 import Link from 'next/link';
 
 
@@ -185,7 +183,7 @@ export default function Page() {
       <div className="flex justify-center text-center">
         <Link className="mt-10 mr-2 -z-1" href="/oldClients" >
           <button type={"button"}  >
-            <h1 className=" p-1 bg-white border-4 border-blue-500 font-semibold text-blue-500 rounded-lg">
+            <h1 className=" p-2 bg-white border-4 border-blue-500 font-semibold text-blue-500 rounded-lg">
               OLD-CUSTOMERS
             </h1>
           </button>
@@ -193,13 +191,13 @@ export default function Page() {
 
         <Link className="mt-10 -z-1" href="/booking" >
           <button type={"button"} >
-            <h1 className=" p-1 bg-white border-4 border-blue-500 font-semibold text-blue-500 rounded-lg">
+            <h1 className=" p-2 bg-white border-4 border-blue-500 font-semibold text-blue-500 rounded-lg">
               BOOKING
             </h1>
           </button>
         </Link>
         <div className="mt-10 ml-2 ">
-        <button className=' p-1 bg-white border-4 text-blue-500  border-blue-500 font-semibold rounded-lg'
+        <button className=' p-2 bg-white border-4 text-blue-500  border-blue-500 font-semibold rounded-lg'
           onClick={() => setShowReturned(!showReturned)} type={'button'} >
           {showReturned ? 'back. ' : 'Servicos'}
         </button>

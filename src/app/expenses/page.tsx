@@ -97,16 +97,16 @@ export default function App() {
       <div className='text-2xl text-center mr-5 ml-5 mb-5 font-semibold bg-white p-2 rounded-2xl'>
         <h1>EXPENSE</h1>
       </div>
-      <Link className="mt-10 mr-2 -z-1" href="/netrevenue" >
+      <Link className="mt-10 mr-4 -z-1" href="/netrevenue" >
           <button type={"button"}  >
-            <h1 className=" p-1 bg-white border-4 border-blue-500 font-semibold text-blue-500 rounded-lg">
+            <h1 className=" p-2 bg-white border-4 border-blue-500 font-semibold text-blue-500 rounded-xl">
              NET-REVENUE
             </h1>
           </button>
         </Link>
         <Link className="mt-10 -z-1" href="/expenses" >
           <button type={"button"} >
-            <h1 className=" p-1 bg-white border-4 border-blue-500 font-semibold text-blue-500 rounded-lg">
+          <h1 className=" p-2 bg-white border-4 border-blue-500 font-semibold text-blue-500 rounded-xl">
               EXPENSES
             </h1>
           </button>

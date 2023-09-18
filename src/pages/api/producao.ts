@@ -1,16 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prismaClient";
-import verifyToken from "@/utils/verifyToken";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const token = verifyToken(req);
 
+const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
+ 
   try {
-
-    if (!token) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-    
     const clientes = await prisma.servicos.findMany({
       where: {
         concluido: false,
