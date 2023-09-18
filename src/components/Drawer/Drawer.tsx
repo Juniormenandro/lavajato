@@ -35,7 +35,7 @@ const Drawer: React.FC = () => {
       
     <AppDrawer open={isOpen} onClose={toggleDrawer} direction="left" style={{zIndex: 9999, backgroundColor:"paleturquoise"}} >
       
-      <div className="flex flex-col gap-3 pl-5 pr-5 drawerhome">
+      <div className="flex flex-col gap-6 pl-5 pr-5 drawerhome">
           <svg
               xmlns="http://www.w3.org/2000/svg"
               width="25"
@@ -61,9 +61,10 @@ const Drawer: React.FC = () => {
               </Button>
             </Link>
           </div>
+
           <Link className="mt-10" href="/oldClients" onClick={toggleDrawer}>
             <Button type={"button"} isLoading={false}  >
-              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+              <h1 className=" p-1 bg-cyan-50  font-semibold text-blue-500 rounded-lg">
                 OLD-CUSTOMERS
               </h1>
             </Button>
@@ -71,7 +72,7 @@ const Drawer: React.FC = () => {
 
           <Link href="/booking" onClick={toggleDrawer}>
             <Button type={"button"} isLoading={false} >
-              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+              <h1 className=" p-1  bg-cyan-50  font-semibold text-blue-500 rounded-lg">
                 BOOKING
               </h1>
             </Button>
@@ -79,7 +80,7 @@ const Drawer: React.FC = () => {
         
           <Link href="/netrevenue" onClick={toggleDrawer}>
             <Button type={"button"} isLoading={false}  >
-              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+              <h1 className=" p-1  bg-cyan-50  font-semibold text-blue-500 rounded-lg">
                 NET-REVENUE
               </h1>
             </Button>
@@ -87,7 +88,7 @@ const Drawer: React.FC = () => {
 
           <Link  href="/revenue"  onClick={toggleDrawer}  >
              <Button type={"button"} isLoading={false}  >
-              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+              <h1 className=" p-1  bg-cyan-50  font-semibold text-blue-500 rounded-lg">
                 REVENUE
               </h1>
  
@@ -96,7 +97,7 @@ const Drawer: React.FC = () => {
 
           <Link href="/expenses" onClick={toggleDrawer} >
             <Button type={"button"} isLoading={false} >
-              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+              <h1 className=" p-1  bg-cyan-50  font-semibold text-blue-500 rounded-lg">
                 EXPENSES
               </h1>
             </Button>
@@ -105,7 +106,7 @@ const Drawer: React.FC = () => {
           <Link href="/upload"
             onClick={toggleDrawer} >
              <Button type={"button"} isLoading={false}  >
-              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+              <h1 className=" p-1  bg-cyan-50  font-semibold text-blue-500 rounded-lg">
                 CHARGE-EXPENSE
               </h1>
              </Button>
@@ -113,21 +114,21 @@ const Drawer: React.FC = () => {
 
           <Link href="/customers" onClick={toggleDrawer}>
             <Button type={"button"} isLoading={false} >
-              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+              <h1 className=" p-1  bg-cyan-50  font-semibold text-blue-500 rounded-lg">
                 CUSTOMERS
               </h1>
             </Button>
           </Link>
 
-          <Link className="mt-10"  href="/producao" onClick={toggleDrawer} >
+          <Link className=" p-1 mt-10"  href="/producao" onClick={toggleDrawer} >
              <Button type={"button"} isLoading={false} >
-              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+              <h1 className=" p-1  bg-cyan-50  font-semibold text-blue-500 rounded-lg">
                 PRODUCTION
               </h1>
             </Button>
           </Link>
 
-          <Link href="/" className="flex items-center  cursor-pointer w-full mb-5 " onClick={toggleDrawer} >
+          <Link href="/" className=" p-1 flex items-center  cursor-pointer w-full mb-5 " onClick={toggleDrawer} >
             <Button type={"button"} isLoading={false} variant={"danger"} >
               <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">FORM</h1>
             </Button>
