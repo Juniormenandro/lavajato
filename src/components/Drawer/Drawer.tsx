@@ -35,7 +35,7 @@ const Drawer: React.FC = () => {
       
     <AppDrawer open={isOpen} onClose={toggleDrawer} direction="left" style={{zIndex: 9999, backgroundColor:"paleturquoise"}} >
       
-      <div className="flex flex-col gap-6 pl-5 pr-5 drawerhome">
+      <div className="flex flex-col gap-4 pl-5 pr-5 drawerhome">
           <svg
               xmlns="http://www.w3.org/2000/svg"
               width="25"
@@ -61,22 +61,6 @@ const Drawer: React.FC = () => {
               </Button>
             </Link>
           </div>
-
-          <Link className="mt-10" href="/oldClients" onClick={toggleDrawer}>
-            <Button type={"button"} isLoading={false}  >
-              <h1 className=" p-1 bg-cyan-50  font-semibold text-blue-500 rounded-lg">
-                OLD-CUSTOMERS
-              </h1>
-            </Button>
-          </Link>
-
-          <Link href="/booking" onClick={toggleDrawer}>
-            <Button type={"button"} isLoading={false} >
-              <h1 className=" p-1  bg-cyan-50  font-semibold text-blue-500 rounded-lg">
-                BOOKING
-              </h1>
-            </Button>
-          </Link>
         
           <Link href="/netrevenue" onClick={toggleDrawer}>
             <Button type={"button"} isLoading={false}  >
@@ -130,7 +114,9 @@ const Drawer: React.FC = () => {
 
           <Link href="/" className=" p-1 flex items-center  cursor-pointer w-full mb-5 " onClick={toggleDrawer} >
             <Button type={"button"} isLoading={false} variant={"danger"} >
-              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">FORM</h1>
+              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+                FORM
+              </h1>
             </Button>
           </Link>
       </div>

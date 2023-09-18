@@ -8,6 +8,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import useSWR, { mutate } from 'swr';
 import { useRouter } from "next/navigation";
 import React from 'react';
+import Button from '@/components/Button/Button';
+import Link from 'next/link';
 
 
 interface Servico {
@@ -188,6 +190,7 @@ export default function Page() {
         </button>
         </div>
       </div>
+      
       <ul>
         {clientes?.map(client => (
           <li key={client.id} >
