@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
+
 type FormData = {
   name: string; 
   surname: string;
@@ -48,6 +49,12 @@ const SignUp: NextPage = () => {
   };
 
   return (
+    <>
+    <p className="mt-4 text-center">
+      <Link href="/" className="bg-blue-500 p-2 rounded-2xl text-white hover:text-blue-700">
+        RETURN TO BEGINNING
+      </Link>
+    </p>
     <main className="flex flex-col items-center min-h-screen p-10">
       <div className="w-full max-w-lg">
         <h2 className="mb-5 text-3xl text-center">Register</h2>
@@ -81,10 +88,11 @@ const SignUp: NextPage = () => {
             register={register}
             type="password"
           />
-          
-          <Button isLoading={isSubmitting} type="submit" className="mt-3">
+          <div className="">
+          <Button isLoading={isSubmitting} type="submit" className="mt-3 -z-1 ">
             Sign Up
           </Button>
+          </div>
         </form>
 
         <p className="mt-4 text-center">
@@ -103,7 +111,9 @@ const SignUp: NextPage = () => {
         }}
       />
     </main>
+    </>
   );
 };
+
 
 export default SignUp;

@@ -72,15 +72,7 @@ const Drawer: React.FC = () => {
              </Button>
           </Link>
           
-          <Link href="/upload"
-            onClick={toggleDrawer} >
-             <Button type={"button"} isLoading={false}  >
-              <h1 className=" p-1  bg-cyan-50  font-semibold text-blue-500 rounded-lg">
-                CHARGE-EXPENSE
-              </h1>
-             </Button>
-          </Link>
-
+          
           <Link href="/customers" onClick={toggleDrawer}>
             <Button type={"button"} isLoading={false} >
               <h1 className=" p-1  bg-cyan-50  font-semibold text-blue-500 rounded-lg">
@@ -89,7 +81,17 @@ const Drawer: React.FC = () => {
             </Button>
           </Link>
 
-          <Link className=" p-1 mt-10"  href="/producao" onClick={toggleDrawer} >
+          <Link className=" p-1 mt-10" href="/upload"
+            onClick={toggleDrawer} >
+             <Button type={"button"} isLoading={false}  >
+              <h1 className=" p-1  bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+                CHARGE-EXPENSE
+              </h1>
+             </Button>
+          </Link>
+
+
+          <Link   href="/producao" onClick={toggleDrawer} >
              <Button type={"button"} isLoading={false} >
               <h1 className=" p-1  bg-cyan-50  font-semibold text-blue-500 rounded-lg">
                 PRODUCTION

@@ -43,7 +43,7 @@ export default function NetRevenue() {
     const userToken = localStorage.getItem('token');
     if (!userToken) {
       alert('O usuário não está logado!');
-      router.push("/login");
+      router.push("/");
       return;
     }
     setToken(userToken);
@@ -62,8 +62,10 @@ export default function NetRevenue() {
   useEffect(() => {
     if (isError) {
         console.log('Error detected:', isError);
+        router.push("/");
     }
   }, [isError, router]);
+
 
 
   if (isLoading) {

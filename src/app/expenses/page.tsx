@@ -51,7 +51,7 @@ export default function App() {
       const userToken = localStorage.getItem('token');
       if (!userToken) {
         alert('O usuário não está logado!');
-        router.push("/login");
+        router.push("/");
         return;
       }
       setToken(userToken);
@@ -72,7 +72,7 @@ export default function App() {
   useEffect(() => {
     if (isError) {
         console.log('Error detected:', isError);
-        router.push("/login");
+        router.push("/");
     }
   }, [isError, router]);
 

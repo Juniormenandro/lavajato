@@ -53,15 +53,15 @@ export default function App() {
   });
   
   
-    useEffect(() => {
-      const userToken = localStorage.getItem('token');
-      if (!userToken) {
-        alert('O usuário não está logado!');
-        router.push("/login");
-        return;
-      }
-      setToken(userToken);
-    }, [router]);
+  useEffect(() => {
+    const userToken = localStorage.getItem('token');
+    if (!userToken) {
+      alert('O usuário não está logado!');
+      router.push("/");
+      return;
+    }
+    setToken(userToken);
+  }, [router]);
 
     const [isStartDatePickerFocused, setIsStartDatePickerFocused] = React.useState(false);
     const [isEndDatePickerFocused, setIsEndDatePickerFocused] = React.useState(false);
@@ -76,7 +76,7 @@ export default function App() {
   useEffect(() => {
     if (isError) {
         console.log('Error detected:', isError);
-        router.push("/login");
+        router.push("/");
     }
   }, [router]);
 
