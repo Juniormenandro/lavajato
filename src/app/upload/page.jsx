@@ -98,7 +98,7 @@ export default function Home() {
       minHeight: "100vh",
       padding:"2rem",
     }}>
-
+      
       <div className='text-2xl text-center mr-5 ml-5 mb-5 font-semibold bg-white p-2 rounded-2xl'>
         <h1>CHARGE-EXPENSE</h1>
       </div>
@@ -107,7 +107,6 @@ export default function Home() {
         backgroundColor:"white",
         borderRadius:"20px"
       }}>
-        
         
         <form style={{
           borderRadius: ".5em",
@@ -130,26 +129,18 @@ export default function Home() {
               className="w-full p-2 border-2 rounded-lg  focus:border-blue-500 !important"
               type="text" name="preco" placeholder="text..." value={preco} onChange={(e) => setPreco(e.target.value)} required />            </label>
           </div> 
-          
-
+        
           <p className="border-2  text-xl rounded-lg p-1 mt-3 mb-3">
             <input type="file" name="file" className="w-full h-full text-sm" onChange={handleOnChange} />
           </p>
-          
-
-
-
-
+        
           <img src={recibo} />
-          
             <p>
               <button 
                 className="w-full p-2 mt-3 text-white rounded-lg relative bg-blue-500">
                   Upload Files
               </button>
             </p>
-          
-
           {uploadData && (
             <code style={{ textAlign: 'left'}}><pre>{JSON.stringify(uploadData, null, 2)}</pre></code>
           )}
