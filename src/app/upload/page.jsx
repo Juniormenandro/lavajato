@@ -15,61 +15,79 @@ export default function Home() {
 
   function handleOnChange(changeEvent) {
     const reader = new FileReader();
-
-    reader.onload = function(onLoadEvent) {
-      setRecibo(onLoadEvent.target.result);
+    const file = changeEvent.target.files[0];
+  
+    if (file) {
+      reader.onload = function (onLoadEvent) {
+        setRecibo(onLoadEvent.target.result);
+        setUploadData(undefined);
+      };
+  
+      reader.readAsDataURL(file);
+    } else {
+      setRecibo(undefined);
       setUploadData(undefined);
     }
-
-   reader.readAsDataURL(changeEvent.target.files[0]);
   }
-
-
+  
   async function handleOnSubmit(event) {
     event.preventDefault();
-
+  
     const form = event.currentTarget;
-    const fileInput = Array.from(form.elements).find(({ name }) => name === 'file');
-
+    const fileInput = Array.from(form.elements).find(({ name }) => name === "file");
+  
     const formData = new FormData();
-
-    for (const file of fileInput.files) {
-      formData.append('file', file);
+  
+    if (fileInput.files.length > 0) {
+      for (const file of fileInput.files) {
+        formData.append("file", file);
+      }
+  
+      formData.append("upload_preset", "my-uploads");
+  
+      try {
+        const data = await fetch("https://api.cloudinary.com/v1_1/dfmpqnyet/image/upload", {
+          method: "POST",
+          body: formData,
+        }).then((r) => r.json());
+  
+        setRecibo(data.secure_url);
+        setUploadData(data);
+  
+        // Se o upload for bem-sucedido, proceda com o envio dos dados
+        sendFormData(data.secure_url);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      // Se não houver arquivo, envie os dados sem a URL da imagem
+      sendFormData(null);
     }
-
-    formData.append('upload_preset', 'my-uploads');
-
+  }
+  
+  async function sendFormData(imageUrl) {
+    const despesaData = {
+      nome,
+      preco,
+      recibo: imageUrl,
+    };
+  
     try {
-      const data = await fetch('https://api.cloudinary.com/v1_1/dfmpqnyet/image/upload', {
-        method: 'POST',
-        body: formData
-      }).then(r => r.json());
-
-      setRecibo(data.secure_url);
-      setUploadData(data);
-
-      // Após o upload bem-sucedido, envie os dados do formulário e a URL da imagem para a API
-      const despesaData = {
-        nome,
-        preco,
-        recibo: data.secure_url,
-      };
-
-      const response = await fetch('/api/adicionar', {
-        method: 'POST',
+      const response = await fetch("/api/adicionar", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(despesaData)
+        body: JSON.stringify(despesaData),
       });
-
+  
       const result = await response.json();
-      //console.log(result);
-      router.push('/expenses');
+      router.push("/");
     } catch (error) {
       console.error(error);
     }
   }
+  
 
 
   return (
@@ -96,45 +114,41 @@ export default function Home() {
           padding:"5%"
         }} method="post"  onSubmit={handleOnSubmit}>
 
-          <p style={{
-            border: "solid 1px gray",
-            fontSize:"22px",
-            borderRadius:"10px",
-            padding:"1%",
-            marginTop:"3%",
-            marginBottom:"3%"
+          <div className='mb-3'>
+            <label className='block mb-2'>
+            Description :
+              <input
+              className="w-full p-2 border-2 rounded-lg focus:border-blue-500 !important"
+              type="text" name="nome" placeholder="text..." value={nome} onChange={(e) => setNome(e.target.value)} required/>
+            </label>
+          </div> 
 
-          }}>
-            <input type="text" name="nome" placeholder="Nome" value={nome} onChange={(e) => setNome(e.target.value)} required />
+          <div className='mb-3'>
+            <label className='block mb-2'>
+              Price:
+              <input
+              className="w-full p-2 border-2 rounded-lg  focus:border-blue-500 !important"
+              type="text" name="preco" placeholder="text..." value={preco} onChange={(e) => setPreco(e.target.value)} required />            </label>
+          </div> 
+          
+
+          <p className="border-2  text-xl rounded-lg p-1 mt-3 mb-3">
+            <input type="file" name="file" className="w-full h-full text-sm" onChange={handleOnChange} />
           </p>
-          <p style={{
-            border: "solid 1px gray",
-            fontSize:"22px",
-            borderRadius:"10px",
-            padding:"1%",
-            marginTop:"3%",
-            marginBottom:"3%"
-          }}>
-            <input type="text" name="preco" placeholder="Preço" value={preco} onChange={(e) => setPreco(e.target.value)} required />
-          </p>
-          <p className="border border-gray-300 text-xl rounded-lg p-1 mt-3 mb-3">
-          <input type="file" name="file" className="w-full h-full text-sm" onChange={handleOnChange} required />
-          </p>
+          
+
+
+
+
           <img src={recibo} />
-          {recibo && !uploadData && (
+          
             <p>
-              <button style={{
-                color: "white",
-                fontSize: "1em",
-                backgroundColor: "blueviolet",
-                border: "none",
-                borderRadius: ".2em",
-                padding:"2%",
-                margin:"3%"
-              }}
-              >Upload Files</button>
+              <button 
+                className="w-full p-2 mt-3 text-white rounded-lg relative bg-blue-500">
+                  Upload Files
+              </button>
             </p>
-          )}
+          
 
           {uploadData && (
             <code style={{ textAlign: 'left'}}><pre>{JSON.stringify(uploadData, null, 2)}</pre></code>
