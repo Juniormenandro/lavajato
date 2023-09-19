@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Header from '../header';
 import { useRouter } from "next/navigation";
+import { Toaster, toast } from "react-hot-toast";
 
 
 export default function Home() {
@@ -10,7 +11,7 @@ export default function Home() {
   const [uploadData, setUploadData] = useState();
   const [nome, setNome] = useState("");
   const [preco, setPreco] = useState("");
-  
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   function handleOnChange(changeEvent) {
@@ -32,10 +33,10 @@ export default function Home() {
   
   async function handleOnSubmit(event) {
     event.preventDefault();
-  
+    setIsLoading(true);
+
     const form = event.currentTarget;
     const fileInput = Array.from(form.elements).find(({ name }) => name === "file");
-  
     const formData = new FormData();
   
     if (fileInput.files.length > 0) {
@@ -85,6 +86,8 @@ export default function Home() {
       router.push("/");
     } catch (error) {
       console.error(error);
+    }finally {
+      setIsLoading(false); // Desativar o estado de carregamento
     }
   }
   
@@ -136,11 +139,33 @@ export default function Home() {
         
           <img src={recibo} />
             <p>
-              <button 
-                className="w-full p-2 mt-3 text-white rounded-lg relative bg-blue-500">
-                  Upload Files
-              </button>
+            <button 
+              className="w-full p-2 mt-3 text-white rounded-lg relative bg-blue-500"
+              disabled={isLoading}
+              style={{
+                minHeight: "40px",
+                opacity: isLoading ? 0.5 : 1,
+                cursor: isLoading ? "not-allowed" : "pointer",
+              }}
+            >
+              {isLoading ? (
+                <div role="status" className="flex justify-center">
+                  <div className="w-6 h-6 mr-2 border-b-2 border-white rounded-full animate-spin"></div>
+                </div>
+              ) : (
+                "Upload Files"
+              )}
+            </button>
+
             </p>
+            <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={8}
+        toastOptions={{
+          duration: 5000,
+        }}
+      />
           {uploadData && (
             <code style={{ textAlign: 'left'}}><pre>{JSON.stringify(uploadData, null, 2)}</pre></code>
           )}
