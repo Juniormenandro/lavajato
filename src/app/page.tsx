@@ -1,14 +1,12 @@
 "use client";
 
-// pages/index.js
-
 import Head from 'next/head';
-import Header from "./header";
 
 export default function Home() {
   return (
+    
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <Header></Header>
+
       <Head>
         <title>DoneJob - Aliança de Serviços</title>
         <meta name="description" content="DoneJob - Encontre todos os serviços com um clique." />
@@ -16,7 +14,7 @@ export default function Home() {
       </Head>
 
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <h1 className="text-5xl font-bold">
+        <h1 className="text-3xl  font-bold">
           Bem-vindo ao <span className="text-blue-600">DoneJob</span>
         </h1>
 
