@@ -1,4 +1,4 @@
-import { BookingType } from "@/app/page";
+import { BookingType } from "@/app/form/page";
 import Button from "../Button/Button";
 import { bookingDataInitialState } from "@/constants";
 

@@ -2,7 +2,7 @@
 
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from '@prisma/client';
-import { BookingType } from "@/app/page";
+import { BookingType } from "@/app/form/page";
 
 
 

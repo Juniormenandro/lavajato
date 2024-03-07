@@ -1,4 +1,4 @@
-import { BookingType, ProductType } from "@/app/page";
+import { BookingType, ProductType } from "@/app/form/page";
 import useGetTime from "@/hooks/useGetTime/useGetTime";
 import { useState } from 'react';
 import React from 'react';
