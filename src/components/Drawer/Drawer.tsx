@@ -99,10 +99,17 @@ const Drawer: React.FC = () => {
             </Button>
           </Link>
 
+          <Link href="/form" className=" p-1 flex items-center  cursor-pointer w-full mb-5 " onClick={toggleDrawer} >
+            <Button type={"button"} isLoading={false}  >
+              <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
+                FORM
+              </h1>
+            </Button>
+          </Link>
           <Link href="/" className=" p-1 flex items-center  cursor-pointer w-full mb-5 " onClick={toggleDrawer} >
             <Button type={"button"} isLoading={false} variant={"danger"} >
               <h1 className=" bg-cyan-50  font-semibold text-blue-500 rounded-lg">
-                FORM
+                HOME
               </h1>
             </Button>
           </Link>

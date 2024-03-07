@@ -1,159 +1,55 @@
 "use client";
 
-import SelectionSteps from "@/components/SelectionSteps/SelectionSteps";
-import Spinner from "@/components/Spinner/Spinner";
-import StepButton from "@/components/StepButton/StepButton";
-import { bookingDataInitialState } from "@/constants";
-import useLocalStorage from "@/hooks/useLocalStorage/useLocalStorage";
-import { fetcher } from "@/utils/fetcher/fetcher";
-import { NextPage } from "next";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { Toaster, toast } from "react-hot-toast";
-import useSWR from "swr";
+// pages/index.js
+
+import Head from 'next/head';
 import Header from "./header";
 
+export default function Home() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <Header></Header>
+      <Head>
+        <title>DoneJob - Aliança de Serviços</title>
+        <meta name="description" content="DoneJob - Encontre todos os serviços com um clique." />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
+      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
+        <h1 className="text-5xl font-bold">
+          Bem-vindo ao <span className="text-blue-600">DoneJob</span>
+        </h1>
 
-export type ProductType = {
-  id: string;
-  name: string;
-  price: string;
-  default_price: string;
-  raw_price: 0;
-};
+        <p className="mt-3 text-2xl">
+          Encontre todos os serviços que você precisa com um clique!
+        </p>
 
-export type BookingType = typeof bookingDataInitialState;
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+          <a href="#" className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg">
+            <h3 className="text-2xl font-semibold mb-4">Limpeza</h3>
+            <p>Encontre profissionais de limpeza para sua casa ou escritório.</p>
+          </a>
 
-const BookingPage: NextPage = () => {
-  
-  const [nome, setNome] = useState("");
-  const [telefone, setTelefone] = useState(""); 
-  const [token, setToken] = useState<string | null>(null);
+          <a href="#" className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg">
+            <h3 className="text-2xl font-semibold mb-4">Consertos</h3>
+            <p>Contrate especialistas para resolver problemas em sua casa ou empresa.</p>
+          </a>
 
-  useEffect(() => {
-    const userToken = localStorage.getItem('token');
-    if (userToken) {
-      setToken(userToken);
-    }
-  }, []);
-  
-  const { data, error, isLoading } = useSWR<ProductType[]>([
-    `${process.env.NEXT_PUBLIC_API_URL}/api/getprices`, token],
-    fetcher,
-    {
-      revalidateOnFocus: false,
-    }
-  );
+          <a href="#" className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg">
+            <h3 className="text-2xl font-semibold mb-4">Reparos</h3>
+            <p>Obtenha ajuda rápida para consertar qualquer coisa, de eletrodomésticos a encanamento.</p>
+          </a>
 
-  const [bookingData, setBookingData] = useLocalStorage(
-    "booking_step",
-    bookingDataInitialState as BookingType
-  );
-
-  const [checkoutIsLoading, setIsCheckoutLoading] = useState<boolean>(false);
-  const searchParams = useSearchParams();
-  const router = useRouter();
-
-  const checkoutError = searchParams?.get("error");
-  useEffect(() => {
-    if (checkoutError) {
-      alert(checkoutError);
-      router.push("/");
-    }
-  }, [checkoutError, router]);
-
-  const handleBuyProduct = async (id: string, updatedData: any): Promise<void> => {
-    try {
-      setIsCheckoutLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clientesServicos`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          booking: {
-            ...bookingData,
-          },
-        }),
-      });
-
-      
-      router.push("/producao");
-    } catch (error: any) {
-      setIsCheckoutLoading(false);
-      alert(`An error occured`);
-      //console.log(error);
-    }
-  };
-
-  if (error)
-    return (
-      <div className="flex flex-col items-center mt-10">
-        <h1>Error loading page...</h1>
-      </div>
-    );
-
-  if (isLoading || checkoutIsLoading)
-    return (
-      <div className="flex flex-col items-center mt-10">
-        <Spinner />
-      </div>
-    );
-
-return (
-  <>
-  <Header></Header>
-    <div className="flex flex-col items-center min-h-screen p-10 bg-white ">
-            <Toaster position="top-center" />
-
-          <div className="w-full max-w-lg">
-        <h2 className="mb-8 text-3xl text-center">Book Now!</h2>
-        <div className="mb-4">
-          <label className="block mb-2">
-            {!bookingData.step && "Select your service:"}
-            {bookingData.step === 1 && "Enter your name and phone number:"}
-            {bookingData.step === 2 && "Select your payment:"}
-            {bookingData.step === 3 && "Select your time:"}
-            {bookingData.step === 4 && "Enter your car Model:"}
-            {bookingData.step === 5 && "Enter your car Color:"}
-          
-            
-          </label>
-          <div className="flex flex-col gap-4">
-            <SelectionSteps
-              step={bookingData.step}
-              data={data}
-              bookingData={bookingData}
-              setBookingData={setBookingData}
-              nome={nome}
-              setNome={setNome}
-              telefone={telefone}
-              setTelefone={setTelefone}
-            />
-          </div>
+          <a href="#" className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg">
+            <h3 className="text-2xl font-semibold mb-4">Entregas</h3>
+            <p>Receba ou envie itens com segurança e rapidez.</p>
+          </a>
         </div>
-        <StepButton
-          step={bookingData.step}
-          checkoutIsLoading={checkoutIsLoading}
-          selectedProductId={bookingData.selectedProductId}
-          selectedTime={bookingData.selectedTime}
-          selectedModel={bookingData.selectedModel}
-          selectedColor={bookingData.selectedColor} 
-          selectedPayment={bookingData.selectedPayment}
-          setBookingData={setBookingData}
-          handleBuyProduct={handleBuyProduct}
-          nome={nome}
-          telefone={telefone}
-          bookingData={bookingData}
-        />
-      </div>
+      </main>
+
+      <footer className="w-full h-24 border-t flex justify-center items-center">
+        <p>Feito com ❤️ por DoneJob</p>
+      </footer>
     </div>
-  </>
-);
-
-
-};
-
-export default BookingPage;
+  );
+}
