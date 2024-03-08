@@ -1,5 +1,5 @@
 "use client";
-
+/*
 import Head from 'next/head';
 
 export default function Home() {
@@ -48,6 +48,42 @@ export default function Home() {
       <footer className="w-full h-24 border-t flex justify-center items-center">
         <p>Feito com ❤️ por DoneJob</p>
       </footer>
+    </div>
+  );
+}
+*/
+
+
+
+// pages/index.js
+import Head from 'next/head';
+import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
+import MainSection from '../components/MainSection/MainSection';
+import FeaturesSection from '../components/FeaturesSection/FeaturesSection';
+import TestimonialsSection from '../components/TestimonialsSection/TestimonialsSection';
+import ContactSection from '../components/ContactSection/ContactSection';
+
+export default function Home() {
+  return (
+    <div>
+      <Head>
+        <title>Seu Site - Soluções Inovadoras</title>
+        <meta name="description" content="Descrição do seu site aqui" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <Header />
+
+      <MainSection />
+
+      <FeaturesSection />
+
+      <TestimonialsSection />
+
+      <ContactSection />
+
+      <Footer />
     </div>
   );
 }
