@@ -7,11 +7,7 @@ export default function Home() {
     
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
 
-      <Head>
-        <title>DoneJob - Aliança de Serviços</title>
-        <meta name="description" content="DoneJob - Encontre todos os serviços com um clique." />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+     
 
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
         <h1 className="text-3xl  font-bold">
@@ -45,9 +41,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="w-full h-24 border-t flex justify-center items-center">
-        <p>Feito com ❤️ por DoneJob</p>
-      </footer>
+      
     </div>
   );
 }
@@ -68,8 +62,8 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Seu Site - Soluções Inovadoras</title>
-        <meta name="description" content="Descrição do seu site aqui" />
+        <title>DoneJob - Aliança de Serviços</title>
+        <meta name="description" content="DoneJob - Encontre todos os serviços em um clique." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
