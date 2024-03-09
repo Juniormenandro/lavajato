@@ -6,16 +6,16 @@ const Footer = () => {
       <nav className='ml-1'>
           <ul data-region="footer" className="flex ">
             <li className="mr-4" >
-              <a href="/" className="text-white hover:text-gray-300" title="Copyright 2024 DoneJobs Service" >DoneJobs © 2024</a>
+              <a href="/" className="text-white text-xs hover:text-gray-300" title="Copyright 2024 DoneJobs Service" >DoneJobs © 2024</a>
             </li>
             <li className="mr-4">
-              <a href="/" className="text-white hover:text-gray-300">Privacy &amp; Legal</a>
+              <a href="/" className="text-white text-xs hover:text-gray-300">Privacy &amp; Legal</a>
             </li>
             <li className="mr-4" >
-              <a href="/" className="text-white hover:text-gray-300">service Recalls</a>
+              <a href="/" className="text-white text-xs hover:text-gray-300">service Recalls</a>
             </li>
             <li className="mr-4">
-              <a href="/" className="text-white hover:text-gray-300" >Contact</a>
+              <a href="/" className="text-white text-xs hover:text-gray-300" >Contact</a>
             </li>
           </ul>
         <div>
