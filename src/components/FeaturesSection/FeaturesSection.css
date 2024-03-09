@@ -1,0 +1,46 @@
+.reparos {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/service/reparos.jpg');
+    background-size: cover;
+    background-position: center;
+    animation: zoomInOut 30s ease infinite;
+  }
+  .pintura {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/service/pintura.jpg');
+    background-size: cover;
+    background-position: center;
+    animation: zoomInOut 30s ease infinite;
+  }
+  .limpeza {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/service/limpeza.jpg');
+    background-size: cover;
+    background-position: center;
+    animation: zoomInOut 30s ease infinite;
+  }
+  
+ 
+  
+  @keyframes zoomInOut {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+  
+  /* Exemplo de Media Query para ajustar a imagem de fundo em diferentes tamanhos de tela */
+  @media (max-width: 768px) {
+    .reparos {
+              background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/service/reparos.jpg');
+
+      }
+      .pintura {
+              background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/service/pintura.jpg');
+
+      }
+      .limpeza {
+              background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/service/limpeza.jpg');
+
+      }
+  }
+  

@@ -3,10 +3,10 @@ import '../MainSection/MainSection.css';
 
 const MainSection = () => {
   return (
-    <section className="main-section text-white py-32">
+    <section className="main-section text-white py-48">
       <div className="video-overlay"></div>
       <video className="background-video" autoPlay loop muted playsInline>
-        <source src="/images/service1/montanha.mp4" type="video/mp4" />
+        <source src="/images/service/montanha.mp4" type="video/mp4" />
         Seu navegador não suporta vídeos em MP4.
       </video>
       <div className="container mx-auto text-center z-10 relative">

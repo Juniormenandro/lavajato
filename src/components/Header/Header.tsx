@@ -8,8 +8,7 @@ const Header = () => {
         
         
         <a href="#" className="flex items-center">
-          <img src="/images/header/nomelogo.jpg" alt="DoneJobs Logo" className="h-16 mr-4 rounded-lg" />
-          
+          <img src="/images/header/logo.webp" alt="DoneJobs Logo" className="h-20 mr-4 rounded-lg" />
         </a>
 
         <button className="bg-blue-300 hover:bg-blue-500 text-white py-1 px-3 rounded-lg">Login</button>
