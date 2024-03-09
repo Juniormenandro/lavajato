@@ -3,7 +3,7 @@ import '../MainSection/MainSection.css';
 
 const MainSection = () => {
   return (
-    <section className="main-section text-white py-48">
+    <section className="main-section text-white py-72">
       <div className="video-overlay"></div>
       <video className="background-video" autoPlay loop muted playsInline>
         <source src="/images/service/montanha.mp4" type="video/mp4" />
