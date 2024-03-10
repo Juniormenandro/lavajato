@@ -2,7 +2,7 @@ import React from 'react';
 
 const ContactSection = () => {
   return (
-    <section className="bg-gray-800 text-white py-16">
+    <section className="bg-custom-blue-900 text-white px-9 py-16">
       <div className="container mx-auto">
         <h2 className="text-3xl font-semibold mb-8">Entre em Contato</h2>
         <form>

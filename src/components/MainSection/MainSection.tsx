@@ -1,9 +1,10 @@
 import React from 'react';
 import '../MainSection/MainSection.css';
 
+
 const MainSection = () => {
   return (
-    <section className="main-section text-white py-72">
+    <section className="main-section text-white py-40 m-14">
       <div className="video-overlay"></div>
       <video className="background-video" autoPlay loop muted playsInline>
         <source src="/images/service/montanha.mp4" type="video/mp4" />
@@ -13,6 +14,12 @@ const MainSection = () => {
         <h2 className="text-4xl mb-4">Bem-vindo à Done_Jobs</h2>
         <p className="text-xl">Oferecemos soluções inovadoras para todos os seus problemas</p>
       </div>
+
+
+
+
+
+
     </section>
   );
 };

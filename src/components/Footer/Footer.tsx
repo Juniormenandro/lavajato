@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer aria-label="Site footer"  className="bg-gray-800 text-white p-4 w-full h-24 border-t flex justify-center items-center ">
+    <footer aria-label="Site footer"  className="bg-custom-blue-900 text-white p-4 w-full h-24 border-t flex justify-center items-center ">
       <nav className='ml-1'>
           <ul data-region="footer" className="flex ">
             <li className="mr-4" >

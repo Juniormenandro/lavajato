@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require('tailwindcss/colors')
+
+
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -14,6 +17,13 @@ module.exports = {
       },
       colors: {
         'teal-blue': '#2F6B7C',
+        sky: colors.sky,
+        cyan: colors.cyan,
+        'custom-blue': {
+          DEFAULT: 'rgb(102, 161, 184)',
+          '50': 'rgb(173, 207, 222)', // um tom mais claro de custom-blue
+          '900': 'rgb(23, 58, 94)', // um tom mais escuro de custom-blue
+        },
       },
       zIndex: {
         '100': '100',
@@ -25,4 +35,8 @@ module.exports = {
     },
   },
   plugins: [],
+  mode: 'jit',
+
+  variants: {},
+ 
 }

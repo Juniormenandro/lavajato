@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html
-    className=" bg-cyan-100" 
+    className=" bg-custom-blue" 
      lang="en">
       <body className={inter.className}>
       
