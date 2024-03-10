@@ -7,18 +7,8 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="relative h-screen overflow-hidden">
-      <video 
-        className="absolute z-0 w-full h-full object-cover" 
-        autoPlay 
-        loop 
-        muted 
-        playsInline
-      >
-        <source src="/images/service/montanha.mp4" type="video/mp4" />
-        Seu navegador não suporta vídeos em MP4.
-      </video>
-      <div className="video-overlay absolute z-10 w-full h-full bg-opacity-50 bg-black"></div>
+    <header className="relative overflow-hidden" style={{ height: '45vh' }}>
+
       <nav className="fixed inset-x-0 top-0 flex justify-between items-center text-white px-4 py-2 z-50">
         <Link href="#" className="font-bold text-xl hover:text-teal-500 transition duration-500">
           <img src="/images/header/logo4.webp" alt="DoneJobs Logo" className="h-16 mr-4 rounded-lg" />
