@@ -16,7 +16,7 @@
   background-position: center;
   background-repeat: no-repeat;
   height: auto;
-   /* background-attachment: fixed; */
+   background-attachment: fixed; 
 }
 
 .service-card {

@@ -43,7 +43,7 @@ const FeaturesSection = () => {
         </Link>
       </div>
 
-      <div  className=" service-container" style={{ backgroundImage: "url('https://plus.unsplash.com/premium_photo-1670002392440-0a64552ae431?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
+      <div  className=" service-container" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1640798045056-198ae743755b?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
         <Link href="wash" >
           <div className="service-card">
             <div className="conteiner">
@@ -54,7 +54,7 @@ const FeaturesSection = () => {
         </Link>
       </div>
 
-      <div  className=" service-container" style={{ backgroundImage: "url('/images/service/mecanica.jpg')" }}>
+      <div  className=" service-container" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1572957102956-7d331936d93c?q=80&w=2148&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
         <Link href="mecanica" >
           <div className="service-card">
             <div className="container">
@@ -65,7 +65,7 @@ const FeaturesSection = () => {
         </Link>
       </div>
 
-      <div  className=" service-container" style={{ backgroundImage: "url('/images/service/transfer.jpg')" }}>
+      <div  className=" service-container" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1520038410233-7141be7e6f97?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
         <Link href="transfer" >
           <div className="service-card">
             <div className="container">
@@ -78,7 +78,7 @@ const FeaturesSection = () => {
 
       
 
-      <div  className=" service-container" style={{ backgroundImage: "url('/images/service/sos.jpg'" }}>
+      <div  className=" service-container" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1648499510197-9c9b5e062c83?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
         <Link href="sos" >
           <div className="service-card">
             <div className="container">
