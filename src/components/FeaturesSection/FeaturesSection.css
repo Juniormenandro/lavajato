@@ -2,18 +2,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: black;
 }
 
 .service-container {
-  width: 100%;
-  min-height: 350px;
+  max-width: 98%;
+  max-height: 400px;
+  min-height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: auto; /* Ajuste a altura conforme necessário */
+  height: auto;
+   /* background-attachment: fixed; */
 }
 
 .service-card {
