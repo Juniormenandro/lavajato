@@ -1,15 +1,9 @@
-.horizontal-scroll {
-  display: flex;
-  align-items: center;
-  overflow-x: auto;
-  background-size: cover;
-  background-position: center;
-}
+
 
 .service-container {
   display: flex;
   flex-direction: row;
-  padding: 10px;
+  
   align-items: center;
   color: black;
 }
@@ -25,7 +19,7 @@
   align-items: center;
   text-align: center;
   margin: 30px;
-  padding: 50px;
+ 
   text-decoration: none;
   color: black;
 }
@@ -35,31 +29,48 @@
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
 }
 
+.container{
+  
+  padding: 20px;
+  
+}
+
+
 
  
   
-  @keyframes zoomInOut {
-    0%, 100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.05);
-    }
-  }
+ 
   
-  /* Exemplo de Media Query para ajustar a imagem de fundo em diferentes tamanhos de tela */
+  /* Exemplo de Media Query para ajustar a imagem de fundo em diferentes tamanhos de tela 
   @media (max-width: 768px) {
-    .reparos {
-              background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/service/reparos.jpg');
-
-      }
-      .pintura {
-              background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/service/pintura.jpg');
-
-      }
-      .limpeza {
-              background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/service/limpeza.jpg');
-
-      }
+ 
+    
+    .service-container {
+      display: flex;
+      flex-direction: row;
+      
+      align-items: center;
+      color: black;
+    }
+    
+    .service-card {
+      
+      
+      background: rgba(255, 255, 255, 0.5); 
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      text-decoration: none;
+      color: black;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    }
+    
   }
-  
+  */
