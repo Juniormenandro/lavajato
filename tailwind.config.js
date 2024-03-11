@@ -34,7 +34,26 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+    // Outros plugins que você talvez já esteja usando...
+
+    // Adicionando o plugin personalizado
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.hover-interactive-effect': {
+          transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+          '@hover': {
+            '&:hover': {
+              transform: 'translateY(-5px)',
+              boxShadow: '0 10px 15px rgba(0, 0, 0, 0.2)',
+            },
+          },
+        },
+      };
+      addUtilities(newUtilities, ['responsive', 'hover']);
+    },
+  ],
   mode: 'jit',
 
   variants: {},
