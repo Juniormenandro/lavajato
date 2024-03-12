@@ -52,7 +52,8 @@ model clientes {
   createdAt DateTime           @default(now())
   nome      String
   servicos  servicos[]
-  telefone  String             @unique
+  telefone  String              @unique
+  placa  String          
   email     String?
  
   Booking   Booking[]

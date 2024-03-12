@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';import Head from 'next/head';
 import Link from 'next/link';
-import Footer from '../../components/Footer/Footer';
+import Footer from '../../components/home/Footer/Footer';
 //import Service from '@/components/Service/Service';
 import dynamic from 'next/dynamic';
 

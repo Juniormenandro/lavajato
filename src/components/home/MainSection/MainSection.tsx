@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import React, { useState } from 'react';
-import '../MainSection/MainSection.css';
+import './MainSection.css';
 
 
 const MainSection = () => {

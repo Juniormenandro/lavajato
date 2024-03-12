@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import '../FeaturesSection/FeaturesSection.css';
+import './FeaturesSection.css';
 
 
 const FeaturesSection = () => {

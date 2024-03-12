@@ -31,7 +31,11 @@
     transform: translateY(-5px);
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
   }
-
+  .selected-service-card {
+    border: 2px solid #007bff; /* Exemplo de cor de destaque */
+    background: rgba(0, 123, 255, 0.1); /* Ajustando a transparência para um fundo levemente diferente */
+  }
+  
   
   /*
   .service-cards h3, .service-cards p, .service-cards a {
