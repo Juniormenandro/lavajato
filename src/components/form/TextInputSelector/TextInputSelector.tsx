@@ -1,32 +1,43 @@
 import React from "react";
 
 type TextInputSelectorProps = {
+  key: string;
   label: string;
   value: string;
-  onClick: (value: string) => void;
-  type?: "text" | "number";
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClick?: () => void;
   placeholder?: string;
+  type?: "text" | "number";
 };
 
+
 const TextInputSelector: React.FC<TextInputSelectorProps> = ({
+  key,
   label,
   value,
-  onClick,
-  type = "text",
+  onChange,
   placeholder = "",
+  type = "text", // Valor padrão para "type"
 }) => {
+  //const inputId = `input-${label.replace(/\s+/g, '-').toLowerCase()}`;
+
   return (
-    <div className="mb-4">
-      <label className="block text-2xl mb-2">{label}</label>
+    <div className="my-2">
+      <label htmlFor={key} className="block text-lg font-medium text-gray-700">
+        {label}
+      </label>
       <input
+        id={key}
         type={type}
         value={value}
-        onChange={(e) => onClick(e.target.value)}
+        onChange={onChange}
         placeholder={placeholder}
-        className="w-full p-2 border-2 border-gray-300 rounded-lg text-lg"
+        className={`mt-1 py-2 px-4 text-center border rounded-lg w-full`}
       />
     </div>
   );
 };
+
+
 
 export default TextInputSelector;

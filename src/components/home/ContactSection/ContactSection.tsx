@@ -7,7 +7,7 @@ const ContactSection = () => {
         <h2 className="text-3xl font-semibold mb-8">Entre em Contato</h2>
         <form>
           <div className="mb-4">
-            <label className="block mb-2" htmlFor="name">Nome:</label>
+            <label className="block mb-2" htmlFor="name">Name:</label>
             <input className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" type="text" id="name" name="name" />
           </div>
           <div className="mb-4">

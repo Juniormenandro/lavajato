@@ -35,17 +35,29 @@ type SelectionStepsProps = {
   data?: ProductType[];
   bookingData: BookingType;
   setBookingData: (newState: BookingType) => void;
+  nome: string;
+  setNome: React.Dispatch<React.SetStateAction<string>>;
+  telefone: string;
+  setTelefone: React.Dispatch<React.SetStateAction<string>>;
+  placa: string;
+  setPlaca: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const SelectionSteps: React.FC<SelectionStepsProps> = ({
   step,
   bookingData,
   setBookingData,
+  nome,
+  setNome,
+  telefone,
+  setTelefone,
+  placa,
+  setPlaca,
   
 }) => {
 
   let content: JSX.Element | JSX.Element[] | null = null;
-   
+
   switch (step) {
    
     case 0:
@@ -79,31 +91,45 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
       ));
       break;
       case 2:
-  content = (
-    <form>
-      <TextInputSelector
-        label="Type Your Name"
-        value={bookingData.nome}
-        onClick={() => setBookingData}
-          
-        placeholder="Type here..."
-      />
-      <TextInputSelector
-        label="Enter Your Phone Number"
-        type="number"
-        value={bookingData.telefone}
-        onClick={() => setBookingData}
-        placeholder="Type here..."
-      />
-      <TextInputSelector
-        label="Car Plate Number"
-        value={bookingData.placa}
-        onClick={() => setBookingData}
-        placeholder="Type here..."
-      />
-    </form>
-  );
-  break;
+        const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+          event.preventDefault();
+  
+          setBookingData({
+            ...bookingData,
+            nome,
+            telefone,
+            placa
+          });
+        };
+        content = (
+          <form onSubmit={handleSubmit}>
+            <TextInputSelector
+              key="nome"
+              type="text"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              placeholder="Type here..." 
+              label={'Type Your Name"'}           
+            />
+            <TextInputSelector
+              key="telefone"
+              type="text"
+              value={telefone}
+              onChange={(e) => setTelefone(e.target.value)}
+              placeholder="Type here..." 
+              label={'Type Your Telefone"'}           
+            />
+            <TextInputSelector
+              key="placa"
+              type="text"
+              value={placa}
+              onChange={(e) => setPlaca(e.target.value)}
+              placeholder="Type here..." 
+              label={'Type Your Placa"'}           
+            />
+          </form>
+        );
+      break;
    
     default:
       break;
@@ -117,3 +143,5 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
 };
 
 export default SelectionSteps;
+
+

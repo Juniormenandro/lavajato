@@ -5,11 +5,11 @@ const prisma = new PrismaClient();
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    const { nome, preco, recibo } = req.body;
+    const { name, preco, recibo } = req.body;
 
     // Verificações de validação
-    if (!nome || typeof nome !== 'string') {
-      return res.status(400).json({ error: 'O campo "nome" é obrigatório e deve ser uma string.' });
+    if (!name || typeof name !== 'string') {
+      return res.status(400).json({ error: 'O campo "name" é obrigatório e deve ser uma string.' });
     }
     if (!preco || isNaN(parseFloat(preco))) {
       return res.status(400).json({ error: 'O campo "preco" é obrigatório e deve ser um número válido.' });
@@ -23,7 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const despesa = await prisma.despesas.create({
         data: {
-          nome,
+          name,
           preco: parseFloat(preco),
           recibo,
           data,

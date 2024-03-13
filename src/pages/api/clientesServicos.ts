@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from '@prisma/client';
 import { BookingType } from "@/app/form/page";
-/*
+
 const prisma = new PrismaClient();
 
 const checkout = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -10,7 +10,7 @@ const checkout = async (req: NextApiRequest, res: NextApiResponse) => {
     selectedProductId,
     selectedProductNane,
     selectedProdutPrice,
-    nome,
+    name,
     telefone,
     placa,
     selectedTime,
@@ -41,7 +41,7 @@ const checkout = async (req: NextApiRequest, res: NextApiResponse) => {
       // Se ainda não encontrou, criar um novo cliente
       if (!client) {
         client = await prisma.clientes.create({
-          data: { nome, telefone, placa },
+          data: { name, telefone, placa },
         });
       }
     }
@@ -76,4 +76,3 @@ const checkout = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 export default checkout;
-*/

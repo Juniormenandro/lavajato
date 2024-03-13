@@ -12,7 +12,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     const clientes = await prisma.servicos.findMany({
       where: {
         concluido: false,
-        data: { // Aqui você usa o nome correto do campo
+        data: { // Aqui você usa o name correto do campo
           gte: inicioDoDia,
           lt: fimDoDia,
         },

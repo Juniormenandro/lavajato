@@ -27,11 +27,13 @@ export type ProductType = {
 export type BookingType = typeof bookingDataInitialState;
 
 const BookingPage: NextPage = () => {
- 
-  const [bookingData, setBookingData] = useLocalStorage(
-    "booking_step",
-    bookingDataInitialState as BookingType
-  );
+    const [nome, setNome] = useState("");
+    const [telefone, setTelefone] = useState(""); 
+    const [placa, setPlaca] = useState(""); 
+    const [bookingData, setBookingData] = useLocalStorage(
+        "booking_step",
+        bookingDataInitialState as BookingType
+    );
 
   
   useEffect(() => {
@@ -54,6 +56,7 @@ const BookingPage: NextPage = () => {
 
 
   const handleBuyProduct = async (id: string, updatedData: any): Promise<void> => {
+    
     try {
       setIsCheckoutLoading(true);
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clientesServicos`, {
@@ -96,6 +99,12 @@ return (
               step={bookingData.step}
               bookingData={bookingData}
               setBookingData={setBookingData}
+              nome={nome}
+              setNome={setNome}
+              telefone={telefone}
+              setTelefone={setTelefone}
+              placa={placa}
+              setPlaca={setPlaca}
             />
           </div>
         </div>
