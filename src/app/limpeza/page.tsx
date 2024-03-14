@@ -17,13 +17,11 @@ import { useRouter } from "next/navigation";
 
 
 
-
 export type ProductType = {
   id: string;
-  name: string;
-  price: string;
-  default_price: string;
-  raw_price: 0;
+  selectedProductName: string;
+  selectedProductPrice: string;
+  selectedProdutoDescription: string;
 };
 
 export type BookingType = typeof bookingDataInitialState;
@@ -33,9 +31,9 @@ export type BookingType = typeof bookingDataInitialState;
 interface Product {
   id: string;
   name: string;
-  price: string;
-  default_price: string;
-  raw_price: number;
+  selectedProductPrice: string;
+  selectedProductName: string;
+  selectedProdutoDescription: string;
 };
 
 
@@ -55,7 +53,7 @@ export default function ReparosDePropriedades() {
   }, []);
 
   const { data, error, isLoading } = useSWR<Product[]>([
-      `${process.env.NEXT_PUBLIC_API_URL}/api/getprices`, token],
+      `${process.env.NEXT_PUBLIC_API_URL}/api/getProdutoservicos`, token],
       fetcher,
       {
         revalidateOnFocus: false,
@@ -79,10 +77,8 @@ export default function ReparosDePropriedades() {
     setBookingData({
       ...bookingData,
         selectedProductId: product.id,
-        selectedProductNane: product.name,
-        selectedProdutPrice: product.price,
-        selectedProductDefaultPrice: product.default_price,
-        rawPrice: product.raw_price,
+        selectedProductName: product.selectedProductName,
+        selectedProductPrice: product.selectedProductPrice,
     });
     console.log("Produto selecionado.");
 
@@ -136,19 +132,15 @@ export default function ReparosDePropriedades() {
             <div key={product.id} className="service-container" onClick={() => handleProductSelect(product)}>
               <a href="#"
                 className={`service-card ${bookingData?.selectedProductId === product.id ? 'selected-service-card' : ''}`}>
-                <h3 className="text-2xl font-semibold mb-4">{product.name}</h3>
-                <p>{product.price}</p>
+                <h3 className="text-2xl font-semibold mb-4">{product.selectedProductName}</h3>
+                <p>{product.selectedProductPrice}</p>
          
               </a>
             </div>
+            
           ))}
         </div>
       </div>
-
-
-
-
-
     </div>
   );
 }

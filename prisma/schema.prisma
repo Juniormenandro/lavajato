@@ -17,8 +17,8 @@ model servicos {
   selectedPayment          String?
  
   selectedProductId        String?
-  selectedProductNane      String?
-  selectedProdutPrice      String?
+  selectedProductName      String?
+  selectedProductPrice      String?
   
   selectedModel            String?
   selectedColor            String?
@@ -29,6 +29,7 @@ model servicos {
   clienteId                String   @db.ObjectId // updated to @db.ObjectId
   cliente                  clientes @relation(fields: [clienteId], references: [id]) // foreign key relation to 'clientes'
 }
+
 
 
 model Booking {
@@ -45,6 +46,25 @@ model Booking {
   createdAt                   DateTime @default(now())
   updatedAt                   DateTime @updatedAt
 }
+
+
+model Categoria {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  nome     String
+  image    String
+  servicos Servico[]
+}
+
+model Servico {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  nome        String
+  descricao   String?
+  categoriaId String   @db.ObjectId
+  categoria   Categoria @relation(fields: [categoriaId], references: [id])
+}
+
+
+
 
 model clientes {
   id        String             @id @default(auto()) @map("_id") @db.ObjectId
@@ -65,8 +85,9 @@ model despesas {
   name   String
   preco  Int?
   recibo String?
-
 }
+
+
 
 model faturamentodiarios {
   id String @id @default(auto()) @map("_id") @db.ObjectId
