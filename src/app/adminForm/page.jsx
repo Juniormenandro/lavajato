@@ -17,7 +17,7 @@ const AdicionarCategoriaServico = () => {
 
   // Carregar as categorias existentes quando o componente é montado
   useEffect(() => {
-    fetch('/api/categorias')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categorias`)
       .then(response => response.json())
       .then(data => {
         console.log("Dados recebidos do admin page:", data);
@@ -37,7 +37,7 @@ const AdicionarCategoriaServico = () => {
       setServicos([]);
       return;
     }
-    fetch(`/api/servicos/${categoriaId}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/servicos/${categoriaId}`)
       .then(response => response.json())
       .then(data => setServicos(data));
   }
@@ -46,7 +46,7 @@ const AdicionarCategoriaServico = () => {
     e.preventDefault();
     const body = tipo === 'categoria' ? { tipo, nome, image } : { tipo, nome, descricao, categoriaId };
 
-    fetch('/api/categoriaServico', {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categoriaServico`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
