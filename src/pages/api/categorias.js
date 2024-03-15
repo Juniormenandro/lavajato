@@ -9,13 +9,14 @@ export default async function handler(req, res) {
     try {
       const categorias = await prisma.categoria.findMany();
       // Note a mudança de {_id, nome, image} para {id, nome, image}
-      const categoriasNormalizadas = categorias.map(({ id, nome, image }) => ({
+      const categoriasNormalizadas = categorias.map(({ id, nome, image, Description }) => ({
         id,
         nome,
+        Description,
         imageUrl: image, // Sem mudança aqui, já estava correto
       }));
-      console.log(categoriasNormalizadas, 'dados da categoria normalizados');
       res.status(200).json(categoriasNormalizadas);
+      
     } catch (error) {
       console.error("Erro ao buscar categorias:", error); // Ajuda no debugging
       res.status(500).json({ error: "Erro ao buscar categorias" });

@@ -26,7 +26,7 @@ const Header = () => {
         <div className="hidden md:flex gap-4 font-semibold">
           <Link href="#home" className="hover:border-b-2 hover:border-teal-300 transition duration-500">Home</Link>
           <Link href="#about" className="hover:border-b-2 hover:border-teal-300 transition duration-500">About</Link>
-          <Link href="#contactus" className="hover:border-b-2 hover:border-teal-300 transition duration-500">Contact Us</Link>
+          <Link href="adminForm" className="hover:border-b-2 hover:border-teal-300 transition duration-500">Contact Us</Link>
           <Link href="#products" className="hover:border-b-2 hover:border-teal-300 transition duration-500">Products</Link>
         </div>
         <div className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
@@ -40,7 +40,7 @@ const Header = () => {
          
           <Link href="#home" className="block p-2 hover:bg-gray-100">Home</Link>
           <Link href="#about" className="block p-2 hover:bg-gray-100">About</Link>
-          <Link href="#contactus" className="block p-2 hover:bg-gray-100">Contact Us</Link>
+          <Link href="adminForm" className="block p-2 hover:bg-gray-100">Contact Us</Link>
           <Link href="#products" className="block p-2 hover:bg-gray-100">Products</Link>
         </div>
       )}

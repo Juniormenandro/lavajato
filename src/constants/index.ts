@@ -1,11 +1,14 @@
 
 export const bookingDataInitialState = {
   data:Date,
-  selectedProdutoDescription:"", 
+  Description:"", 
   selectedProductId: "",
   selectedProductName: "",
   selectedProductPrice: "",
   step: 0,
+  id:"", 
+  descricao:"",
+  categoriaId:"",
   name:"", 
   nome:"",
   telefone:"",

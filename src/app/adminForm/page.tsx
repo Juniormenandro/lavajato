@@ -75,8 +75,8 @@ const AdicionarCategoriaServico = () => {
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
-  <h1 className="text-3xl font-semibold text-gray-800 mb-6">Adicionar Categoria ou Serviço</h1>
   <form onSubmit={handleSubmit} className="mb-8 bg-white shadow-md rounded-lg p-6">
+    <h1 className="text-3xl font-semibold text-gray-800 mb-6">Adicionar Categoria ou Serviço</h1>
     <div className="mb-4">
       <select
         className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -112,7 +112,7 @@ const AdicionarCategoriaServico = () => {
 
     {tipo === 'servico' && (
       <>
-        <div className="mb-4">
+        <div className="mb-4"> 
           <textarea
             value={descricao}
             onChange={(e) => setDescricao(e.target.value)}

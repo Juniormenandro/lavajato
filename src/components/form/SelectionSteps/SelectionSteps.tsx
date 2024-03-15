@@ -2,7 +2,7 @@ import { BookingType ,ProductType } from '@/app/form/page';
 import React from 'react';
 import Selector from '../Selector/Selector';
 import TextInputSelector from '../TextInputSelector/TextInputSelector';
-import Service from '@/components/Service/Service';
+
 
 const availableTimeSlots = [
   "10:00 AM",

@@ -6,16 +6,15 @@
 }
 
 .service-container {
-  max-width: 99%;
-  max-height: 400px;
-  min-height: 400px;
+  min-width: 99%;
+  
+  min-height: 520px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: auto;
  
 }
 

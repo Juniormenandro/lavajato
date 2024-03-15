@@ -1,19 +1,15 @@
 
 "use client";
-
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import useSWR from 'swr';
 import Head from 'next/head';
 import Link from 'next/link';
-import useLocalStorage from "@/hooks/useLocalStorage/useLocalStorage";
-import dynamic from 'next/dynamic';
-import { bookingDataInitialState } from '@/constants';
-import Selector from '@/components/form/Selector/Selector';
-import Footer from '../../components/home/Footer/Footer';
-import { global } from 'styled-jsx/css';
-import { fetcher } from '@/utils/fetcher/fetcher';
-import useSWR from 'swr';
-import "../../components/Service/Service.css";
 import { useRouter } from "next/navigation";
+import useLocalStorage from "@/hooks/useLocalStorage/useLocalStorage";
+import { bookingDataInitialState } from '@/constants';
+import { fetcher } from '@/utils/fetcher/fetcher';
+
+import Footer from '../../components/home/Footer/Footer';
 
 
 
@@ -29,6 +25,8 @@ export type BookingType = typeof bookingDataInitialState;
 
 
 interface Product {
+  descricao: string;
+  nome: string;
   id: string;
   name: string;
   selectedProductPrice: string;
@@ -37,23 +35,32 @@ interface Product {
 };
 
 
-export default function ReparosDePropriedades() {
+
+function Servicos() {
   
   const router = useRouter();
   const [selecaoConcluida, setSelecaoConcluida] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
-
+  const [id, setId] = useState<string | null>(null);
+  const [image, setImage] = useState<string | null>(null);
 
   useEffect(() => {
-    const userToken = localStorage.getItem('token');
-    if (userToken) {
-      setToken(userToken);
+    const nomeUsuario = localStorage.getItem('categiraId');
+    const image = localStorage.getItem('image');
+    if (nomeUsuario) {
+      setId(nomeUsuario)
     }
-  }, []);
+    if(image) {
+      setImage(image)
+    } 
+ 
+  }, [id, image]);
+
+  
+
 
   const { data, error, isLoading } = useSWR<Product[]>([
-      `${process.env.NEXT_PUBLIC_API_URL}/api/getProdutoservicos`, token],
+      `${process.env.NEXT_PUBLIC_API_URL}/api/servicos/${id}`,],
       fetcher,
       {
         revalidateOnFocus: false,
@@ -66,10 +73,6 @@ export default function ReparosDePropriedades() {
   );
 
 
-  useEffect(() => {
-    console.log("bookingData atualizado:", bookingData);
-  }, [bookingData]);
-
 
 
   const handleProductSelect = (product:Product) => {
@@ -77,11 +80,10 @@ export default function ReparosDePropriedades() {
     setBookingData({
       ...bookingData,
         selectedProductId: product.id,
-        selectedProductName: product.selectedProductName,
-        selectedProductPrice: product.selectedProductPrice,
+        selectedProductName: product.nome,
+        Description: product.descricao
     });
-    console.log("Produto selecionado.");
-
+ 
     // Marca a seleção como concluída com sucesso
     setSelecaoConcluida(true);
   };
@@ -94,7 +96,7 @@ export default function ReparosDePropriedades() {
   }, [selecaoConcluida, router]);
 
   return (
-    <div className="relative bg-fixed bg-no-repeat bg-center bg-cover h-screen" style={{ backgroundImage: "url('https://plus.unsplash.com/premium_photo-1679501956116-97589191fafb?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
+    <div className="relative bg-fixed bg-no-repeat bg-center bg-cover h-screen" style={{ backgroundImage: `url('${image}')` }}>
           <Head>
             <title>Reparos de Propriedades - DoneJob</title>
             <meta name="description" content="Serviços de reparos de propriedades com profissionais qualificados. Encontre soluções rápidas e eficazes para manter seu imóvel em perfeitas condições." />
@@ -130,18 +132,19 @@ export default function ReparosDePropriedades() {
         <div className="horizontal-scroll">
           {(data || []).map((product:Product) => (
             <div key={product.id} className="service-container" onClick={() => handleProductSelect(product)}>
-              <a href="#"
-                className={`service-card ${bookingData?.selectedProductId === product.id ? 'selected-service-card' : ''}`}>
-                <h3 className="text-2xl font-semibold mb-4">{product.selectedProductName}</h3>
-                <p>{product.selectedProductPrice}</p>
-         
+              <a className={`service-card ${bookingData?.selectedProductId === product.id ? 'selected-service-card' : ''}`}>
+                <h3 className="text-2xl font-semibold mb-4">{product.nome}</h3>
+                <p>{product.descricao}</p>
               </a>
             </div>
-            
           ))}
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }
 
+
+
+export default Servicos;

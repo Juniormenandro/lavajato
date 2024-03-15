@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 
 export default async function handle(req, res) {
-  const { tipo, nome,image, descricao, categoriaId } = req.body;
+  const { tipo, nome,image, Description, descricao, categoriaId } = req.body;
 
   try {
     if (tipo === 'categoria') {
@@ -12,6 +12,7 @@ export default async function handle(req, res) {
         data: {
           nome,
           image,
+          Description,
         },
       });
       res.json(categoria);

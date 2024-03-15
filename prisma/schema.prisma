@@ -52,6 +52,7 @@ model Categoria {
   id       String   @id @default(auto()) @map("_id") @db.ObjectId
   nome     String
   image    String
+  Description String
   servicos Servico[]
 }
 

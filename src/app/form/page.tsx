@@ -35,11 +35,11 @@ const BookingPage: NextPage = () => {
         bookingDataInitialState as BookingType
     );
 
-  
+  /*
   useEffect(() => {
     console.log("bookingData atualizado:", bookingData);
   }, [bookingData]);
-  
+  */
 
   const [checkoutIsLoading, setIsCheckoutLoading] = useState<boolean>(false);
   const searchParams = useSearchParams();
