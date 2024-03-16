@@ -5,12 +5,14 @@ import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 interface Categoria {
   id: string;
   nome: string;
+  Description: string;
+  image:string;
 }
 
 interface Servico {
   id: string;
   nome: string;
-  descricao: string;
+  Description: string;
   categoriaId: string;
 }
 
@@ -18,7 +20,7 @@ const AdicionarCategoriaServico = () => {
   const [tipo, setTipo] = useState<'categoria' | 'servico'>('categoria');
   const [nome, setNome] = useState('');
   const [image, setImage] = useState('');
-  const [descricao, setDescricao] = useState('');
+  const [Description, setDescription] = useState('');
   const [categoriaId, setCategoriaId] = useState('');
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [servicos, setServicos] = useState<Servico[]>([]);
@@ -37,7 +39,7 @@ const AdicionarCategoriaServico = () => {
       }
       return response.json();
     })
-    .then((data: Categoria[]) => setCategorias(data))
+    .then((data: Categoria[]) => setCategorias(data) )
     .catch(error => console.error('Erro ao buscar categorias:', error));
   
     if (categoriaSelecionadaParaFiltrar) {
@@ -50,7 +52,7 @@ const AdicionarCategoriaServico = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/categoriaServico` ;
-    const body = tipo === 'categoria' ? {tipo, nome, image } : {tipo, nome, descricao, categoriaId };
+    const body = tipo === 'categoria' ? {tipo, nome, Description, image } : {tipo, nome, Description, categoriaId };
 
     fetch(endpoint, {
       method: 'POST',
@@ -63,11 +65,47 @@ const AdicionarCategoriaServico = () => {
         alert('Adicionado com sucesso');
         setNome('');
         setImage('');
-        setDescricao('');
+        setDescription('');
         setCategoriaId('');
+        window.location.reload();
       })
       .catch(error => console.error('Erro:', error));
   };
+
+  const deletarServico = (servicoId:Servico["id"]) => {
+    console.log(servicoId,'id do servico')
+    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/deleteServico/${servicoId}`, {
+      method: 'DELETE',
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Falha ao deletar serviço');
+      }
+      return response.json();
+    });
+  };
+  
+
+  const handleDeletarClick = (servicoId:string) => {
+    const confirmar = window.confirm("Tem certeza que deseja deletar este serviço?");
+   
+    // Se o usuário confirmar, prossegue com a deleção
+    if (confirmar) {
+      deletarServico(servicoId)
+        .then(() => {
+          // Atualiza o estado para remover o serviço deletado da lista
+          const servicosAtualizados = servicos.filter(servico => servico.id !== servicoId);
+          setServicos(servicosAtualizados);
+
+        })
+        .catch(error => {
+          // Tratar o erro, se necessário
+          console.error('Falha ao deletar serviço:', error);
+          alert('Erro ao deletar serviço.');
+        });
+    }
+  };
+  
 
   const handleCategoriaChangeParaFiltrar = (e: ChangeEvent<HTMLSelectElement>) => {
     setCategoriaSelecionadaParaFiltrar(e.target.value);
@@ -97,6 +135,14 @@ const AdicionarCategoriaServico = () => {
         className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
       />
     </div>
+    <div className="mb-4"> 
+          <textarea
+            value={Description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Descrição"
+            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          ></textarea>
+        </div>
 
     {tipo === 'categoria' && (
       <div className="mb-4">
@@ -111,30 +157,20 @@ const AdicionarCategoriaServico = () => {
     )}
 
     {tipo === 'servico' && (
-      <>
-        <div className="mb-4"> 
-          <textarea
-            value={descricao}
-            onChange={(e) => setDescricao(e.target.value)}
-            placeholder="Descrição"
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          ></textarea>
-        </div>
-        <div className="mb-4">
-          <select
-            value={categoriaId}
-            onChange={(e) => setCategoriaId(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="">Selecione uma categoria</option>
-            {categorias.map((categoria) => (
-              <option key={categoria.id} value={categoria.id}>
-                {categoria.nome}
-              </option>
-            ))}
-          </select>
-        </div>
-      </>
+      <div className="mb-4">
+        <select
+          value={categoriaId}
+          onChange={(e) => setCategoriaId(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        >
+          <option value="">Selecione uma categoria</option>
+          {categorias.map((categoria) => (
+            <option key={categoria.id} value={categoria.id}>
+              {categoria.nome}
+            </option>
+          ))}
+        </select>
+      </div>
     )}
 
     <button
@@ -162,7 +198,13 @@ const AdicionarCategoriaServico = () => {
     {servicos.map((servico) => (
       <div key={servico.id} className="border-b border-gray-200 py-4">
         <h3 className="text-xl font-semibold text-gray-700">{servico.nome}</h3>
-        <p className="text-gray-600">{servico.descricao}</p>
+        <p className="text-gray-600">{servico.Description}</p>
+        <button
+          onClick={() => handleDeletarClick(servico.id)}
+          className="bg-red-500 text-white p-2 rounded hover:bg-red-700"
+        >
+          Deletar
+        </button> 
       </div>
     ))}
   </div>

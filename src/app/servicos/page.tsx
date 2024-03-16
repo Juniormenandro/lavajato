@@ -25,7 +25,7 @@ export type BookingType = typeof bookingDataInitialState;
 
 
 interface Product {
-  descricao: string;
+  Description: string;
   nome: string;
   id: string;
   name: string;
@@ -81,7 +81,7 @@ function Servicos() {
       ...bookingData,
         selectedProductId: product.id,
         selectedProductName: product.nome,
-        Description: product.descricao
+        Description: product.Description
     });
  
     // Marca a seleção como concluída com sucesso
@@ -134,7 +134,7 @@ function Servicos() {
             <div key={product.id} className="service-container" onClick={() => handleProductSelect(product)}>
               <a className={`service-card ${bookingData?.selectedProductId === product.id ? 'selected-service-card' : ''}`}>
                 <h3 className="text-2xl font-semibold mb-4">{product.nome}</h3>
-                <p>{product.descricao}</p>
+                <p>{product.Description}</p>
               </a>
             </div>
           ))}

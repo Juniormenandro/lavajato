@@ -7,7 +7,7 @@ export const bookingDataInitialState = {
   selectedProductPrice: "",
   step: 0,
   id:"", 
-  descricao:"",
+
   categoriaId:"",
   name:"", 
   nome:"",

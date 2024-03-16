@@ -59,7 +59,7 @@ model Categoria {
 model Servico {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   nome        String
-  descricao   String?
+  Description   String?
   categoriaId String   @db.ObjectId
   categoria   Categoria @relation(fields: [categoriaId], references: [id])
 }
