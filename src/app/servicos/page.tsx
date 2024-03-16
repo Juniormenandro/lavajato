@@ -9,8 +9,6 @@ import useLocalStorage from "@/hooks/useLocalStorage/useLocalStorage";
 import { bookingDataInitialState } from '@/constants';
 import { fetcher } from '@/utils/fetcher/fetcher';
 
-import Footer from '../../components/home/Footer/Footer';
-
 
 
 export type ProductType = {
@@ -140,7 +138,6 @@ function Servicos() {
           ))}
         </div>
       </div>
-      <Footer/>
     </div>
   );
 }
