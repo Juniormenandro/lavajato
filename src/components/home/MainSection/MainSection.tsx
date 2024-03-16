@@ -18,9 +18,9 @@ const MainSection = () => {
           <img src="/images/header/logo4.webp" alt="DoneJobs Logo" className="h-16 mr-4 rounded-lg" />
         </Link>
         <div className="hidden md:flex gap-4 font-semibold">
-          <Link href="#home" className="hover:border-b-2 hover:border-teal-300 transition duration-500">Home</Link>
+          <Link href="/" className="hover:border-b-2 hover:border-teal-300 transition duration-500">Home</Link>
           <Link href="#about" className="hover:border-b-2 hover:border-teal-300 transition duration-500">About</Link>
-          <Link href="#contactus" className="hover:border-b-2 hover:border-teal-300 transition duration-500">Contact Us</Link>
+          <Link href="/adminFprm" className="hover:border-b-2 hover:border-teal-300 transition duration-500">Administrative panel</Link>
           <Link href="#products" className="hover:border-b-2 hover:border-teal-300 transition duration-500">Products</Link>
         </div>
         <div className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
@@ -32,9 +32,9 @@ const MainSection = () => {
       {isOpen && (
         <div className="fixed top-16 left-0 right-0 bg-white mx-4 rounded-b-lg shadow-lg z-40 p-2 divide-y divide-gray-300">
          
-          <Link href="#home" className="block p-2 hover:bg-gray-100">Home</Link>
+          <Link href="/" className="block p-2 hover:bg-gray-100">Home</Link>
           <Link href="#about" className="block p-2 hover:bg-gray-100">About</Link>
-          <Link href="#contactus" className="block p-2 hover:bg-gray-100">Contact Us</Link>
+          <Link href="/adminForm" className="block p-2 hover:bg-gray-100">Administrative panel</Link>
           <Link href="#products" className="block p-2 hover:bg-gray-100">Products</Link>
         </div>
       )}
