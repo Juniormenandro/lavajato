@@ -246,17 +246,22 @@ const AdicionarCategoriaServico = () => {
             </select>
 
             {servicos.map((servico) => (
-              <div key={servico.id} className="border-b border-gray-200 py-4">
-                <h3 className="text-xl font-semibold text-gray-700">{servico.nome}</h3>
-                <p className="text-gray-600">{servico.Description}</p>
-                <button
-                  onClick={() => handleDeletarClick(servico.id)}
-                  className="bg-red-500 text-white p-2 rounded hover:bg-red-700"
-                >
-                  Deletar
-                </button> 
+              <div key={servico.id} className="border-b border-gray-200 py-4 px-6 mb-14 bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                <div className="flex flex-col md:flex-row justify-between">
+                  <div className="mb-4 md:mb-0 flex-1">
+                    <h3 className="text-xl font-semibold text-gray-700 mb-2">{servico.nome}</h3>
+                    <p className="text-gray-600 overflow-auto max-h-32 md:max-h-full">{servico.Description}</p>
+                  </div>
+                  <button
+                    onClick={() => handleDeletarClick(servico.id)}
+                    className="bg-red-500 text-white px-4 py-2 mt-4 md:mt-0 rounded hover:bg-red-700 transition-colors duration-200"
+                  >
+                    Deletar
+                  </button>
+                </div>
               </div>
             ))}
+
           </div>
         </form>
       </div>  
