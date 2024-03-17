@@ -63,10 +63,10 @@ const FeaturesSection = () => {
           </div>
 
           <div className="md:hidden relative bg-no-repeat bg-center bg-cover min-h-[85vh] flex justify-center items-center" style={{ backgroundImage: `url(${product.imageUrl})` }}>
-            <div key={product.id} className="flex flex-col items-center p-12"  onClick={() => handleProductSelect(product)}>
-              <a className={`bg-white/75 p-4 rounded-xl shadow-md text-center text-black no-underline ${selecao === product.id ? 'selected-service-card' : ''}`}>
+            <div key={product.id} className="flex flex-col items-center py-10 px-5"  onClick={() => handleProductSelect(product)}>
+              <a className={`bg-white/75 p-1 rounded-xl shadow-md text-center text-black no-underline ${selecao === product.id ? 'selected-service-card' : ''}`}>
                 <h3 className="text-2xl font-semibold mb-4">{product.nome}</h3>
-                <h1 className="text-xl font-semibold">{product.Description}</h1>
+                <h1 className="text-xl font-semibold mb-2">{product.Description}</h1>
               </a>
             </div>
           </div>

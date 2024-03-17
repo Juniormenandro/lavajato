@@ -59,8 +59,8 @@ const Header = () => {
           </div>
         )}
         <div className='flex flex-col service-container items-center'>
-          <div className='md:hidden w-88 bg-white/75 rounded-xl shadow-md  items-center text-center mx-16 text-black no-underline ' >
-              <h1 className="text-xl font-semibold text-black  p-2">Bem-vindo ao DoneJobs.ie, onde suas tarefas se tornam realizações! Encontre uma ampla gama de serviços, de lavagem de carros a pintura de casas, todos em um só lugar. Conectamos você a profissionais qualificados para tornar cada projeto uma realidade. Escolha facilmente, confie em nossa qualidade e transforme suas ideias em ações. Descubra a eficiência com DoneJobs.ie!</h1>
+          <div className='md:hidden bg-white/75 rounded-xl shadow-md  items-center text-center mx-5 text-black no-underline ' >
+              <h1 className="text-xl font-semibold text-black  p-1">Bem-vindo ao DoneJobs.ie, onde suas tarefas se tornam realizações! Encontre uma ampla gama de serviços, de lavagem de carros a pintura de casas, todos em um só lugar. Conectamos você a profissionais qualificados para tornar cada projeto uma realidade. Escolha facilmente, confie em nossa qualidade e transforme suas ideias em ações. Descubra a eficiência com DoneJobs.ie!</h1>
           </div>
         </div>
       </header>
