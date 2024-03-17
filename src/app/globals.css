@@ -27,15 +27,17 @@ body {
 }
 
 .service-container {
+  border-style: none;
   display: flex;
   flex-direction: row;
-  padding: 10px;
+  padding-top: 45px;
 }
 
-.service-card {
-  min-width: 320px;
-  min-height: 400px;
-  background: rgba(255, 255, 255, 0.5); /* Ajustando transparência */
+.card-header {
+  width: 350px;
+  min-height: auto;
+  margin-top: 120px;
+  background: rgba(255, 255, 255, 0.8); /* Ajustando transparência */
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -43,6 +45,20 @@ body {
   align-items: center;
   text-align: center;
   padding: 20px;
+  text-decoration: none;
+  color:black;
+}
+
+.service-card {
+  width: 320px;
+  height: auto;
+  background: rgba(255, 255, 255, 0.5); /* Ajustando transparência */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   text-decoration: none;
   color: inherit;
 }
@@ -56,8 +72,10 @@ body {
   background: rgba(0, 123, 255, 0.1); /* Ajustando a transparência para um fundo levemente diferente */
 }
 
-.service-cards h3, .service-cards p, .service-cards a {
+.service-cards h3,.service-cards h2, .service-cards p, .service-cards a {
   margin: 10px 0; 
+  padding: 10px;
+  background: #000;
 }
 
 a {
@@ -70,7 +88,9 @@ a:hover {
 }
 
 .bg-teal-700 {
-  background-color: #319795; 
+  background-color: #3197958c; 
+  border-radius: 10px;
+  
 }
 
 .bg-teal-800:hover {
