@@ -10,10 +10,10 @@ const Header = () => {
   return (
     <>
       <header 
-          className=" hidden md:flex relative bg-fixed bg-no-repeat bg-center bg-cover h-[100vh]" 
+          className=" hidden md:flex relative bg-fixed bg-no-repeat bg-center bg-cover h-[100vh] justify-center items-center" 
           style={{ backgroundImage: "url('/images/header/logoprincipal.webp')" }}
         >  
-        <nav  className="fixed inset-x-0 top-0 flex justify-between items-center text-white px-4 py-2 z-50 ">
+        <nav  className="fixed inset-x-0 top-0 flex justify-between items-center text-white  z-50 ">
           <Link href="/" className="font-bold  hover:text-teal-500 transition duration-500">
             <img src="/images/header/logo4.webp" alt="DoneJobs Logo" className="h-16 w-24  mr-4 rounded-lg" />
           </Link>
@@ -24,9 +24,9 @@ const Header = () => {
             <Link href="#products" className="text-2xl hover:border-b-2 hover:border-teal-300 transition duration-500">Products</Link>
           </div>
         </nav>
-        <div className='flex flex-col mx-10 mt-32'>
+        <div className='flex flex-col p-20'>
           <div className=" bg-white/75 p-5 rounded-xl shadow-md  items-center text-center  text-black no-underline">
-              <h1 className="text-3xl font-semibold">Bem-vindo ao DoneJobs.ie – Onde cada tarefa é uma missão cumprida! Descubra a conveniência de encontrar todos os serviços de que precisa em um só lugar. De pequenos afazeres, como lavar seu carro, a grandes projetos, como pintar sua casa, conectamos você com profissionais de confiança prontos para transformar suas ideias em realidade. Navegue por uma ampla gama de serviços, escolha o que precisa com facilidade e deixe o trabalho pesado conosco. DoneJobs.ie é sua ponte para um mundo onde cada trabalho é uma oportunidade para perfeição. Junte-se a nós e experimente a eficiência e a qualidade que definem nosso universo de serviços!</h1>
+              <h1 className="text-2xl font-semibold">Bem-vindo ao DoneJobs.ie – Onde cada tarefa é uma missão cumprida! Descubra a conveniência de encontrar todos os serviços de que precisa em um só lugar. De pequenos afazeres, como lavar seu carro, a grandes projetos, como pintar sua casa, conectamos você com profissionais de confiança prontos para transformar suas ideias em realidade. Navegue por uma ampla gama de serviços, escolha o que precisa com facilidade e deixe o trabalho pesado conosco. DoneJobs.ie é sua ponte para um mundo onde cada trabalho é uma oportunidade para perfeição. Junte-se a nós e experimente a eficiência e a qualidade que definem nosso universo de serviços!</h1>
           </div>
         </div>
       </header>
@@ -35,7 +35,7 @@ const Header = () => {
 
 
       <header 
-          className=" md:hidden relative bg-no-repeat bg-center bg-cover h-[95vh] flex justify-center items-center" 
+          className=" md:hidden relative bg-no-repeat bg-center bg-cover  min-h-[99vh] flex justify-center items-center" 
           style={{ backgroundImage: "url('/images/header/logoprincipal.webp')" }}
         >  
         <nav  className="fixed inset-x-0 top-0 flex justify-between items-center text-white px-4 py-2 z-50 ">
@@ -60,7 +60,7 @@ const Header = () => {
         )}
         <div className='flex flex-col service-container items-center'>
           <div className='md:hidden w-88 bg-white/75 rounded-xl shadow-md  items-center text-center mx-16 text-black no-underline ' >
-              <h1 className="text-2xl font-semibold text-neutral-700  p-2">Bem-vindo ao DoneJobs.ie, onde suas tarefas se tornam realizações! Encontre uma ampla gama de serviços, de lavagem de carros a pintura de casas, todos em um só lugar. Conectamos você a profissionais qualificados para tornar cada projeto uma realidade. Escolha facilmente, confie em nossa qualidade e transforme suas ideias em ações. Descubra a eficiência com DoneJobs.ie!</h1>
+              <h1 className="text-xl font-semibold text-black  p-2">Bem-vindo ao DoneJobs.ie, onde suas tarefas se tornam realizações! Encontre uma ampla gama de serviços, de lavagem de carros a pintura de casas, todos em um só lugar. Conectamos você a profissionais qualificados para tornar cada projeto uma realidade. Escolha facilmente, confie em nossa qualidade e transforme suas ideias em ações. Descubra a eficiência com DoneJobs.ie!</h1>
           </div>
         </div>
       </header>

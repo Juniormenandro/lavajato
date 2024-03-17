@@ -56,8 +56,8 @@ const FeaturesSection = () => {
           style={{ backgroundImage: `url(${product.imageUrl})`}}>
             <div key={product.id} className="flex flex-col items-center p-20 "  onClick={() => handleProductSelect(product)}>
               <a className={` bg-white/75 p-12 rounded-xl shadow-md  items-center text-center  text-black no-underline ${selecao === product.id ? 'selected-service-card' : ''}`}>
-                <h3 className="text-2xl font-semibold mb-4">{product.nome}</h3>
-                <p>{product.Description}</p>
+                <h3 className="text-4xl font-semibold mb-4">{product.nome}</h3>
+                <h1 className="text-2xl font-semibold">{product.Description}</h1>
               </a>
             </div>
           </div>
@@ -65,8 +65,8 @@ const FeaturesSection = () => {
           <div className="md:hidden relative bg-no-repeat bg-center bg-cover min-h-[85vh] flex justify-center items-center" style={{ backgroundImage: `url(${product.imageUrl})` }}>
             <div key={product.id} className="flex flex-col items-center p-12">
               <a className={`bg-white/75 p-4 rounded-xl shadow-md text-center text-black no-underline ${selecao === product.id ? 'selected-service-card' : ''}`}>
-                <h3 className="text-4xl font-semibold mb-4">{product.nome}</h3>
-                <h1 className="text-2xl font-semibold">{product.Description}</h1>
+                <h3 className="text-2xl font-semibold mb-4">{product.nome}</h3>
+                <h1 className="text-xl font-semibold">{product.Description}</h1>
               </a>
             </div>
           </div>
