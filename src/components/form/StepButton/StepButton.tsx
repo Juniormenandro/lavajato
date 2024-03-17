@@ -12,6 +12,8 @@ type StepButtonProps = {
   selectedProductId: string;
   selectedTime: string;
   selectedPayment: string;
+  formattedDate: string;
+
 
   setBookingData: (data: BookingType) => void;
   handleBuyProduct: (id: string, updatedData: any) => Promise<void>;
@@ -25,6 +27,7 @@ const StepButton: React.FC<StepButtonProps> = ({
   step,
   checkoutIsLoading,
   selectedProductId,
+  formattedDate,
   selectedPayment,
   selectedTime,
   bookingData,
@@ -34,6 +37,11 @@ const StepButton: React.FC<StepButtonProps> = ({
  
   
 }) => {
+
+
+  const router = useRouter();
+
+
   const handleContinue = () => {
     if (step === 1) {
       setBookingData({
@@ -49,7 +57,6 @@ const StepButton: React.FC<StepButtonProps> = ({
   };
 
 
-  const router = useRouter();
   const finishBooking = () => {
     
     setBookingData(bookingDataInitialState);
@@ -61,7 +68,7 @@ const StepButton: React.FC<StepButtonProps> = ({
         <Button
           type="button"
           isLoading={false}
-          disabled={!selectedPayment}
+          disabled={!formattedDate}
           onClick={handleContinue}
         >
           Continue
@@ -78,12 +85,22 @@ const StepButton: React.FC<StepButtonProps> = ({
           Continue
         </Button>
       )}
-
       {step === 2 && (
         <Button
           type="button"
           isLoading={false}
           disabled={false}
+          onClick={handleContinue}
+        >
+          Continue
+        </Button>
+      )}
+      {step === 3 && (
+        <Button
+          type="button"
+          isLoading={false}
+          disabled={!selectedPayment || checkoutIsLoading}
+      
           onClick={finishBooking}
         >
          Book
@@ -92,7 +109,7 @@ const StepButton: React.FC<StepButtonProps> = ({
     
 
 <br/><br/>
-{step > 0 && (
+{step >= 0 && (
         <Button
           type="button"
           variant="danger"
@@ -100,6 +117,7 @@ const StepButton: React.FC<StepButtonProps> = ({
           isLoading={false}
           onClick={() =>{
             setBookingData(bookingDataInitialState)
+            localStorage.clear();
             router.push('/');
           }}
         >

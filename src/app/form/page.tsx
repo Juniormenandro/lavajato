@@ -1,20 +1,18 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import SelectionSteps from "@/components/form/SelectionSteps/SelectionSteps";
-import Spinner from "@/components/form/Spinner/Spinner";
-import StepButton from "@/components/form/StepButton/StepButton";
-import { bookingDataInitialState } from "@/constants";
-import useLocalStorage from "@/hooks/useLocalStorage/useLocalStorage";
-import { fetcher } from "@/utils/fetcher/fetcher";
 import { NextPage } from "next";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
-
-import { Toaster, toast } from "react-hot-toast";
-import useSWR from "swr";
 import Link from "next/link";
 import Head from "next/head";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { Toaster } from "react-hot-toast";
+
+import useLocalStorage from "@/hooks/useLocalStorage/useLocalStorage";
+import { bookingDataInitialState } from "@/constants";
+import SelectionSteps from "@/components/form/SelectionSteps/SelectionSteps";
+import StepButton from "@/components/form/StepButton/StepButton";
+import useGetTime from "@/hooks/useGetTime/useGetTime";
 
 
 
@@ -30,7 +28,7 @@ export type ProductType = {
 export type BookingType = typeof bookingDataInitialState;
 
 const BookingPage: NextPage = () => {
-    const [nome, setNome] = useState("");
+    const [name, setName] = useState("");
     const [telefone, setTelefone] = useState(""); 
     const [placa, setPlaca] = useState(""); 
     const [isOpen, setIsOpen] = useState(false);
@@ -43,23 +41,24 @@ const BookingPage: NextPage = () => {
     );
 
     useEffect(() => {
-      const nomeUsuario = localStorage.getItem('categiraId');
+      const nameUsuario = localStorage.getItem('categiraId');
       const image = localStorage.getItem('image');
-      if (nomeUsuario) {
-        setId(nomeUsuario)
+      if (nameUsuario) {
+        setId(nameUsuario)
       }
       if(image) {
         setImage(image)
       } 
    
     }, [id, image]);
-  /*
+  
   useEffect(() => {
     console.log("bookingData atualizado:", bookingData);
   }, [bookingData]);
-  */
+  
 
   const [checkoutIsLoading, setIsCheckoutLoading] = useState<boolean>(false);
+  const dates = useGetTime();
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -88,7 +87,7 @@ const BookingPage: NextPage = () => {
           },
         }),
       });
-      router.push("/producao");
+      router.push("/");
 
     } catch (error: any) {
       setIsCheckoutLoading(false);
@@ -133,10 +132,9 @@ return (
     )}
 
 
-    <div className="flex flex-col items-center min-h-[50vh]   ">
-            <Toaster position="top-center" />
-
-          <div className=" max-w-lg bg-white/75 rounded-lg px-10 ">
+    <div className="flex flex-col items-center mt-16 mb-36">
+      <Toaster position="top-center" />
+        <div className=" w-80  rounded-lg  ">
         <h2 className="mb-8 text-3xl text-center">Book Noww!</h2>
         <div className="mb-4 ">
           <label className="block mb-2">
@@ -149,8 +147,10 @@ return (
               step={bookingData.step}
               bookingData={bookingData}
               setBookingData={setBookingData}
-              nome={nome}
-              setNome={setNome}
+              
+              dates={dates}
+              name={name}
+              setName={setName}
               telefone={telefone}
               setTelefone={setTelefone}
               placa={placa}
@@ -158,18 +158,20 @@ return (
             />
           </div>
         </div>
-        <div className="fixed inset-x-20 bottom-0 flex-col text-white ">
-        <StepButton
+        <div className="fixed-bottom px-4 py-4 bg-teal-400 z-10 text-center">
+          <StepButton
             step={bookingData.step}
             checkoutIsLoading={checkoutIsLoading}
             selectedProductId={bookingData.selectedProductId}
-            selectedPayment={bookingData.selectedPayment}
+            formattedDate={bookingData.formattedDate}
             selectedTime={bookingData.selectedTime}
+            selectedPayment={bookingData.selectedPayment}
+
             bookingData={bookingData}
             setBookingData={setBookingData}
-            handleBuyProduct={handleBuyProduct}
-         />
-         </div>
+            handleBuyProduct={handleBuyProduct}         />
+        </div>
+
       </div>
     </div>
   </div>

@@ -1,42 +1,40 @@
 import { BookingType ,ProductType } from '@/app/form/page';
+import useGetTime from '@/hooks/useGetTime/useGetTime';
 import React from 'react';
 import Selector from '../Selector/Selector';
 import TextInputSelector from '../TextInputSelector/TextInputSelector';
 
 
+
 const availableTimeSlots = [
+  "09:00 AM",
   "10:00 AM",
-  "10:30 AM",
   "11:00 AM",
-  "11:30 AM",
   "12:00 PM",
-  "12:30 PM", 
   "01:00 PM",
-  "01:30 PM",
   "02:00 PM",
-  "02:30 PM",
   "03:00 PM",
-  "03:30 PM",
   "04:00 PM",
-  "04:30 PM",
   "05:00 PM",
-  "05:30 PM",
   "06:00 PM",
-  "06:30 PM",
+  "07:00 PM",
 ];
+
 const availablePaymentSlots = [
   "CASH",
-  "REVOLUT",
-  "ONLINE",
+  "CARD"
 ];
+
+
 
 type SelectionStepsProps = {
   step: number;
-  data?: ProductType[];
+  
+  dates: ReturnType<typeof useGetTime>;
   bookingData: BookingType;
   setBookingData: (newState: BookingType) => void;
-  nome: string;
-  setNome: React.Dispatch<React.SetStateAction<string>>;
+  name: string;
+  setName: React.Dispatch<React.SetStateAction<string>>;
   telefone: string;
   setTelefone: React.Dispatch<React.SetStateAction<string>>;
   placa: string;
@@ -45,10 +43,12 @@ type SelectionStepsProps = {
 
 const SelectionSteps: React.FC<SelectionStepsProps> = ({
   step,
+  
+  dates,
   bookingData,
   setBookingData,
-  nome,
-  setNome,
+  name,
+  setName,
   telefone,
   setTelefone,
   placa,
@@ -59,24 +59,23 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
   let content: JSX.Element | JSX.Element[] | null = null;
 
   switch (step) {
-   
     case 0:
-      content = availablePaymentSlots.map((PaymentSlot) => (
+      return dates.map((date) => (
         <Selector
-          key={PaymentSlot}
-          item={PaymentSlot}
-          selectedItem={bookingData.selectedPayment}
+          key={date.formattedDate}
+          item={date.formattedDate}
+          selectedItem={bookingData.formattedDate}
           onClick={() =>
             setBookingData({
               ...bookingData,
-              selectedPayment: PaymentSlot,
+              ...date,
             })
           }
         />
       ));
-      break;
+    break;
     case 1:
-      content = availableTimeSlots.map((timeSlot) => (
+      return availableTimeSlots.map((timeSlot) => (
         <Selector
           key={timeSlot}
           item={timeSlot}
@@ -96,7 +95,7 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
   
           setBookingData({
             ...bookingData,
-            nome,
+            name,
             telefone,
             placa
           });
@@ -104,10 +103,10 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
         content = (
           <form onSubmit={handleSubmit}>
             <TextInputSelector
-              key="nome"
+              key="name"
               type="text"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               placeholder="Type here..." 
               label={'Type Your Name"'}           
             />
@@ -129,6 +128,21 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
             />
           </form>
         );
+      break;
+      case 3:
+      content = availablePaymentSlots.map((PaymentSlot) => (
+        <Selector
+          key={PaymentSlot}
+          item={PaymentSlot}
+          selectedItem={bookingData.selectedPayment}
+          onClick={() =>
+            setBookingData({
+              ...bookingData,
+              selectedPayment: PaymentSlot,
+            })
+          }
+        />
+      ));
       break;
    
     default:

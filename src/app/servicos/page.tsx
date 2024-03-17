@@ -38,7 +38,7 @@ function Servicos() {
   const router = useRouter();
   const [selecaoConcluida, setSelecaoConcluida] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [id, setId] = useState<string | null>(null);
+  const [id, setId] = useState ('');
   const [image, setImage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -72,13 +72,14 @@ function Servicos() {
 
 
 
-  const handleProductSelect = (product:Product) => {
+  const handleProductSelect = (product:Product,) => {
     // Atualiza o estado primeiro
+   
     setBookingData({
       ...bookingData,
         selectedProductId: product.id,
         selectedProductName: product.nome,
-        Description: product.Description
+        categoriaId: id,
     });
  
     // Marca a seleção como concluída com sucesso

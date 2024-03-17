@@ -11,15 +11,11 @@ model servicos {
   carro                    String?
   concluido                Boolean  @default(false)  
   aguardandoPagamento      Boolean @default(true)
-  
   data                     DateTime @db.Date
-
   selectedPayment          String?
- 
   selectedProductId        String?
   selectedProductName      String?
   selectedProductPrice      String?
-  
   selectedModel            String?
   selectedColor            String?
   selectedTime             String?
@@ -36,12 +32,21 @@ model Booking {
   id                          String   @id @default(auto()) @map("_id") @db.ObjectId
   cliente                     clientes @relation(fields: [clienteId], references: [id])
   clienteId                   String   @db.ObjectId
+  
+  formattedDate               String
   selectedDayOfWeek           String
   selectedDate                Int
   selectedMonth               String
   selectedYear                Int
   selectedTime                String
-  selectedProductDefaultPrice Int
+  
+
+  categoriaId                 String   
+  selectedProductId           String   
+  selectedProductName         String
+  selectedPayment             String
+
+
   bookConcluido               Boolean  @default(false) 
   createdAt                   DateTime @default(now())
   updatedAt                   DateTime @updatedAt

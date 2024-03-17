@@ -16,8 +16,8 @@ const Selector: React.FC<SelectorProps> = ({
   return (
     <button
       type="button"
-      className={`py-2 px-24 text-center border border-black rounded-lg ${
-        selectedItem === item ? "bg-blue-500 text-white" : "bg-transparent"
+      className={`py-2  text-center border border-black rounded-lg ${
+        selectedItem === item ? "bg-blue-500 text-white" : "bg-white/80"
       }`}
       onClick={onClick}
     >
