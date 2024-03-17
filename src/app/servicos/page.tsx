@@ -94,7 +94,7 @@ function Servicos() {
   }, [selecaoConcluida, router]);
 
   return (
-    <div className="relative bg-fixed bg-no-repeat bg-center bg-cover min-h-[100vh]" style={{ backgroundImage: `url('${image}')` }}>
+    <div className="relative bg-fixed  bg-center bg-cover min-h-[100vh]" style={{ backgroundImage: `url('${image}')` }}>
           <Head>
             <title>Reparos de Propriedades - DoneJob</title>
             <meta name="description" content="Serviços de reparos de propriedades com profissionais qualificados. Encontre soluções rápidas e eficazes para manter seu imóvel em perfeitas condições." />
@@ -126,7 +126,7 @@ function Servicos() {
       </div>
     )}
 
-       
+        <div className='pt-10'>
           {(data || []).map((product:Product) => (
             <>
             <div  className="hidden md:flex min-h-[85vh] justify-center items-center" >
@@ -137,16 +137,17 @@ function Servicos() {
                 </a>
               </div>
             </div>
-            <div className="md:hidden flex justify-center items-center min-h-[60vh]">
-              <div key={product.id} className="flex flex-col items-center my-14" onClick={() => handleProductSelect(product)}>
-                <a className={`bg-white/75 p-2 w-5/6 rounded-xl shadow-md text-center text-black no-underline ${bookingData?.selectedProductId === product.id ? 'selected-service-card' : ''}`}>
+            <div className="md:hidden flex justify-center items-center min-h-[35vh] ">
+              <div key={product.id} className="flex flex-col items-center py-10 px-5" onClick={() => handleProductSelect(product)}>
+                <a className={`bg-white/75 p-1 rounded-xl shadow-md text-center text-black no-underline ${bookingData?.selectedProductId === product.id ? 'selected-service-card' : ''}`}>
                   <h3 className="text-2xl font-semibold mb-4">{product.nome}</h3>
-                  <p className="text-lg font-semibold">{product.Description}</p>
+                  <p className="text-lg font-semibold mb-2">{product.Description}</p>
                 </a>
               </div>
             </div>
             </>
           ))}
+        </div>
     </div>
   );
 }
