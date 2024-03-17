@@ -1,13 +1,8 @@
 "use client";
-
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 import useSWR from 'swr';
 import { useRouter } from "next/navigation";
 import { fetcher } from '@/utils/fetcher/fetcher';
-import './FeaturesSection.css';
-import { id } from 'date-fns/locale';
-
 
 
 interface Product {
@@ -54,17 +49,32 @@ const FeaturesSection = () => {
 
 
   return (
-    <div className="features-section">
+    <>
       {(data || []).map((product:Product) => (
-        <div key={product.id} className="service-container" style={{ backgroundImage: `url(${product.imageUrl})`}} onClick={() => handleProductSelect(product)}>
-              <a className={`service-card ${selecao === product.id ? 'selected-service-card' : ''}`}>
-            <h3 className="text-2xl font-semibold mb-4">{product.nome}</h3>
-            <p>{product.Description}</p>
-          </a>
-        </div>
+        <>
+          <div  className="hidden md:flex relative bg-fixed bg-no-repeat bg-center bg-cover h-[100vh] justify-center items-center" 
+          style={{ backgroundImage: `url(${product.imageUrl})`}}>
+            <div key={product.id} className="flex flex-col items-center p-20 "  onClick={() => handleProductSelect(product)}>
+              <a className={` bg-white/75 p-12 rounded-xl shadow-md  items-center text-center  text-black no-underline ${selecao === product.id ? 'selected-service-card' : ''}`}>
+                <h3 className="text-2xl font-semibold mb-4">{product.nome}</h3>
+                <p>{product.Description}</p>
+              </a>
+            </div>
+          </div>
+
+          <div className="md:hidden relative bg-no-repeat bg-center bg-cover min-h-[85vh] flex justify-center items-center" style={{ backgroundImage: `url(${product.imageUrl})` }}>
+            <div key={product.id} className="flex flex-col items-center p-12">
+              <a className={`bg-white/75 p-4 rounded-xl shadow-md text-center text-black no-underline ${selecao === product.id ? 'selected-service-card' : ''}`}>
+                <h3 className="text-4xl font-semibold mb-4">{product.nome}</h3>
+                <h1 className="text-2xl font-semibold">{product.Description}</h1>
+              </a>
+            </div>
+          </div>
+
+        </>
       ))}
-    </div>
-  );
+    </>
+  ); 
 };
 
 export default FeaturesSection;

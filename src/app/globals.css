@@ -52,8 +52,8 @@ body {
 .service-card {
   width: 320px;
   height: auto;
-  background: rgba(255, 255, 255, 0.5); /* Ajustando transparência */
   border-radius: 10px;
+  background: #000;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
