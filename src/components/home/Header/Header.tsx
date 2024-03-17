@@ -13,7 +13,7 @@ const Header = () => {
           className=" hidden md:flex relative bg-fixed bg-no-repeat bg-center bg-cover h-[100vh] justify-center items-center" 
           style={{ backgroundImage: "url('/images/header/logoprincipal.webp')" }}
         >  
-        <nav  className="fixed inset-x-0 top-0 flex justify-between items-center text-white  z-50 ">
+        <nav  className="fixed inset-x-0 top-0 flex justify-between items-center text-white px-4 py-2 z-50 ">
           <Link href="/" className="font-bold  hover:text-teal-500 transition duration-500">
             <img src="/images/header/logo4.webp" alt="DoneJobs Logo" className="h-16 w-24  mr-4 rounded-lg" />
           </Link>

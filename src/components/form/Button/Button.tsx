@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
 }) => {
   const getButtonClassName = (): string => {
-    let buttonClassName = `w-full p-2 text-white rounded-lg relative ${className}`;
+    let buttonClassName = `w-full p-1 text-white rounded-lg relative ${className}`;
 
     if (variant === "default") {
       buttonClassName += " bg-blue-500";
@@ -45,7 +45,7 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled || isLoading}
       onClick={onClick}
       style={{
-        minHeight: "40px",
+        
         opacity: disabled ? 0.5 : 1,
         cursor: disabled ? "not-allowed" : "pointer",
       }}
