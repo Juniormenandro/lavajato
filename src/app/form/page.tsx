@@ -96,6 +96,12 @@ const BookingPage: NextPage = () => {
     }
   };
 
+  const home = () =>{
+    setBookingData(bookingDataInitialState);
+    localStorage.clear();
+    
+  }
+
 
 return (
   
@@ -106,11 +112,11 @@ return (
           </Head>
 
     <nav className="fixed inset-x-0 top-0 flex justify-between items-center text-white px-4 py-2 z-50">
-      <Link href="/" className="font-bold text-xl hover:text-teal-500 transition duration-500">
+      <Link href="/" onClick={home} className="font-bold text-xl hover:text-teal-500 transition duration-500" >
         <img src="/images/header/logo4.webp" alt="DoneJobs Logo" className="h-16 mr-4 rounded-lg" />
       </Link>
       <div className="hidden md:flex  gap-4 font-semibold bg-teal-700 px-5 space-x-5">
-        <Link href="/" className="hover:border-b-2 hover:border-teal-300 transition duration-500">Home</Link>
+        <Link href="/" onClick={home} className="hover:border-b-2 hover:border-teal-300 transition duration-500"  >Home</Link>
         <Link href="#about" className="hover:border-b-2 hover:border-teal-300 transition duration-500">About</Link>
         <Link href="/adminForm" className="hover:border-b-2 hover:border-teal-300 transition duration-500">Administrative panel</Link>
         <Link href="#products" className="hover:border-b-2 hover:border-teal-300 transition duration-500">Products</Link>
@@ -147,7 +153,6 @@ return (
               step={bookingData.step}
               bookingData={bookingData}
               setBookingData={setBookingData}
-              
               dates={dates}
               name={name}
               setName={setName}
@@ -158,7 +163,7 @@ return (
             />
           </div>
         </div>
-        <div className="fixed-bottom px-4 pt-4 bg-white/50 z-30 text-center">
+        <div className="fixed-bottom px-4 pt-4 bg-white/95 z-30 text-center">
           <StepButton
             step={bookingData.step}
             checkoutIsLoading={checkoutIsLoading}
