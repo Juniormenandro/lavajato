@@ -11,22 +11,16 @@ const checkout = async (req: NextApiRequest, res: NextApiResponse) => {
     name,
     telefone,
     placa,
-  categoriaId,
-
-
-  selectedProductId,
-  selectedProductName,
-  selectedPayment,
-
-
-  selectedTime,
-  formattedDate,
-  selectedDayOfWeek,
-  selectedDate,
-  selectedMonth,
-  selectedYear,
-
-
+    categoriaId,
+    selectedProductId,
+    selectedProductName,
+    selectedPayment,
+    selectedTime,
+    formattedDate,
+    selectedDayOfWeek,
+    selectedDate,
+    selectedMonth,
+    selectedYear,
   } = booking;
 
   try {

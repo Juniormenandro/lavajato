@@ -1,6 +1,6 @@
 import React from "react";
 
- 
+
 const Spinner: React.FC<{}> = () => {
   return (
     <div role="status">
@@ -25,4 +25,4 @@ const Spinner: React.FC<{}> = () => {
   );
 };
 
-export default Spinner;
+export default Spinner; 

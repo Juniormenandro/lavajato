@@ -2,12 +2,11 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
-import Head from 'next/head';
-import Link from 'next/link';
 import { useRouter } from "next/navigation";
 import useLocalStorage from "@/hooks/useLocalStorage/useLocalStorage";
 import { bookingDataInitialState } from '@/constants';
 import { fetcher } from '@/utils/fetcher/fetcher';
+import Header from '@/components/home/Header/HeaderPag';
 
 
 export type ProductType = {
@@ -94,38 +93,8 @@ function Servicos() {
   }, [selecaoConcluida, router]);
 
   return (
-    <div className="relative bg-fixed  bg-center bg-cover min-h-[100vh]" style={{ backgroundImage: `url('${image}')` }}>
-          <Head>
-            <title>Reparos de Propriedades - DoneJob</title>
-            <meta name="description" content="Serviços de reparos de propriedades com profissionais qualificados. Encontre soluções rápidas e eficazes para manter seu imóvel em perfeitas condições." />
-          </Head>
-
-    <nav className="fixed inset-x-0 top-0 flex justify-between items-center text-white px-4 py-2 z-50">
-      <Link href="/" className="font-bold text-xl hover:text-teal-500 transition duration-500">
-        <img src="/images/header/logo4.webp" alt="DoneJobs Logo" className="h-16 mr-4 rounded-lg" />
-      </Link>
-      <div className="hidden md:flex  gap-4 font-semibold bg-teal-700 px-5 space-x-5">
-        <Link href="/" className="hover:border-b-2 hover:border-teal-300 transition duration-500">Home</Link>
-        <Link href="#about" className="hover:border-b-2 hover:border-teal-300 transition duration-500">About</Link>
-        <Link href="/adminForm" className="hover:border-b-2 hover:border-teal-300 transition duration-500">Administrative panel</Link>
-        <Link href="#products" className="hover:border-b-2 hover:border-teal-300 transition duration-500">Products</Link>
-      </div>
-      <div className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 bg-custom-blue p-2 rounded-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
-        </svg>
-      </div>
-    </nav>
-    {isOpen && (
-      <div className="fixed inset-x-0 top-0 flex justify-between items-center text-white px-4 py-2 z-50">
-      
-        <Link href="/" className="block p-2 hover:bg-gray-100">Home</Link>
-        <Link href="#about" className="block p-2 hover:bg-gray-100">About</Link>
-        <Link href="/adminForm" className="block p-2 hover:bg-gray-100">Administrative panel</Link>
-        <Link href="#products" className="block p-2 hover:bg-gray-100">Products</Link>
-      </div>
-    )}
-
+    <div className="relative  bg-center " style={{ backgroundImage: `url('${image}')` }}>
+      <Header />
         <div className='pt-10'>
           {(data || []).map((product:Product) => (
             <>

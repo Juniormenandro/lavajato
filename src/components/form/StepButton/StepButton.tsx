@@ -17,7 +17,9 @@ type StepButtonProps = {
 
   setBookingData: (data: BookingType) => void;
   handleBuyProduct: (id: string, updatedData: any) => Promise<void>;
-
+  name: string; 
+  telefone: string; 
+  placa: string;
   bookingData: BookingType;
   
 };
@@ -33,6 +35,9 @@ const StepButton: React.FC<StepButtonProps> = ({
   bookingData,
   setBookingData,
   handleBuyProduct,
+  name,
+  telefone, 
+  placa,
  
  
   
@@ -46,6 +51,9 @@ const StepButton: React.FC<StepButtonProps> = ({
     if (step === 1) {
       setBookingData({
         ...bookingData,
+        name,
+        telefone,
+        placa,
         step: bookingData.step + 1,
       });
     } else {

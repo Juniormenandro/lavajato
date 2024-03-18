@@ -13,12 +13,12 @@ const createAdminHandler = async (req: NextApiRequest, res: NextApiResponse) => 
       }
 
       // Criptografe a senha antes de armazená-la
-      const hashedPassword = await bcrypt.hash(password, 10);
+      const hashedPassword = await bcrypt.hash(password, 10); 
 
       // Crie um novo usuário com a role "ADMIN"
       const newAdminUser = await prisma.user.create({
         data: {
-          email,
+          email, 
           name,
           password: hashedPassword,
           role: 'ADMIN',

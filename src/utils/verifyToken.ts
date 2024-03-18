@@ -13,7 +13,7 @@ function verifyToken(req: NextApiRequest): string | null {
   if (typeof token !== 'string') {
     console.error("Token não é uma string:", token);
     return null;
-  }
+  } 
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string);

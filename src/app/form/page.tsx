@@ -57,6 +57,13 @@ const BookingPage: NextPage = () => {
   }, [bookingData]);
   
 
+  useEffect(() => {
+    setBookingData(prevData => ({
+      ...prevData,
+      placa:placa, name:name, telefone:telefone,
+    }));
+  }, [placa,name,telefone]);
+
   const [checkoutIsLoading, setIsCheckoutLoading] = useState<boolean>(false);
   const dates = useGetTime();
   const searchParams = useSearchParams();
@@ -171,7 +178,9 @@ return (
             formattedDate={bookingData.formattedDate}
             selectedTime={bookingData.selectedTime}
             selectedPayment={bookingData.selectedPayment}
-
+            name={bookingData.name}
+            telefone={bookingData.telefone}
+            placa={bookingData.placa}
             bookingData={bookingData}
             setBookingData={setBookingData}
             handleBuyProduct={handleBuyProduct}         />

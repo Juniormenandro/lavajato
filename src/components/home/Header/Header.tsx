@@ -21,7 +21,7 @@ const Header = () => {
             <Link href="/" className="text-xl hover:border-b-2 hover:border-teal-300 transition duration-500">Home</Link>
             <Link href="#about" className="text-xl hover:border-b-2 hover:border-teal-300 transition duration-500">About</Link>
             <Link href="/adminForm" className="text-xl hover:border-b-2 hover:border-teal-300 transition duration-500">Administrative panel</Link>
-            <Link href="#products" className="text-xl hover:border-b-2 hover:border-teal-300 transition duration-500">Products</Link>
+            <Link href="/login" className="block p-2 hover:bg-gray-100">Login</Link>
           </div>
         </nav>
         <div className='flex flex-col p-20'>
@@ -55,7 +55,7 @@ const Header = () => {
             <Link href="/" className="block p-2 hover:bg-gray-100">Home</Link>
             <Link href="#about" className="block p-2 hover:bg-gray-100">About</Link>
             <Link href="/adminForm" className="block p-2 hover:bg-gray-100">Administrative panel</Link>
-            <Link href="#products" className="block p-2 hover:bg-gray-100">Products</Link>
+            <Link href="/login" className="block p-2 hover:bg-gray-100">Login</Link>
           </div>
         )}
         <div className='flex flex-col service-container items-center'>

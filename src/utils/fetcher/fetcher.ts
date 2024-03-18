@@ -12,7 +12,7 @@ export const fetcher = async <T>(
 
   const combinedInit: RequestInit = {
     ...init,
-    headers: {
+    headers: { 
       ...headers,
       ...(init?.headers ?? {}),
     },
