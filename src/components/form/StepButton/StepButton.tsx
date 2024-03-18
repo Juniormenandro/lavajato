@@ -113,7 +113,6 @@ const StepButton: React.FC<StepButtonProps> = ({
         <Button
           type="button"
           variant="danger"
-          className="mb-3"
           isLoading={false}
           onClick={() =>{
             setBookingData(bookingDataInitialState)

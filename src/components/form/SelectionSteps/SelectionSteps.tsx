@@ -73,7 +73,7 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
           }
         />
       ));
-    break;
+
     case 1:
       return availableTimeSlots.map((timeSlot) => (
         <Selector
@@ -88,7 +88,7 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
           }
         />
       ));
-      break;
+   
       case 2:
         const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
           event.preventDefault();

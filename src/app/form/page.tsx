@@ -132,7 +132,7 @@ return (
     )}
 
 
-    <div className="flex flex-col items-center mt-16 mb-36">
+    <div className=" flex flex-col items-center mt-16 mb-36">
       <Toaster position="top-center" />
         <div className=" w-80  rounded-lg  ">
         <h2 className="mb-8 text-3xl text-center">Book Noww!</h2>
@@ -158,7 +158,7 @@ return (
             />
           </div>
         </div>
-        <div className="fixed-bottom px-4 py-4 bg-teal-400 z-10 text-center">
+        <div className="fixed-bottom px-4 pt-4 bg-white/50 z-30 text-center">
           <StepButton
             step={bookingData.step}
             checkoutIsLoading={checkoutIsLoading}
