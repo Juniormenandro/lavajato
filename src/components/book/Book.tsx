@@ -105,7 +105,7 @@ const Book = () => {
 
 
   return (
-    <div className="bg-white my-10 mx-8 rounded-lg shadow-md">
+    <div className="bg-white mx-8 rounded-lg shadow-md">
       <h1 className="text-center text-2xl font-semibold py-4">Serviços Agendados</h1>
       <ul>
         {clientes && clientes?.map(client => (

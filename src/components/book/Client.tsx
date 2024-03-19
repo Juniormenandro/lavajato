@@ -53,46 +53,31 @@ const Client = ()  => {
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
   const [newPrice, setNewPrice] = useState<string>('');
   const [periodoFiltragem, setPeriodoFiltragem] = useState('all');
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [showReturned, setShowReturned] = useState(false);
-  const router = useRouter();
   const [selectedField, setSelectedField] = useState('rawPrice');
 
   
 
 
-
-  /*
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const userToken = localStorage.getItem('token');
-    
+    const userToken = localStorage.getItem('token');
       if (!userToken) {
-          alert('O usuário não está logado!');
-          router.push("/login");
-          return;
+        alert('O usuário não está logado!');
+        return;
       }
-    
       setToken(userToken);
-    }
-  }, [router]);
+      //console.log('Token from localStorage:', localStorage.getItem('token'));
+  }, []);
+
+
   const fetchURL = token ? `${process.env.NEXT_PUBLIC_API_URL}/api/customers` : null;
-  // Lógica do SWR
   const { data: clientes, error: isError, isLoading } = useSWR<Cliente[]>(fetchURL ? [fetchURL, token] : null, fetcher, {
     revalidateOnFocus: false,
   });
-*/
+  
+  if (!fetchURL) {
+    return null;
+  }
 
-
-  const { data: clientes, error: isError, isLoading } = useSWR<Cliente[]>([
-    `${process.env.NEXT_PUBLIC_API_URL}/api/customers`,],
-    fetcher,
-    {
-      revalidateOnFocus: false,
-    }
-  );
-
- 
   
   async function updateServicePrice(id: string, field: string, value: any) {
     if (!value) return;
@@ -160,38 +145,15 @@ const Client = ()  => {
     <ul className='bg-white mb-10 mx-8 rounded-lg'>
       {clientes?.map(client => (
         <li key={client.id} >
-          <div className="flex justify-center text-center bg-white mt-5 ml-3 mr-3 rounded-t-2xl"  >
-            <div className=' flex-1 justify-center'>
-              <h1 className="text-[22px] font-semibold">
-                {client.name}
-              </h1>
-            </div>
-            <div className=' flex-1 justify-center'>
-              <h1 className="text-[23px] font-semibold ">
-                {client.telefone}
-              </h1>
-            </div>
-          </div>
           {client.Booking && client.Booking.map(book => (
-            <div key={book.id} className='flex justify-center text-center bg-white border-t-8 border-blue-500 ml-3 mr-3 p-2 '>
-              <div className='flex-1 flex justify-center w-1/2 '>
-                <div className=' w-full'>
-                  <h2 className=' text-[18px] border  '>TIME: {book.selectedTime}</h2>
-                  <h2 className=' text-[18px] border '>DAY: {book.selectedDate}</h2>
-                  <h2 className=' text-[18px] border '>WEEK: {book.selectedDayOfWeek}</h2>
-                  <h2 className=' text-[18px] border '>MONTH: {book.selectedMonth}</h2>
-                  <h2 className=' text-[18px] border  '>YEAR: {book.selectedYear}</h2>
-                </div> 
-              </div>
-              <div className='flex-1 flex justify-center'>
-                <div className=' w-full'>
-                  <h2 className=' text-[18px] border  '>TIME: {book.selectedTime}</h2>
-                  <h2 className=' text-[18px] border  '>produto: {book.selectedProductName}</h2>
-                  <h2 className=' text-[18px] border  '>pagamneto: {book.selectedPayment}</h2>
-                  <h2 className=' text-[18px] border  '>placa: {client.placa}</h2>
-
-                </div>
-              </div>
+            <div key={book.id} className='flex-row justify-center text-center bg-white border-b-4 ml-3 mr-3 p-2 '>
+              <h1 className="text-[22px] font-semibold">{client.name}</h1>
+              <h1 className="text-[23px] font-semibold border ">{client.telefone}</h1>
+              <h2 className=' text-[18px] border  '>produto: {book.selectedProductName}</h2>
+              <h2 className=' text-[18px] border  '>pagamneto: {book.selectedPayment}</h2>
+              <h2 className=' text-[18px] border  '>placa: {client.placa}</h2>
+              <h2 className=' text-[18px] border  '>TIME: {book.selectedTime}</h2>
+              <h2 className=' text-[18px] border '>DAY: {book.selectedDate}</h2>
             </div>
           ))}
         </li>

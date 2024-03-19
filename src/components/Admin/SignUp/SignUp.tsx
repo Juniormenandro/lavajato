@@ -50,9 +50,8 @@ const SignUp = () => {
 
 
   return (
-    <main className=" bg-white mb-10 mx-8 flex flex-col items-center min-h-screen p-10">
+    <main className=" bg-white p-8  mx-8 flex flex-col items-center rounded-lg ">
       <div className="w-full max-w-lg">
-        <h2 className="mb-5 text-3xl text-center">Register</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextInput
             label="Name"
@@ -83,19 +82,14 @@ const SignUp = () => {
             register={register}
             type="password"
           />
-          <div className="">
+          <div className="py-6">
           <Button isLoading={isSubmitting} type="submit" className="mt-3 -z-1 ">
             Sign Up
           </Button>
           </div>
         </form>
 
-        <p className="mt-4 text-center">
-          Already have an account?{" "}
-          <Link href="/login" className="text-blue-500 hover:text-blue-700">
-            Sign In
-          </Link>
-        </p>
+        
       </div>
       <Toaster
         position="top-center"

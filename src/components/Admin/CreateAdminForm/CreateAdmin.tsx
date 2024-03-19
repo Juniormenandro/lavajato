@@ -32,27 +32,26 @@ const CreateAdminForm = () => {
   };
 
   return (
-    <form className=' m-10 '
+    <form className='bg-white p-8  mx-8 flex flex-col items-center rounded-lg'
      onSubmit={handleSubmit}>
       <div className='mb-3'>
         <label className='block mb-2'>
           Nome:
-          <input
-           className="w-full p-2 border rounded-lg border-black focus:border-blue-500 !important"
+          <input  className="w-full  border rounded-lg border-black focus:border-blue-500 !important"
           type="text" name="name" value={formData.name} onChange={handleChange} required />
         </label>
       </div>
       <div  className='mb-3'>
         <label className='block mb-2'>
           Email:
-          <input  className="w-full p-2 border rounded-lg border-black focus:border-blue-500 !important"
+          <input  className="w-full border rounded-lg border-black focus:border-blue-500 !important"
            type="email" name="email" value={formData.email} onChange={handleChange} required />
         </label>
       </div>
       <div  className='mb-8'>
         <label className='block mb-2'>
           Senha:
-          <input  className="w-full p-2 border rounded-lg border-black focus:border-blue-500 !important"
+          <input  className="w-full border rounded-lg border-black focus:border-blue-500 !important"
            type="password" name="password" value={formData.password} onChange={handleChange} required />
         </label>
       </div>

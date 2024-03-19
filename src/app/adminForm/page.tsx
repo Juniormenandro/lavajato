@@ -20,7 +20,9 @@ interface Categoria {
 
 
 
+
 const AdicionarCategoriaServico = () => {
+  const [formCategoria, setFormCategoria] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenSignUp, setIsOpenSignUp] = useState(false);
   const [isOpenAdmin, setIsOpenAdmin] = useState(false);
@@ -28,14 +30,23 @@ const AdicionarCategoriaServico = () => {
 
 
   return (
-    <div className=" md:hidden relative  bg-center pb-10 z-0"  
+    <div className=" relative  bg-center py-28 z-0"  
       style={{ backgroundImage: "url('/images/header/logo1.webp')" }} >  
       <Header/>
-      <FormAdmin />
-      <Painel />
       <Book />
+      <Painel />
+
+
+      <div onClick={() => setFormCategoria(!formCategoria)}>
+        <div className='text-2xl mx-8 mt-10 text-center bg-white p-4 font-semibold rounded-lg'>
+          <h1>Adicionar Categoria ou Serviço</h1>
+        </div>
+      </div>
+      {formCategoria && (
+        <FormAdmin />
+      )}
  
-      <div className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+      <div onClick={() => setIsOpen(!isOpen)}>
         <div className='text-2xl mx-8 mt-10 text-center bg-white p-4 font-semibold rounded-lg'>
           <h1>CUSTOMERS</h1>
         </div>
@@ -44,17 +55,17 @@ const AdicionarCategoriaServico = () => {
         <Client /> 
       )}
 
-      <div className="md:hidden" onClick={() => setIsOpenSignUp(!isOpenSignUp)}>
+      <div  onClick={() => setIsOpenSignUp(!isOpenSignUp)}>
         <div className='text-2xl mx-8 mt-10 text-center bg-white p-4 font-semibold rounded-lg'>
-          <h1>login</h1>
+          <h1>cria login</h1>
         </div>
       </div>
       {isOpenSignUp && (
         <SignUp /> 
       )}
 
-<div className="md:hidden" onClick={() => setIsOpenAdmin(!isOpenAdmin)}>
-        <div className='text-2xl mx-8 m-10 text-center bg-white p-4 font-semibold rounded-lg'>
+<div  onClick={() => setIsOpenAdmin(!isOpenAdmin)}>
+        <div className='text-2xl mx-8 mt-10 text-center bg-white p-4 font-semibold rounded-lg'>
           <h1>cria login admin</h1>
         </div>
       </div>
