@@ -61,10 +61,10 @@ const FormAdmin = () => {
 
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4">
-      <form onSubmit={handleSubmit} className="mb-8 bg-white shadow-md rounded-lg p-6">
+    <div className="max-w-4xl mt-14 py-8 px-8 ">
+      <form onSubmit={handleSubmit} className="mb-8 bg-white shadow-md rounded-lg p-4">
 
-        <h1 className="text-3xl font-semibold text-gray-800 mb-6">Selecione entre  Categoria ou Serviço</h1>
+        <h1 className="text-xl font-semibold text-gray-800 mb-6">Selecione entre  Categoria ou Serviço</h1>
         <div className="mb-4">
           <select
             className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -77,10 +77,10 @@ const FormAdmin = () => {
         </div>
 
         {tipo === 'categoria' && (
-            <h1 className="text-3xl font-semibold text-gray-800 mb-6">Adicionar Categoria</h1>
+            <h1 className="text-xl font-semibold text-gray-800 mb-6">Adicionar Categoria</h1>
         )}
          {tipo === 'servico' && (
-            <h1 className="text-3xl font-semibold text-gray-800 mb-6">Adicionar Serviço</h1>
+            <h1 className="text-xl font-semibold text-gray-800 mb-6">Adicionar Serviço</h1>
         )}
         <div className="mb-4">
           <input
@@ -114,7 +114,7 @@ const FormAdmin = () => {
 
         {tipo === 'servico' && (
           <div className="mb-4">
-            <h1 className="text-3xl font-semibold text-gray-800 mb-6">Adicionar a categoria referente</h1>
+            <h1 className="text-xl font-semibold text-gray-800 mb-6">Adicionar a categoria referente</h1>
             <select
               value={categoriaId}
               onChange={(e) => setCategoriaId(e.target.value)}

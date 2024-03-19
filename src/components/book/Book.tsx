@@ -20,7 +20,7 @@ interface Booking {
 };
 interface Cliente {
   id: string;
-  nome: string;
+  name: string;
   telefone: string;
   Booking: Booking[];
 };
@@ -105,55 +105,51 @@ const Book = () => {
 
 
   return (
-    <div className='bg-white my-10 mx-5 rounded-lg'>
-      <h1 style={{ textAlign: "center", padding: "2%", fontSize:"24px" }}>  BOOKING</h1>
+    <div className="bg-white my-10 mx-8 rounded-lg shadow-md">
+      <h1 className="text-center text-2xl font-semibold py-4">Serviços Agendados</h1>
       <ul>
         {clientes && clientes?.map(client => (
-          <li key={client.id} style={{ width: "100%" }}>
-            <div className="flex" style={{marginTop:"15px",  marginLeft:"2%", marginRight:"2%", padding:"8px", borderRadius:"  20px 20px 0 0 ",  borderTop: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"}} >
-              <div style={{ minWidth: "50%", textAlign: "center" }}>
-                <h1 className="text-blue-500" style={{fontSize:"21px"}}>
-                  {client.nome}
+          <li key={client.id} className="border-b last:border-b-0">
+            <div className="flex flex-col md:flex-row justify-between bg-gray-100 p-2 rounded-lg">
+              <div className="flex-1 md:mr-2 mb-4 md:mb-0">
+                <h1 className="text-center text-blue-500 text-xl font-semibold">
+                  {client.name}
                 </h1>
-              </div>
-              <div style={{  minWidth: "50%", textAlign: "center" }}>
-                <h1 className="text-xl font-semibold text-blue-500  ">
+                <h2 className="text-center text-blue-500 text-xl">
                   {client.telefone}
-                </h1>
+                </h2>
               </div>
-            </div>
               {client.Booking && client.Booking.map(book => (
-                <>
-                <div key={book.id} className="flex" style={{ marginRight:"2%",  marginLeft:"2%", borderLeft: "1px solid #c2c2c2",   borderRight: "1px solid #c2c2c2",  }}>  
-                  
-                  <div  style={{ minWidth: "50%", textAlign:"center" }}>
-                    <h2 style={{fontSize:"19px"}}>DAY: {book.selectedDate}</h2>
-                    <h2 style={{fontSize:"19px"}}>WEEK: {book.selectedDayOfWeek}</h2>
-                    <h2 style={{fontSize:"19px"}}>MONTH: {book.selectedMonth}</h2>
+                <div key={book.id} className="flex-1">
+                  <div className="flex justify-between items-center">
+                    <div className="text-lg text-gray-600">
+                      <p>DIA: {book.selectedDate}</p>
+                      <p>SEMANA: {book.selectedDayOfWeek}</p>
+                      <p>MÊS: {book.selectedMonth}</p>
+                    </div>
+                    <div className="text-lg text-gray-600">
+                      <p>HORA: {book.selectedTime}</p>
+                      <p>PREÇO: {book.selectedProductDefaultPrice} €</p>
+                      <p>ANO: {book.selectedYear}</p>
+                    </div>
                   </div>
-                  <div style={{ minWidth: "50%", textAlign: "center"   }}>
-                    <h2 style={{fontSize:"19px"}}>TIME: {book.selectedTime}</h2>
-                    <h2 style={{fontSize:"19px"}}>PRICE: {book.selectedProductDefaultPrice} €</h2>
-                    <h2 style={{fontSize:"19px"}}>YEAR: {book.selectedYear}</h2>
-                  </div>
-                </div>
-
-                <div  style={{ textAlign:"center", marginLeft:"2%", marginRight:"2%", padding:"15px", borderRadius:" 0 0 20px 20px ", color:"white", fontSize:"11px", borderBottom: "1px solid #c2c2c2", borderLeft: "1px solid #c2c2c2", borderRight: "1px solid #c2c2c2"  }}>
-                  <button
-                    style={{background:"blue", padding:"8px", borderRadius:"20px", }}
+                  <div className="text-center mt-4">
+                    <button
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
                       disabled={!!loadingState[book.id]}  
                       onClick={() => markAsDone(book.id)}
                     >
-                    {loadingState[book.id] ? 'Carregando...' : 'FINISH'}
-                  </button>
+                      {loadingState[book.id] ? 'Carregando...' : 'Concluir'}
+                    </button>
+                  </div>
                 </div>
-                </>   
               ))}
+            </div>
           </li>
-         ))
-        }
+        ))}
       </ul>
     </div>
+  
   );
 }
 

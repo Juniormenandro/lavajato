@@ -21,18 +21,46 @@ interface Categoria {
 
 
 const AdicionarCategoriaServico = () => {
- 
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenSignUp, setIsOpenSignUp] = useState(false);
+  const [isOpenAdmin, setIsOpenAdmin] = useState(false);
+
+
 
   return (
-    <div className=" md:hidden relative  bg-center  z-0"  
+    <div className=" md:hidden relative  bg-center pb-10 z-0"  
       style={{ backgroundImage: "url('/images/header/logo1.webp')" }} >  
       <Header/>
       <FormAdmin />
       <Painel />
       <Book />
-      <Client /> 
-      <SignUp /> 
+ 
+      <div className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+        <div className='text-2xl mx-8 mt-10 text-center bg-white p-4 font-semibold rounded-lg'>
+          <h1>CUSTOMERS</h1>
+        </div>
+      </div>
+      {isOpen && (
+        <Client /> 
+      )}
+
+      <div className="md:hidden" onClick={() => setIsOpenSignUp(!isOpenSignUp)}>
+        <div className='text-2xl mx-8 mt-10 text-center bg-white p-4 font-semibold rounded-lg'>
+          <h1>login</h1>
+        </div>
+      </div>
+      {isOpenSignUp && (
+        <SignUp /> 
+      )}
+
+<div className="md:hidden" onClick={() => setIsOpenAdmin(!isOpenAdmin)}>
+        <div className='text-2xl mx-8 m-10 text-center bg-white p-4 font-semibold rounded-lg'>
+          <h1>cria login admin</h1>
+        </div>
+      </div>
+      {isOpenAdmin && (
       <CreateAdminForm />
+      )}
     </div>
   );
 };

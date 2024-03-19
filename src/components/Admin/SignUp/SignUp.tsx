@@ -47,14 +47,10 @@ const SignUp = () => {
     }
   };
 
+
+
   return (
-    <>
-    <p className="mt-4 text-center">
-      <Link href="/" className="bg-blue-500 p-2 rounded-2xl text-white hover:text-blue-700">
-        RETURN TO BEGINNING
-      </Link>
-    </p>
-    <main className="flex flex-col items-center min-h-screen p-10">
+    <main className=" bg-white mb-10 mx-8 flex flex-col items-center min-h-screen p-10">
       <div className="w-full max-w-lg">
         <h2 className="mb-5 text-3xl text-center">Register</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -110,7 +106,6 @@ const SignUp = () => {
         }}
       />
     </main>
-    </>
   );
 };
 

@@ -32,11 +32,6 @@ const CreateAdminForm = () => {
   };
 
   return (
-
-    <div>
-    <h1 className=" text-2xl m-10 text-center bg-white p-2 font-semibold rounded-2xl ">
-      Criar Admin
-    </h1>
     <form className=' m-10 '
      onSubmit={handleSubmit}>
       <div className='mb-3'>
@@ -64,9 +59,6 @@ const CreateAdminForm = () => {
       <Button type="submit" isLoading={false}>Criar Admin</Button>
       {message && <p>{message}</p>}
     </form>
-  </div>
-
-   
   );
 };
 

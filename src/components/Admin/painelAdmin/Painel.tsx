@@ -91,8 +91,8 @@ const Painel = () =>{
 
 
     return (
-        <div className="max-w-4xl mx-auto py-8 px-4">
-          <form className="mb-8 bg-white shadow-md rounded-lg p-6">
+        <div className="max-w-4xl py-8 px-8">
+          <form className="mb-8 bg-white shadow-md rounded-lg p-4">
     
             <h1 className="text-3xl font-semibold text-gray-800 mb-6">Filtrar Serviços por Categoria</h1>
             <div className="mb-4">
