@@ -15,15 +15,32 @@ const FormAdmin = () => {
   const [tipo, setTipo] = useState<'servico' | 'categoria'>('servico');
   const [nome, setNome] = useState('');
   const [image, setImage] = useState('');
+  const [rawPrice, setRawPrice] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [Description, setDescription] = useState('');
   const [categoriaId, setCategoriaId] = useState('');
   const [categorias, setCategorias] = useState<Categoria[]>([]);
 
+  useEffect(() => {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categorias`)
+      .then(response => {
+          if (!response.ok) {
+          throw new Error('A resposta da rede não foi ok');
+          }
+          if (!response.headers.get('content-type')?.includes('application/json')) {
+          throw new Error('Não recebemos JSON');
+          }
+          return response.json();
+      })
+      .then((data: Categoria[]) => setCategorias(data) )
+      .catch(error => console.error('Erro ao buscar categorias:', error));
+      
+      
+  }, []);
+
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-
      // Verifica se todos os campos obrigatórios estão preenchidos
     if (!nome.trim() || !Description.trim() || (tipo === 'servico' && !categoriaId)) {
       alert('Por favor, preencha todos os campos obrigatórios.');
@@ -32,7 +49,7 @@ const FormAdmin = () => {
 
     setIsSubmitting(true);
     const endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/categoriaServico` ;
-    const body = tipo === 'categoria' ? {tipo, nome, Description, image } : {tipo, nome, Description, categoriaId };
+    const body = tipo === 'categoria' ? {tipo, nome, Description, image } : {tipo, nome, Description, rawPrice, categoriaId };
    
     fetch(endpoint, {
       method: 'POST',
@@ -47,6 +64,7 @@ const FormAdmin = () => {
         setImage('');
         setDescription('');
         setCategoriaId('');
+        setRawPrice(0);
         window.location.reload();
       })
       .catch(error => {
@@ -109,9 +127,29 @@ const FormAdmin = () => {
           </div>
         )}
 
+         {tipo === 'servico' && (
+          <div className="mb-4">
+            <h1 className="text-ms font-semibold text-gray-800 mb-5">Valor Referente ao Servico:</h1>
+            <input 
+              type="number"
+              value={rawPrice}
+              onChange={(e) => {
+                // Converte o valor do input para um número
+                const value = Number(e.target.value);
+                // Verifica se o valor é um número válido antes de atualizar o estado
+                if (!isNaN(value)) {
+                  setRawPrice(value); // Atualiza o estado, assumindo que setRawPrice é uma função que espera um número
+                }
+              }}
+              placeholder="Preço"
+              className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+        )}
+
         {tipo === 'servico' && (
           <div className="mb-4">
-            <h1 className="text-xl font-semibold text-gray-800 mb-6">Adicionar a categoria referente</h1>
+            <h1 className="text-ms font-semibold text-gray-800 mb-5">Adicionar a categoria referente</h1>
             <select
               value={categoriaId}
               onChange={(e) => setCategoriaId(e.target.value)}
@@ -126,7 +164,6 @@ const FormAdmin = () => {
             </select>
           </div>
         )}
-
         <button
           type="submit"
           disabled={isSubmitting}

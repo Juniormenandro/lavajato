@@ -37,13 +37,14 @@ type SelectionStepsProps = {
   setName: React.Dispatch<React.SetStateAction<string>>;
   telefone: string;
   setTelefone: React.Dispatch<React.SetStateAction<string>>;
-  placa: string;
-  setPlaca: React.Dispatch<React.SetStateAction<string>>;
+  iercode: string;
+  setIercode: React.Dispatch<React.SetStateAction<string>>;
+  endereco: string;
+  setEndereco: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const SelectionSteps: React.FC<SelectionStepsProps> = ({
   step,
-  
   dates,
   bookingData,
   setBookingData,
@@ -51,8 +52,10 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
   setName,
   telefone,
   setTelefone,
-  placa,
-  setPlaca,
+  iercode,
+  setIercode,
+  endereco,
+  setEndereco,
   
 }) => {
 
@@ -88,8 +91,22 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
           }
         />
       ));
-   
       case 2:
+        content = availablePaymentSlots.map((PaymentSlot) => (
+          <Selector
+            key={PaymentSlot}
+            item={PaymentSlot}
+            selectedItem={bookingData.selectedPayment}
+            onClick={() =>
+              setBookingData({
+                ...bookingData,
+                selectedPayment: PaymentSlot,
+              })
+            }
+          />
+        ));
+      break;
+      case 3:
         const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
           event.preventDefault();
   
@@ -97,7 +114,8 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
             ...bookingData,
             name,
             telefone,
-            placa
+            iercode,
+            endereco,
           });
         };
         content = (
@@ -119,32 +137,25 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
               label={'Type Your Telefone"'}           
             />
             <TextInputSelector
-              key="placa"
+              key="iercode"
               type="text"
-              value={placa}
-              onChange={(e) => setPlaca(e.target.value)}
+              value={iercode}
+              onChange={(e) => setIercode(e.target.value)}
               placeholder="Type here..." 
-              label={'Type Your Placa"'}           
+              label={'Type Your iercode"'}           
+            />
+             <TextInputSelector
+              key="endereco"
+              type="text"
+              value={endereco}
+              onChange={(e) => setEndereco(e.target.value)}
+              placeholder="Type here..." 
+              label={'Type Your endereco"'}           
             />
           </form>
         );
       break;
-      case 3:
-      content = availablePaymentSlots.map((PaymentSlot) => (
-        <Selector
-          key={PaymentSlot}
-          item={PaymentSlot}
-          selectedItem={bookingData.selectedPayment}
-          onClick={() =>
-            setBookingData({
-              ...bookingData,
-              selectedPayment: PaymentSlot,
-            })
-          }
-        />
-      ));
-      break;
-   
+     
     default:
       break;
   }

@@ -17,6 +17,7 @@ interface Categoria {
     nome: string;
     Description: string;
     categoriaId: string;
+    rawPrice: number;
   }
 
 
@@ -112,6 +113,7 @@ const Painel = () =>{
                 <div className="mb-4 md:mb-0 flex-1">
                   <h3 className="text-xl font-semibold text-gray-700 mb-2">{servico.nome}</h3>
                   <p className="text-gray-600 overflow-auto max-h-32 md:max-h-full">{servico.Description}</p>
+                  <p className="text-gray-600 overflow-auto max-h-32 md:max-h-full">{servico.rawPrice}</p>
                 </div>
                 <button
                   onClick={() => handleDeletarClick(servico.id)}

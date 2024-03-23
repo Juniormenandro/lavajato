@@ -13,7 +13,7 @@ export const bookingDataInitialState = {
   
   selectedProductId: "",
   selectedProductName: "",
-  selectedProductPrice: "",
+  rawPrice: 0,
   selectedPayment:"",
 
   
@@ -21,7 +21,8 @@ export const bookingDataInitialState = {
   categoriaId:"",
   name:"", 
   telefone:"",
-  placa:"",
+  iercode:"",
+  endereco:"",
 
 
   

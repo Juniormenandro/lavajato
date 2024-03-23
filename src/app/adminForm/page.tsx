@@ -7,7 +7,7 @@ import Painel from '@/components/Admin/painelAdmin/Painel';
 import FormAdmin from '@/components/Admin/FormAdmin/FormAdmin';
 import CreateAdminForm from '@/components/Admin/CreateAdminForm/CreateAdmin';
 import SignUp from '@/components/Admin/SignUp/SignUp';
-
+import { useRouter } from 'next/navigation';
 
 // Supondo que suas definições de tipos para Categoria e Serviço sejam assim:
 interface Categoria {
@@ -19,13 +19,25 @@ interface Categoria {
 }
 
 
-
-
 const AdicionarCategoriaServico = () => {
   const [formCategoria, setFormCategoria] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenSignUp, setIsOpenSignUp] = useState(false);
   const [isOpenAdmin, setIsOpenAdmin] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+  const router = useRouter();
+
+
+  useEffect(() => {
+    const userToken = localStorage.getItem('token');
+      if (!userToken) {
+        alert('O usuário não está logado!');
+        router.push("/");
+        return;
+      }
+      setToken(userToken);
+      //console.log('Token from localStorage:', localStorage.getItem('token'));
+  }, []);
 
 
 
@@ -33,9 +45,19 @@ const AdicionarCategoriaServico = () => {
     <div className=" relative  bg-center py-28 z-0"  
       style={{ backgroundImage: "url('/images/header/logo1.webp')" }} >  
       <Header/>
+
       <Book />
+
       <Painel />
 
+       <div onClick={() => setIsOpen(!isOpen)}>
+        <div className='text-2xl mx-8 mt-10 text-center bg-white p-4 font-semibold rounded-lg'>
+          <h1>List de Cliente</h1>
+        </div>
+      </div>
+      {isOpen && (
+        <Client /> 
+      )}
 
       <div onClick={() => setFormCategoria(!formCategoria)}>
         <div className='text-2xl mx-8 mt-10 text-center bg-white p-4 font-semibold rounded-lg'>
@@ -44,15 +66,6 @@ const AdicionarCategoriaServico = () => {
       </div>
       {formCategoria && (
         <FormAdmin />
-      )}
- 
-      <div onClick={() => setIsOpen(!isOpen)}>
-        <div className='text-2xl mx-8 mt-10 text-center bg-white p-4 font-semibold rounded-lg'>
-          <h1>CUSTOMERS</h1>
-        </div>
-      </div>
-      {isOpen && (
-        <Client /> 
       )}
 
       <div  onClick={() => setIsOpenSignUp(!isOpenSignUp)}>

@@ -7,10 +7,11 @@ const prisma = new PrismaClient();
 const checkout = async (req: NextApiRequest, res: NextApiResponse) => {
   const { booking }: { booking: BookingType } = req.body;
   const {
-   
     name,
     telefone,
-    placa,
+    iercode,
+    endereco,
+    rawPrice,
     categoriaId,
     selectedProductId,
     selectedProductName,
@@ -30,23 +31,23 @@ const checkout = async (req: NextApiRequest, res: NextApiResponse) => {
       where: { telefone }
     });
 
-    // Se cliente encontrado pelo telefone, atualizar a placa
+    // Se cliente encontrado pelo telefone, atualizar a iercode
     if (client) {
       client = await prisma.clientes.update({
         where: { id: client.id },
-        data: { placa },
+        data: { iercode },
       });
     } 
-    // Se não, procurar pelo número da placa
+    // Se não, procurar pelo número da iercode
     else {
       client = await prisma.clientes.findUnique({
-        where: { placa }
+        where: { iercode }
       });
 
       // Se ainda não encontrou, criar um novo cliente
       if (!client) {
         client = await prisma.clientes.create({
-          data: { name, telefone, placa },
+          data: { name, telefone, iercode, endereco },
         });
       }
     }
@@ -55,7 +56,6 @@ const checkout = async (req: NextApiRequest, res: NextApiResponse) => {
     const newService = await prisma.booking.create({
       data: {
         cliente: { connect: { id: client.id } },
-
         categoriaId,
         selectedProductId,
         selectedProductName,
@@ -66,11 +66,11 @@ const checkout = async (req: NextApiRequest, res: NextApiResponse) => {
         selectedDate,
         selectedMonth,
         selectedYear,
-
+        rawPrice,
         bookConcluido: true,
       },
     });
-    console.log(newService,'book realizado com sucesso')
+    //console.log(newService,'book realizado com sucesso')
     return res.status(201).json({
       message: 'Reserva criada com sucesso!',
       service: newService

@@ -1,5 +1,5 @@
 "use client";
-
+import { ToastContainer } from 'react-toastify';
 import Head from 'next/head';
 import Header from '../components/home/Header/Header';
 import Footer from '../components/home/Footer/Footer';
@@ -17,6 +17,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <ToastContainer />
+      
       <Header />
 
       <FeaturesSection />

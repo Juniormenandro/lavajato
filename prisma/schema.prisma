@@ -6,47 +6,67 @@ datasource db {
   provider = "mongodb"
   url      = env("MONGODB_URI")
 }
-model servicos {
-  id                       String   @id @default(auto()) @map("_id") @db.ObjectId
-  carro                    String?
-  concluido                Boolean  @default(false)  
-  aguardandoPagamento      Boolean @default(true)
-  data                     DateTime @db.Date
-  selectedPayment          String?
-  selectedProductId        String?
-  selectedProductName      String?
-  selectedProductPrice      String?
-  selectedModel            String?
-  selectedColor            String?
-  selectedTime             String?
-  selectedProductDefaultPrice String?
-  rawPrice                 Int?
-  
-  clienteId                String   @db.ObjectId // updated to @db.ObjectId
-  cliente                  clientes @relation(fields: [clienteId], references: [id]) // foreign key relation to 'clientes'
+
+
+model User {
+  id                          String   @id @default(auto()) @map("_id") @db.ObjectId
+  email                       String   @unique
+  name                        String?
+  password                    String?
+  role                        String   @default("USER")
+  active                      Boolean?
 }
 
+
+model clientes {
+  id                          String             @id @default(auto()) @map("_id") @db.ObjectId
+  updatedAt                   DateTime          @updatedAt
+  createdAt                   DateTime           @default(now())
+  name                        String
+  telefone                    String              @unique
+  iercode                     String              @unique
+  endereco                    String
+  email                       String?
+  servicos                    servicos[]
+  Booking                     Booking[]
+}
+
+
+model servicos {
+  id                          String   @id @default(auto()) @map("_id") @db.ObjectId
+  carro                       String?
+  concluido                   Boolean  @default(false)  
+  aguardandoPagamento         Boolean @default(true)
+  data                        DateTime @db.Date
+  selectedPayment             String?
+  selectedProductId           String?
+  selectedProductName         String?
+  selectedProductPrice        String?
+  selectedModel               String?
+  selectedColor               String?
+  selectedTime                String?
+  selectedProductDefaultPrice String?
+  rawPrice                    Int?
+  clienteId                   String   @db.ObjectId // updated to @db.ObjectId
+  cliente                     clientes @relation(fields: [clienteId], references: [id]) // foreign key relation to 'clientes'
+}
 
 
 model Booking {
   id                          String   @id @default(auto()) @map("_id") @db.ObjectId
   cliente                     clientes @relation(fields: [clienteId], references: [id])
   clienteId                   String   @db.ObjectId
-  
   formattedDate               String
   selectedDayOfWeek           String
   selectedDate                Int
   selectedMonth               String
   selectedYear                Int
   selectedTime                String
-  
-
   categoriaId                 String   
   selectedProductId           String   
   selectedProductName         String
   selectedPayment             String
-
-
+  rawPrice                    Int?
   bookConcluido               Boolean  @default(false) 
   createdAt                   DateTime @default(now())
   updatedAt                   DateTime @updatedAt
@@ -54,68 +74,40 @@ model Booking {
 
 
 model Categoria {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  nome     String
-  image    String
-  Description String
+  id                          String   @id @default(auto()) @map("_id") @db.ObjectId
+  nome                        String
+  image                       String
+  Description                 String
   servicos Servico[]
 }
 
 model Servico {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  nome        String
-  Description   String?
-  categoriaId String   @db.ObjectId
-  categoria   Categoria @relation(fields: [categoriaId], references: [id])
-}
-
-
-
-
-model clientes {
-  id        String             @id @default(auto()) @map("_id") @db.ObjectId
-  updatedAt  DateTime          @updatedAt
-  createdAt DateTime           @default(now())
-  name      String
-  servicos  servicos[]
-  telefone  String              @unique
-  placa  String                 @unique
-  email     String?
- 
-  Booking   Booking[]
+  id                          String   @id @default(auto()) @map("_id") @db.ObjectId
+  nome                        String
+  Description                 String?
+  rawPrice                    Int?
+  categoriaId                 String   @db.ObjectId
+  categoria   Categoria       @relation(fields: [categoriaId], references: [id])
 }
 
 model despesas {
-  id     String   @id @default(auto()) @map("_id") @db.ObjectId
-  data   DateTime @db.Date
-  name   String
-  preco  Int?
-  recibo String?
+  id                          String   @id @default(auto()) @map("_id") @db.ObjectId
+  data                        DateTime @db.Date
+  name                        String
+  preco                       Int?
+  recibo                      String?
 }
 
-
-
 model faturamentodiarios {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id                          String @id @default(auto()) @map("_id") @db.ObjectId
 }
 
 model registrohoras {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  v           Int      @map("__v")
-  colaborador String
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  duracao     Json?
-  entrada     DateTime @db.Date
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  saida       Json?
+  id                          String   @id @default(auto()) @map("_id") @db.ObjectId
+  v                           Int      @map("__v")
+  colaborador                 String
+  duracao                     Json?
+  entrada                     DateTime @db.Date
+  saida                       Json?
 }
 
-
-model User {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  email    String   @unique
-  name     String?
-  password String?
-  role     String   @default("USER")
-  active   Boolean?
-}

@@ -7,13 +7,14 @@ import useLocalStorage from "@/hooks/useLocalStorage/useLocalStorage";
 import { bookingDataInitialState } from '@/constants';
 import { fetcher } from '@/utils/fetcher/fetcher';
 import Header from '@/components/home/Header/HeaderPag';
-
+import Spinner from '@/components/form/Spinner/Spinner';
 
 export type ProductType = {
   id: string;
   selectedProductName: string;
   selectedProductPrice: string;
   selectedProdutoDescription: string;
+  rawPrice: 0
 };
 
 export type BookingType = typeof bookingDataInitialState;
@@ -25,7 +26,7 @@ interface Product {
   nome: string;
   id: string;
   name: string;
-  selectedProductPrice: string;
+  rawPrice: 0;
   selectedProductName: string;
   selectedProdutoDescription: string;
 };
@@ -52,8 +53,6 @@ function Servicos() {
  
   }, [id, image]);
 
-  
-
 
   const { data, error, isLoading } = useSWR<Product[]>([
       `${process.env.NEXT_PUBLIC_API_URL}/api/servicos/${id}`,],
@@ -69,18 +68,15 @@ function Servicos() {
   );
 
 
-
-
   const handleProductSelect = (product:Product,) => {
     // Atualiza o estado primeiro
-   
     setBookingData({
       ...bookingData,
         selectedProductId: product.id,
         selectedProductName: product.nome,
+        rawPrice: product.rawPrice,
         categoriaId: id,
     });
- 
     // Marca a seleção como concluída com sucesso
     setSelecaoConcluida(true);
   };
@@ -91,6 +87,15 @@ function Servicos() {
       router.push('/form');
     }
   }, [selecaoConcluida, router]);
+
+  if (isLoading)
+  return (
+    <div className="relative bg-fixed  bg-center bg-cover min-h-[100vh] flex justify-center items-center" style={{ backgroundImage: `url('${image}')` }}>
+      <div className="flex flex-col items-center bg-black/20 rounded-xl  p-10">
+        <Spinner></Spinner>
+      </div>
+    </div>
+  );
 
   return (
     <div className="relative  bg-center " style={{ backgroundImage: `url('${image}')` }}>

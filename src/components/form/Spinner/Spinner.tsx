@@ -6,7 +6,7 @@ const Spinner: React.FC<{}> = () => {
     <div role="status">
       <svg
         aria-hidden="true"
-        className={`w-10 h-10 mr-2 text-gray-200 animate-spin dark:text-blue-500 fill-white`}
+        className={`w-20 h-20 mr-2 text-gray-200 animate-spin dark:text-blue-500 fill-white`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

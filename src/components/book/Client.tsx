@@ -5,47 +5,47 @@ import Spinner from "@/components/form/Spinner/Spinner";
 import { fetcher } from '@/utils/fetcher/fetcher';
 import 'react-datepicker/dist/react-datepicker.css';
 import useSWR, { mutate } from 'swr';
-import { useRouter } from "next/navigation";
 import React from 'react';
 
 
 interface Servico {
-  selectedColor: string;
-  selectedModel: string;
-  selectedPayment: string;
-  rawPrice:Number;
-  selectedProductNane: string; 
-  id: string;
-  carro: string;  
-  concluido: boolean;
-  aguardandoPagamento: boolean;
-  data:any; 
+  selectedColor:             string;
+  selectedModel:             string;
+  selectedPayment:           string;
+  rawPrice:                  Number;
+  selectedProductNane:       string; 
+  id:                        string;
+  carro:                     string;  
+  concluido:                boolean;
+  aguardandoPagamento:      boolean;
+  data:                         any; 
 };
 
 
 interface Booking {
-  id: string;
+  id:                         string;
   selectedDayOfWeek: React.ReactNode;
-  selectedDate: number | string;
-  selectedMonth: React.ReactNode;
-  selectedYear: React.ReactNode;
-  selectedTime: React.ReactNode;
- 
-  formattedDate:        String;
-  categoriaId:          String;
-  selectedProductId:    String;
-  selectedProductName:  String;
-  selectedPayment:      String;
-  bookConcluido:        boolean;
+  selectedDate:      number | string;
+  selectedMonth:     React.ReactNode;
+  selectedYear:      React.ReactNode;
+  selectedTime:      React.ReactNode;
+  rawPrice:                   Number;
+  formattedDate:              String;
+  categoriaId:                String;
+  selectedProductId:          String;
+  selectedProductName:        String;
+  selectedPayment:            String;
+  bookConcluido:             boolean;
 
 };
 interface Cliente {
-  placa: string;
-  id: string;
-  name: string;
-  telefone: string;
-  servicos: Servico[];
-  Booking: Booking[];
+  iercode:                    string;
+  endereco:                   string;
+  id:                         string;
+  name:                       string;
+  telefone:                   string;
+  servico:                 Servico[];
+  Booking:                 Booking[];
 };
   
 const Client = ()  => {
@@ -53,15 +53,13 @@ const Client = ()  => {
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
   const [newPrice, setNewPrice] = useState<string>('');
   const [periodoFiltragem, setPeriodoFiltragem] = useState('all');
-  const [selectedField, setSelectedField] = useState('rawPrice');
+  const [selectedField, setSelectedField] =  useState('rawPrice');
 
   
-
 
   useEffect(() => {
     const userToken = localStorage.getItem('token');
       if (!userToken) {
-        alert('O usuário não está logado!');
         return;
       }
       setToken(userToken);
@@ -109,7 +107,7 @@ const Client = ()  => {
       if (clientes) {
         const updatedClientes = clientes.map(client => ({
           ...client,
-          servicos: client.servicos.map(servico =>
+          servicos: client.servico.map((servico: { id: string; }) =>
             servico.id === serviceId
             ? { ...servico, [selectedField]: newPrice }
             : servico
@@ -148,10 +146,12 @@ const Client = ()  => {
           {client.Booking && client.Booking.map(book => (
             <div key={book.id} className='flex-row justify-center text-center bg-white border-b-4 ml-3 mr-3 p-2 '>
               <h1 className="text-[22px] font-semibold">{client.name}</h1>
-              <h1 className="text-[23px] font-semibold border ">{client.telefone}</h1>
-              <h2 className=' text-[18px] border  '>produto: {book.selectedProductName}</h2>
+              <h1 className="text-[20px] font-semibold border ">{client.telefone}</h1>
+              <h2 className=' text-[18px] border  '>{book.selectedProductName}</h2>
+              
               <h2 className=' text-[18px] border  '>pagamneto: {book.selectedPayment}</h2>
-              <h2 className=' text-[18px] border  '>placa: {client.placa}</h2>
+              <h2 className=' text-[18px] border  '>iercode: {client.iercode}</h2>
+              <h2 className=' text-[18px] border  '>endereco: {client.endereco}</h2>
               <h2 className=' text-[18px] border  '>TIME: {book.selectedTime}</h2>
               <h2 className=' text-[18px] border '>DAY: {book.selectedDate}</h2>
             </div>

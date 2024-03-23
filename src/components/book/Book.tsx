@@ -9,6 +9,9 @@ import { Toaster, toast } from "react-hot-toast";
 
 
 interface Booking {
+  selectedPayment: string;
+  selectedProductName: string;
+  rawPrice:0;
   id: string;
   selectedDayOfWeek: React.ReactNode;
   selectedDate: number | string;
@@ -19,6 +22,8 @@ interface Booking {
 
 };
 interface Cliente {
+  iercode: string;
+  endereco: string;
   id: string;
   name: string;
   telefone: string;
@@ -34,7 +39,6 @@ const Book = () => {
   useEffect(() => {
     const userToken = localStorage.getItem('token');
       if (!userToken) {
-        alert('O usuário não está logado!');
         return;
       }
       setToken(userToken);
@@ -110,41 +114,28 @@ const Book = () => {
       <ul>
         {clientes && clientes?.map(client => (
           <li key={client.id} className="border-b last:border-b-0">
-            <div className="flex flex-col md:flex-row justify-between bg-gray-100 p-2 rounded-lg">
-              <div className="flex-1 md:mr-2 mb-4 md:mb-0">
-                <h1 className="text-center text-blue-500 text-xl font-semibold">
-                  {client.name}
-                </h1>
-                <h2 className="text-center text-blue-500 text-xl">
-                  {client.telefone}
-                </h2>
-              </div>
-              {client.Booking && client.Booking.map(book => (
-                <div key={book.id} className="flex-1">
-                  <div className="flex justify-between items-center">
-                    <div className="text-lg text-gray-600">
-                      <p>DIA: {book.selectedDate}</p>
-                      <p>SEMANA: {book.selectedDayOfWeek}</p>
-                      <p>MÊS: {book.selectedMonth}</p>
-                    </div>
-                    <div className="text-lg text-gray-600">
-                      <p>HORA: {book.selectedTime}</p>
-                      <p>PREÇO: {book.selectedProductDefaultPrice} €</p>
-                      <p>ANO: {book.selectedYear}</p>
-                    </div>
-                  </div>
-                  <div className="text-center mt-4">
-                    <button
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-                      disabled={!!loadingState[book.id]}  
-                      onClick={() => markAsDone(book.id)}
-                    >
-                      {loadingState[book.id] ? 'Carregando...' : 'Concluir'}
-                    </button>
-                  </div>
+            {client.Booking && client.Booking.map(book => (
+              <div key={book.id} className='flex-row justify-center text-center bg-white border-b-4 ml-3 mr-3 p-2 '>
+                <h1 className="text-[22px] font-semibold">{client.name}</h1>
+                <h1 className="text-[20px] font-semibold border ">{client.telefone}</h1>
+                <h2 className=' text-[18px] border  '>Produto: {book.selectedProductName}</h2>
+                <h2 className=' text-[18px] border  '>Preço: {book.rawPrice}</h2>
+                <h2 className=' text-[18px] border  '>Pagamneto: {book.selectedPayment}</h2>
+                <h2 className=' text-[18px] border  '>Eircode: {client.iercode}</h2>
+                <h2 className=' text-[18px] border  '>Endereco: {client.endereco}</h2>
+                <h2 className=' text-[18px] border  '>TIME: {book.selectedTime}</h2>
+                <h2 className=' text-[18px] border '>DAY: {book.selectedDate}</h2>
+                <div className="text-center mt-4">
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                    disabled={!!loadingState[book.id]}  
+                    onClick={() => markAsDone(book.id)}
+                  >
+                    {loadingState[book.id] ? 'Carregando...' : 'Concluir'}
+                  </button>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </li>
         ))}
       </ul>

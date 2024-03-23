@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { useRouter } from "next/navigation";
 import { fetcher } from '@/utils/fetcher/fetcher';
+import Spinner from '@/components/form/Spinner/Spinner';
 
 
 interface Product {
@@ -27,8 +28,9 @@ const FeaturesSection = () => {
     {
       revalidateOnFocus: false,
     }
-    
   );
+
+
 
   const handleProductSelect = (product: Product) => {
    
@@ -46,6 +48,16 @@ const FeaturesSection = () => {
       router.push('/servicos');
     }
   }, [selecaoConcluida, selecao, router]);
+
+
+  if (isLoading)
+  return (
+    <div className="relative  bg-center bg-cover min-h-[70vh] flex justify-center items-center" style={{ backgroundImage: "url('/images/header/logo1.webp')" }}>
+      <div className="flex flex-col items-center bg-black/20 rounded-xl  p-10">
+        <Spinner></Spinner>
+      </div>
+    </div>
+  );
 
 
   return (
