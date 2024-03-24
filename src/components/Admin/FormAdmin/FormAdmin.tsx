@@ -7,7 +7,27 @@ interface Categoria {
   nome: string;
   Description: string;
   image:string;
+  areaId: string;
 }
+
+const staticProducts = [
+  {
+    areaId: "casa",
+    nome: "casa",
+  },
+  {
+    areaId: "carro",
+    nome: "carro",
+  },
+  {
+    areaId: "humano",
+    nome: "humano",
+  },
+  {
+    areaId: "pet",
+    nome: "pet",
+  },
+];
 
 
 const FormAdmin = () => {
@@ -15,6 +35,7 @@ const FormAdmin = () => {
   const [tipo, setTipo] = useState<'servico' | 'categoria'>('servico');
   const [nome, setNome] = useState('');
   const [image, setImage] = useState('');
+  const [areaId, setAreaId] = useState('');
   const [rawPrice, setRawPrice] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [Description, setDescription] = useState('');
@@ -49,7 +70,7 @@ const FormAdmin = () => {
 
     setIsSubmitting(true);
     const endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/categoriaServico` ;
-    const body = tipo === 'categoria' ? {tipo, nome, Description, image } : {tipo, nome, Description, rawPrice, categoriaId };
+    const body = tipo === 'categoria' ? {tipo, nome, Description, image, areaId } : {tipo, nome, Description, rawPrice, categoriaId };
    
     fetch(endpoint, {
       method: 'POST',
@@ -64,6 +85,7 @@ const FormAdmin = () => {
         setImage('');
         setDescription('');
         setCategoriaId('');
+        setAreaId('');
         setRawPrice(0);
         window.location.reload();
       })
@@ -144,6 +166,24 @@ const FormAdmin = () => {
               placeholder="Preço"
               className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
+          </div>
+        )}
+
+        {tipo === 'categoria' && (
+          <div className="mb-4">
+            <h1 className="text-ms font-semibold text-gray-800 mb-5">Adicionar a categoria referente</h1>
+            <select
+              value={areaId}
+              onChange={(e) => setAreaId(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="">Selecione uma area</option>
+              {staticProducts.map((area) => (
+                <option key={area.areaId} value={area.areaId}>
+                  {area.nome}
+                </option>
+              ))}
+            </select>
           </div>
         )}
 
