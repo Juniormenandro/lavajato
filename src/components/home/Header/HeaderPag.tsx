@@ -30,7 +30,7 @@ const Header = () => {
             <Link href="/" onClick={home} className="text-xl hover:border-b-2 hover:border-teal-300 transition duration-500">Home</Link>
             <Link href="#about" className="text-xl hover:border-b-2 hover:border-teal-300 transition duration-500">About</Link>
             <Link href="/adminForm" className="text-xl hover:border-b-2 hover:border-teal-300 transition duration-500">Administrative panel</Link>
-            <Link href="/login" className="block p-2 hover:bg-gray-100">Login</Link>
+            <Link href="/login"className="text-xl hover:border-b-2 hover:border-teal-300 transition duration-500">Login</Link>
           </div>
         </nav>
       </header>

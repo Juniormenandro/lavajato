@@ -79,7 +79,7 @@ function Categoria() {
     
       if (isLoading)
       return (
-        <div className="relative  bg-center bg-cover min-h-[70vh] flex justify-center items-center" style={{ backgroundImage: "url('/images/header/logo1.webp')" }}>
+        <div className="relative  bg-center bg-cover min-h-[100vh] flex justify-center items-center" style={{ backgroundImage: "url('/images/header/logo1.webp')" }}>
           <div className="flex flex-col items-center bg-black/20 rounded-xl  p-10">
             <Spinner></Spinner>
           </div>
@@ -94,8 +94,8 @@ function Categoria() {
             <>
               <div  className="hidden md:flex relative bg-fixed bg-no-repeat bg-center bg-cover h-[100vh] justify-center items-center" 
               style={{ backgroundImage: `url(${product.imageUrl})`}}>
-                <div key={product.id} className="flex flex-col items-center p-20 "  onClick={() => handleProductSelect(product)}>
-                  <a className={` bg-white/75 p-12 rounded-xl shadow-md  items-center text-center  text-black no-underline ${selecao === product.id ? 'selected-service-card' : ''}`}>
+                <div key={product.id} className="flex flex-col items-center px-20 "  onClick={() => handleProductSelect(product)}>
+                  <a className={` bg-white/75 p-10 rounded-xl shadow-md  items-center text-center  text-black no-underline ${selecao === product.id ? 'selected-service-card' : ''}`}>
                     <h3 className="text-4xl font-semibold mb-4">{product.nome}</h3>
                     <h1 className="text-2xl font-semibold">{product.Description}</h1>
                   </a>
@@ -103,8 +103,8 @@ function Categoria() {
               </div>
     
               <div className="md:hidden relative bg-no-repeat bg-center bg-cover min-h-[85vh] flex justify-center items-center" style={{ backgroundImage: `url(${product.imageUrl})` }}>
-                <div key={product.id} className="flex flex-col items-center py-10 px-5"  onClick={() => handleProductSelect(product)}>
-                  <a className={`bg-white/75 p-1 rounded-xl shadow-md text-center text-black no-underline ${selecao === product.id ? 'selected-service-card' : ''}`}>
+                <div key={product.id} className="flex flex-col items-center py-20 px-10"  onClick={() => handleProductSelect(product)}>
+                  <a className={`bg-white/75 p-5 rounded-xl shadow-md text-center text-black no-underline ${selecao === product.id ? 'selected-service-card' : ''}`}>
                     <h3 className="text-2xl font-semibold mb-4">{product.nome}</h3>
                     <h1 className="text-xl font-semibold mb-2">{product.Description}</h1>
                   </a>
