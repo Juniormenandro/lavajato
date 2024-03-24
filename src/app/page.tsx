@@ -21,7 +21,7 @@ export default function Home() {
       
       <Header />
 
-      <FeaturesSection />
+      <MainSection />
 
       <TestimonialsSection />
 

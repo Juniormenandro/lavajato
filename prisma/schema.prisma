@@ -78,6 +78,7 @@ model Categoria {
   nome                        String
   image                       String
   Description                 String
+  areaId                      String
   servicos Servico[]
 }
 

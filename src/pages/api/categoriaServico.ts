@@ -8,6 +8,7 @@ interface CategoriaBody {
   nome: string;
   image: string;
   Description: string;
+  areaId: string;
 }
 
 interface ServicoBody {
@@ -22,7 +23,7 @@ type RequestBody = CategoriaBody | ServicoBody;
 
 type ResponseData = 
   | { error: string }
-  | { nome: string; image?: string; Description: string | null; categoriaId?: string; rawPrice?: number | null; };
+  | { nome: string; image?: string; Description: string | null; areaId?: string | null; categoriaId?: string; rawPrice?: number | null; };
 
 
 export default async function handle(
@@ -35,6 +36,7 @@ export default async function handle(
     if (body.tipo === 'categoria') {
       const categoria = await prisma.categoria.create({
         data: {
+          areaId: body.areaId,
           nome: body.nome,
           image: body.image,
           Description: body.Description,
