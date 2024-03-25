@@ -133,12 +133,19 @@ const BookingPage: NextPage = () => {
 
 
   return (
-    <div className="relative bg-fixed  bg-center bg-cover min-h-[100vh] flex justify-center items-center" style={{ backgroundImage: `url('${image}')` }}>
+    <div className="relative bg-fixed  bg-center bg-cover min-h-[100vh] flex flex-col justify-center items-center" style={{ backgroundImage: `url('${image}')` }}>
       <Header />
-      <div className="flex flex-col items-center w-60">
-        <Toaster position="top-center" />
-        <div className=" w-screen rounded-lg ">
-          <div className="flex flex-col gap-4 mx-16">
+      <Toaster position="top-center" />
+        <div className=" w-full rounded-lg items-center my-20 ">
+          <div className="flex justify-center w-ful bg-white rounded-lg py-2 text-xl mb-10 mx-16">
+            <label>
+              {!bookingData.step && "select the date!"}
+              {bookingData.step === 1 && "Select your time payment:"}
+              {bookingData.step === 2 && "Select your payment:"}
+              {bookingData.step === 3 && "your data, people and address:"}
+            </label>
+          </div>
+          <div className="flex flex-col gap-4 mx-16 mb-10">
             <SelectionSteps
               step={bookingData.step}
               bookingData={bookingData}
@@ -154,7 +161,7 @@ const BookingPage: NextPage = () => {
               setEndereco={setEndereco}
             />
           </div>
-          <div className="fixed-bottom px-16 pt-4  text-center">
+          <div className="mx-16">
             <StepButton
               step={bookingData.step}
               checkoutIsLoading={checkoutIsLoading}
@@ -173,7 +180,6 @@ const BookingPage: NextPage = () => {
 
         </div>
       </div>
-    </div>
   );
 };
 
