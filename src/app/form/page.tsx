@@ -135,35 +135,26 @@ const BookingPage: NextPage = () => {
   return (
     <div className="relative bg-fixed  bg-center bg-cover min-h-[100vh] flex justify-center items-center" style={{ backgroundImage: `url('${image}')` }}>
       <Header />
-      <div className=" flex flex-col items-center mt-16 mb-36">
+      <div className="flex flex-col items-center w-60">
         <Toaster position="top-center" />
-          <div className=" w-80  rounded-lg  ">
-          <h2 className="mb-8 text-3xl text-center">Book Now!</h2>
-          <div className="mb-4 ">
-            <label className="block mb-2">
-              {!bookingData.step && "Select your Date:"}
-              {bookingData.step === 1 && "Select your time:"}
-              {bookingData.step === 2 && "Select your payment:"}
-              {bookingData.step === 3 && ""}
-            </label>
-            <div className="flex flex-col gap-4 ">
-              <SelectionSteps
-                step={bookingData.step}
-                bookingData={bookingData}
-                setBookingData={setBookingData}
-                dates={dates}
-                name={name}
-                setName={setName}
-                telefone={telefone}
-                setTelefone={setTelefone}
-                iercode={iercode}
-                setIercode={setIercode}
-                endereco={endereco}
-                setEndereco={setEndereco}
-              />
-            </div>
+        <div className=" w-screen rounded-lg ">
+          <div className="flex flex-col gap-4 mx-16">
+            <SelectionSteps
+              step={bookingData.step}
+              bookingData={bookingData}
+              setBookingData={setBookingData}
+              dates={dates}
+              name={name}
+              setName={setName}
+              telefone={telefone}
+              setTelefone={setTelefone}
+              iercode={iercode}
+              setIercode={setIercode}
+              endereco={endereco}
+              setEndereco={setEndereco}
+            />
           </div>
-          <div className="fixed-bottom px-4 pt-4 bg-white/95 z-30 text-center">
+          <div className="fixed-bottom px-16 pt-4  text-center">
             <StepButton
               step={bookingData.step}
               checkoutIsLoading={checkoutIsLoading}

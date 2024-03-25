@@ -1,11 +1,11 @@
 "use client";
 
-import Link from 'next/link';
+
 import React, { useEffect, useState } from 'react';
 import './MainSection.css';
 
 import { useRouter } from "next/navigation";
-import Spinner from '@/components/form/Spinner/Spinner'; // Ajuste o caminho conforme necessário
+
 
 interface Product {
   areaId: string;
@@ -49,9 +49,11 @@ const MainSection = () => {
   const [selecao, setSelecao] = useState('');
 
   const handleProductSelect = (staticProducts: Product) => {
+    localStorage.setItem('image', staticProducts.imageUrl);
     localStorage.setItem('areaId', staticProducts.areaId);
     setSelecao(staticProducts.areaId);
     setSelecaoConcluida(true);
+
   };
   
   useEffect(() => {

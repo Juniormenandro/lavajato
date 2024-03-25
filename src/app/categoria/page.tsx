@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import { useRouter } from "next/navigation";
-import useLocalStorage from "@/hooks/useLocalStorage/useLocalStorage";
 import { bookingDataInitialState } from '@/constants';
 import { fetcher } from '@/utils/fetcher/fetcher';
 import Header from '@/components/home/Header/HeaderPag';
@@ -35,6 +34,7 @@ interface Product {
 
 function Categoria() {
   const [areaId, setAreaId] = useState("")
+  const [image, setImage] = useState("")
   const router = useRouter();
   const [selecaoConcluida, setSelecaoConcluida] = useState(false);
   const [selecao, setSelecao] = useState('');
@@ -42,11 +42,15 @@ function Categoria() {
   
   useEffect(() => {
     const areaId = localStorage.getItem('areaId');
+    const image = localStorage.getItem('image')
     if (areaId) {
       setAreaId(areaId)
     }
+    if (image) {
+      setImage(image)
+    }
 
-  }, [areaId]);
+  }, [areaId, image]);
 
 
   const { data, error, isLoading } = useSWR<Product[]>([
@@ -79,7 +83,7 @@ function Categoria() {
     
       if (isLoading)
       return (
-        <div className="relative  bg-center bg-cover min-h-[100vh] flex justify-center items-center" style={{ backgroundImage: "url('/images/header/logo1.webp')" }}>
+        <div className="relative  bg-center bg-cover min-h-[100vh] flex justify-center items-center" style={{ backgroundImage: `url('${image}')` }}>
           <div className="flex flex-col items-center bg-black/20 rounded-xl  p-10">
             <Spinner></Spinner>
           </div>
