@@ -107,12 +107,11 @@ const BookingPage: NextPage = () => {
   };
   
 
-
-
   useEffect(() => {
-    console.log("bookingData atualizado:", bookingData);
-    console.log("bookingDetails:", bookingDetails);
+    //console.log("bookingData atualizado:", bookingData);
+    //console.log("bookingDetails:", bookingDetails);
   }, [bookingData]);
+  
   
   if (checkoutIsLoading)
   return (
@@ -136,16 +135,16 @@ const BookingPage: NextPage = () => {
     <div className="relative bg-fixed  bg-center bg-cover min-h-[100vh] flex flex-col justify-center items-center" style={{ backgroundImage: `url('${image}')` }}>
       <Header />
       <Toaster position="top-center" />
-        <div className=" w-full rounded-lg items-center my-20 ">
-          <div className="flex justify-center w-ful bg-white rounded-lg py-2 text-xl mb-10 mx-16">
+        <div className=" w-full rounded-lg items-center mt-24 ">
+          <div className="flex justify-center w-ful bg-white/90 rounded-lg py-1 text-xl mb-10 mx-12">
             <label>
               {!bookingData.step && "select the date!"}
-              {bookingData.step === 1 && "Select your time payment:"}
-              {bookingData.step === 2 && "Select your payment:"}
-              {bookingData.step === 3 && "your data, people and address:"}
+              {bookingData.step === 1 && "Select your time!"}
+              {bookingData.step === 2 && "Select your payment!"}
+              {bookingData.step === 3 && "Your contact details!"}
             </label>
           </div>
-          <div className="flex flex-col gap-4 mx-16 mb-10">
+          <div className="flex flex-col justify-center min-h-[55vh] gap-4 mb-10 mx-12">
             <SelectionSteps
               step={bookingData.step}
               bookingData={bookingData}
@@ -161,7 +160,7 @@ const BookingPage: NextPage = () => {
               setEndereco={setEndereco}
             />
           </div>
-          <div className="mx-16">
+          <div className="mx-12">
             <StepButton
               step={bookingData.step}
               checkoutIsLoading={checkoutIsLoading}

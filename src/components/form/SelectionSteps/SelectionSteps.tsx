@@ -126,7 +126,7 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Type here..." 
-              label={'Type Your Name"'}           
+              label={'Type Your Name..."'}           
             />
             <TextInputSelector
               key="telefone"
@@ -134,7 +134,7 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
               value={telefone}
               onChange={(e) => setTelefone(e.target.value)}
               placeholder="Type here..." 
-              label={'Type Your Telefone"'}           
+              label={'Type Your Phone..."'}           
             />
             <TextInputSelector
               key="iercode"
@@ -142,7 +142,7 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
               value={iercode}
               onChange={(e) => setIercode(e.target.value)}
               placeholder="Type here..." 
-              label={'Type Your iercode"'}           
+              label={'Type Your Iercode..."'}           
             />
              <TextInputSelector
               key="endereco"
@@ -150,7 +150,7 @@ const SelectionSteps: React.FC<SelectionStepsProps> = ({
               value={endereco}
               onChange={(e) => setEndereco(e.target.value)}
               placeholder="Type here..." 
-              label={'Type Your endereco"'}           
+              label={'Type Your Address..."'}           
             />
           </form>
         );

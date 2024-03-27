@@ -2,7 +2,7 @@ import React from "react";
 
 type ButtonProps = {
   type: "submit" | "button" | "reset";
-  variant?: "default" | "danger" | "relevante"  | "home"  | "white"; // Added "white" variant
+  variant?: "default" | "danger" | "relevante"  | "home"  | "white"; 
   className?: string;
   disabled?: boolean;
   isLoading: boolean;
@@ -14,7 +14,7 @@ const Button: React.FC<ButtonProps> = ({
   type,
   variant = "default",
   className = "",
-  disabled = false,
+  disabled = false, 
   isLoading,
   onClick,
   children,

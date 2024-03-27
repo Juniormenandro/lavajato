@@ -2,7 +2,7 @@ import { BookingType } from "@/app/form/page";
 import Button from "../Button/Button";
 import { bookingDataInitialState } from "@/constants";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 
@@ -45,8 +45,22 @@ const StepButton: React.FC<StepButtonProps> = ({
   
 }) => {
 
-
+  const [data, setData] = useState(false)
   const router = useRouter();
+  
+
+  useEffect(() => {
+    // Verifica se todos os campos estão preenchidos. Isto será `true` se todos os campos
+    // forem não vazios, e `false` caso contrário.
+    const allFieldsFilled = Boolean(name && telefone && iercode && endereco);
+
+    // Atualiza o estado `data` para refletir se todos os campos estão preenchidos.
+    setData(allFieldsFilled);
+    console.log(allFieldsFilled, 'dados atualizados para true')
+    // Inclui os campos no array de dependências para que este efeito seja executado
+    // novamente sempre que qualquer um desses valores mudar.
+  }, [name, telefone, iercode, endereco]);
+
 
 
   const handleContinue = () => {
@@ -110,7 +124,7 @@ const StepButton: React.FC<StepButtonProps> = ({
         <Button
           type="button"
           isLoading={false}
-          disabled={!selectedPayment || checkoutIsLoading}
+          disabled= {!data || checkoutIsLoading}
           onClick={finishBooking}
         >
          Book

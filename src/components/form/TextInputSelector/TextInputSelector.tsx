@@ -17,13 +17,13 @@ const TextInputSelector: React.FC<TextInputSelectorProps> = ({
   value,
   onChange,
   placeholder = "",
-  type = "text", // Valor padrão para "type"
+  type = "text", 
 }) => {
   //const inputId = `input-${label.replace(/\s+/g, '-').toLowerCase()}`;
 
   return (
-    <div className="my-2">
-      <label htmlFor={key} className="block text-lg font-medium text-gray-700">
+    <div className="mb-10">
+      <label htmlFor={key} className="block text-lg font-medium text-gray-50  bg-teal-700 rounded-lg w-52 p-1 ">
         {label}
       </label>
       <input
@@ -32,7 +32,7 @@ const TextInputSelector: React.FC<TextInputSelectorProps> = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className={`mt-1 py-2 px-4 text-center border rounded-lg w-full`}
+        className={`mt-1 py-1 px-4 text-lg text-center rounded-lg w-full`}
       />
     </div>
   );
