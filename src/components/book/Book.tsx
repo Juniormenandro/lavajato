@@ -109,15 +109,17 @@ const Book = () => {
 
 
   return (
-    <div className="bg-white mx-8 rounded-lg shadow-md">
+    <div className="bg-gray-200 mx-8 rounded-lg shadow-md">
       <h1 className="text-center text-2xl font-semibold py-4">Serviços Agendados</h1>
       <ul>
         {clientes && clientes?.map(client => (
           <li key={client.id} className="border-b last:border-b-0">
+            <div className='flex-row justify-center text-center py-4'>
+              <h1 className="text-[22px] font-semibold">{client.name}</h1>
+              <h1 className="text-[20px] font-semibold border ">{client.telefone}</h1>
+            </div>
             {client.Booking && client.Booking.map(book => (
-              <div key={book.id} className='flex-row justify-center text-center bg-white border-b-4 ml-3 mr-3 p-2 '>
-                <h1 className="text-[22px] font-semibold">{client.name}</h1>
-                <h1 className="text-[20px] font-semibold border ">{client.telefone}</h1>
+              <div key={book.id} className='flex-row justify-center text-center bg-gray-100 rounded-lg border-b-4 ml-3 mr-3 p-2 '>
                 <h2 className=' text-[18px] border  '>Produto: {book.selectedProductName}</h2>
                 <h2 className=' text-[18px] border  '>Preço: {book.rawPrice}</h2>
                 <h2 className=' text-[18px] border  '>Pagamneto: {book.selectedPayment}</h2>
@@ -127,7 +129,7 @@ const Book = () => {
                 <h2 className=' text-[18px] border '>DAY: {book.selectedDate}</h2>
                 <div className="text-center mt-4">
                   <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-full w-full"
                     disabled={!!loadingState[book.id]}  
                     onClick={() => markAsDone(book.id)}
                   >

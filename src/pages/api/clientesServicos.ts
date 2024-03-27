@@ -38,12 +38,7 @@ const checkout = async (req: NextApiRequest, res: NextApiResponse) => {
         data: { iercode },
       });
     } 
-    // Se não, procurar pelo número da iercode
     else {
-      client = await prisma.clientes.findUnique({
-        where: { iercode }
-      });
-
       // Se ainda não encontrou, criar um novo cliente
       if (!client) {
         client = await prisma.clientes.create({
