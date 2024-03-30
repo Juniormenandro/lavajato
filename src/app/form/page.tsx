@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { NextPage } from "next";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { toast } from 'react-toastify';
 import { Toaster } from "react-hot-toast";
 import Header from "@/components/home/Header/HeaderPag";
 import useLocalStorage from "@/hooks/useLocalStorage/useLocalStorage";
@@ -23,6 +22,28 @@ export type ProductType = {
   raw_price: 0;
 };
 
+interface Cliente {
+  iercode: string;
+  endereco: string;
+  id: string;
+  name: string;
+  telefone: string;
+  Booking: Booking[];
+};
+interface Booking {
+  selectedPayment: string;
+  selectedProductName: string;
+  rawPrice:0;
+  id: string;
+  selectedDayOfWeek: React.ReactNode;
+  selectedDate: number | string;
+  selectedMonth: React.ReactNode;
+  selectedYear: React.ReactNode;
+  selectedTime: React.ReactNode;
+  selectedProductDefaultPrice: React.ReactNode;
+
+};
+
 export type BookingType = typeof bookingDataInitialState;
 
 const BookingPage: NextPage = () => {
@@ -31,7 +52,6 @@ const BookingPage: NextPage = () => {
   const [iercode, setIercode] = useState(""); 
   const [endereco, setEndereco] = useState(""); 
   const [id, setId] = useState<string | null>(null);
-  const [bookingDetails, setBookingDetails] = useState("");
   const [image, setImage] = useState<string | null>(null);
   const [checkoutIsLoading, setIsCheckoutLoading] = useState<boolean>(false);
   const dates = useGetTime();
@@ -39,38 +59,29 @@ const BookingPage: NextPage = () => {
   const router = useRouter();
   const [confirmation, setConfirmation] = useState<boolean>(false);
   const checkoutError = searchParams?.get("error");
+
   const [bookingData, setBookingData] = useLocalStorage(
     "booking_step",
     bookingDataInitialState as BookingType
   );
 
+
   useEffect(() => {
     const nameUsuario = localStorage.getItem('categiraId');
     const image = localStorage.getItem('image');
-    if (nameUsuario) {
-      setId(nameUsuario)
-    }
-    if(image) {
-      setImage(image)
-    } 
-  }, [id, image]);
+      if (nameUsuario) { setId(nameUsuario) }
+      if(image) { setImage(image)} 
+    }, [id, image]);
   
-
   useEffect(() => {
-    setBookingData(prevData => ({
-      ...prevData,
+    setBookingData(prevData => ({ ...prevData,
       iercode:iercode, name:name, telefone:telefone, endereco:endereco,
     }));
   }, [iercode,name,telefone,endereco]);
 
-
-
   useEffect(() => {
     if (checkoutError) {
       alert(checkoutError);
-      //setBookingData(bookingDataInitialState);
-      //localStorage.clear();
-     // router.push("/");
     }
   }, [checkoutError, router]);
   
@@ -84,20 +95,17 @@ const BookingPage: NextPage = () => {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({booking: {...bookingData}})
       });
-  
+
       if (!response.ok) throw new Error('Falha no agendamento');
       
       const responseData = await response.json(); // Dados completos da resposta
-      
       console.log(responseData, 'Dados completos do cliente');
   
       // Armazenar os dados completos no localStorage
       // Nota: localStorage só armazena strings, então precisamos converter o objeto para string
       localStorage.setItem('bookingDetails', JSON.stringify(responseData));
-  
-      // Atualizar o estado com os dados completos para uso posterior
-      // Supondo que você tenha um estado chamado bookingDetails
-      setBookingDetails(responseData); // Este estado deve ser definido com useState no seu componente
+      localStorage.setItem('book', confirmation.toString());
+
       setConfirmation(true);
     } catch (error) {
       console.error(error instanceof Error ? error.message : "Ocorreu um erro desconhecido.");
@@ -107,12 +115,6 @@ const BookingPage: NextPage = () => {
   };
   
 
-  useEffect(() => {
-    //console.log("bookingData atualizado:", bookingData);
-    //console.log("bookingDetails:", bookingDetails);
-  }, [bookingData]);
-  
-  
   if (checkoutIsLoading)
   return (
     <div className="relative bg-fixed  bg-center bg-cover min-h-[100vh] flex justify-center items-center" style={{ backgroundImage: `url('${image}')` }}>
@@ -174,7 +176,8 @@ const BookingPage: NextPage = () => {
               endereco={bookingData.endereco}
               bookingData={bookingData}
               setBookingData={setBookingData}
-              handleBuyProduct={handleBuyProduct}         />
+              handleBuyProduct={handleBuyProduct}
+            />
           </div>
 
         </div>

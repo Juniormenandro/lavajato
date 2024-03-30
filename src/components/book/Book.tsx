@@ -1,12 +1,8 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-
 import Spinner from "@/components/form/Spinner/Spinner";
 import useSWR, { mutate } from 'swr';
 import { fetcher } from '@/utils/fetcher/fetcher';
-import { Toaster, toast } from "react-hot-toast";
-
-
 
 interface Booking {
   selectedPayment: string;
@@ -45,16 +41,16 @@ const Book = () => {
       //console.log('Token from localStorage:', localStorage.getItem('token'));
   }, []);
 
-
+  
   const fetchURL = token ? `${process.env.NEXT_PUBLIC_API_URL}/api/book` : null;
+
   const { data: clientes, error: isError, isLoading } = useSWR<Cliente[]>(fetchURL ? [fetchURL, token] : null, fetcher, {
     revalidateOnFocus: false,
   });
-  
+
   if (!fetchURL) {
     return null;
   }
-
 
   const markAsDone = async (id: string) => {
     setLoadingState(prev => ({ ...prev, [id]: true }));
@@ -72,7 +68,7 @@ const Book = () => {
 
       if (!clientes) return; 
 
-      const updatedClientes = clientes.map(client => {
+      const updatedClientes = clientes.map((client:Cliente) => {
         if(client.id === id) {
           return {
             ...client,
@@ -112,19 +108,22 @@ const Book = () => {
     <div className="bg-gray-200 mx-8 rounded-lg shadow-md">
       <h1 className="text-center text-2xl font-semibold py-4">Serviços Agendados</h1>
       <ul>
-        {clientes && clientes?.map(client => (
+        {clientes && clientes?.map((client:Cliente) => (
           <li key={client.id} className="border-b last:border-b-0">
             <div className='flex-row justify-center text-center py-4'>
               <h1 className="text-[22px] font-semibold">{client.name}</h1>
-              <h1 className="text-[20px] font-semibold border ">{client.telefone}</h1>
             </div>
-            {client.Booking && client.Booking.map(book => (
+
+            <div className='flex-row justify-center text-center bg-gray-100 rounded-lg border-b-4 ml-3 mr-3 p-2 '>
+              <h1 className="text-[20px] font-semibold border ">{client.telefone}</h1>
+                <h2 className=' text-[18px] border  '>Eircode: {client.iercode}</h2>
+                <h2 className=' text-[18px] border  '>Endereco: {client.endereco}</h2>
+            </div>
+            {client.Booking && client.Booking.map((book:Booking) => (
               <div key={book.id} className='flex-row justify-center text-center bg-gray-100 rounded-lg border-b-4 ml-3 mr-3 p-2 '>
                 <h2 className=' text-[18px] border  '>Produto: {book.selectedProductName}</h2>
                 <h2 className=' text-[18px] border  '>Preço: {book.rawPrice}</h2>
                 <h2 className=' text-[18px] border  '>Pagamneto: {book.selectedPayment}</h2>
-                <h2 className=' text-[18px] border  '>Eircode: {client.iercode}</h2>
-                <h2 className=' text-[18px] border  '>Endereco: {client.endereco}</h2>
                 <h2 className=' text-[18px] border  '>TIME: {book.selectedTime}</h2>
                 <h2 className=' text-[18px] border '>DAY: {book.selectedDate}</h2>
                 <div className="text-center mt-4">

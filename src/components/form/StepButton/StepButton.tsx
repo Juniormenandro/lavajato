@@ -56,7 +56,7 @@ const StepButton: React.FC<StepButtonProps> = ({
 
     // Atualiza o estado `data` para refletir se todos os campos estão preenchidos.
     setData(allFieldsFilled);
-    console.log(allFieldsFilled, 'dados atualizados para true')
+    // console.log(allFieldsFilled, 'dados atualizados para true')
     // Inclui os campos no array de dependências para que este efeito seja executado
     // novamente sempre que qualquer um desses valores mudar.
   }, [name, telefone, iercode, endereco]);
