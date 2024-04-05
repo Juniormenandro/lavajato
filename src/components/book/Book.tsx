@@ -5,25 +5,28 @@ import useSWR, { mutate } from 'swr';
 import { fetcher } from '@/utils/fetcher/fetcher';
 
 interface Booking {
-  selectedPayment: string;
-  selectedProductName: string;
-  rawPrice:0;
-  id: string;
+  id:                         string;
   selectedDayOfWeek: React.ReactNode;
-  selectedDate: number | string;
-  selectedMonth: React.ReactNode;
-  selectedYear: React.ReactNode;
-  selectedTime: React.ReactNode;
-  selectedProductDefaultPrice: React.ReactNode;
+  selectedDate:      number | string;
+  selectedMonth:     React.ReactNode;
+  selectedYear:      React.ReactNode;
+  selectedTime:      React.ReactNode;
+  rawPrice:                        0;
+  formattedDate:              String;
+  categoriaId:                String;
+  selectedProductId:          String;
+  selectedProductName:        String;
+  selectedPayment:            String;
+  bookConcluido:             boolean;
 
 };
 interface Cliente {
-  iercode: string;
-  endereco: string;
-  id: string;
-  name: string;
-  telefone: string;
-  Booking: Booking[];
+  iercode:                    string;
+  endereco:                   string;
+  id:                         string;
+  name:                       string;
+  telefone:                   string;
+  Booking:                 Booking[];
 };
 
 
@@ -105,27 +108,27 @@ const Book = () => {
 
 
   return (
-    <div className="bg-gray-200 mx-8 rounded-lg shadow-md">
+    <div className="bg-gray-50 mx-8 px-2 rounded-lg shadow-md">
       <h1 className="text-center text-2xl font-semibold py-4">Serviços Agendados</h1>
       <ul>
         {clientes && clientes?.map((client:Cliente) => (
-          <li key={client.id} className="border-b last:border-b-0">
+          <li key={client.id}>
             <div className='flex-row justify-center text-center py-4'>
               <h1 className="text-[22px] font-semibold">{client.name}</h1>
             </div>
 
             <div className='flex-row justify-center text-center bg-gray-100 rounded-lg border-b-4 ml-3 mr-3 p-2 '>
-              <h1 className="text-[20px] font-semibold border ">{client.telefone}</h1>
-                <h2 className=' text-[18px] border  '>Eircode: {client.iercode}</h2>
-                <h2 className=' text-[18px] border  '>Endereco: {client.endereco}</h2>
+              <h1 className="text-[20px] font-semibold ">{client.telefone}</h1>
+                <h2 className=' text-[18px]'>Eircode: {client.iercode}</h2>
+                <h2 className=' text-[18px]'>Endereco: {client.endereco}</h2>
             </div>
             {client.Booking && client.Booking.map((book:Booking) => (
               <div key={book.id} className='flex-row justify-center text-center bg-gray-100 rounded-lg border-b-4 ml-3 mr-3 p-2 '>
-                <h2 className=' text-[18px] border  '>Produto: {book.selectedProductName}</h2>
-                <h2 className=' text-[18px] border  '>Preço: {book.rawPrice}</h2>
-                <h2 className=' text-[18px] border  '>Pagamneto: {book.selectedPayment}</h2>
-                <h2 className=' text-[18px] border  '>TIME: {book.selectedTime}</h2>
-                <h2 className=' text-[18px] border '>DAY: {book.selectedDate}</h2>
+                <h2 className=' text-[18px]'>{book.selectedProductName}</h2>
+                <h2 className=' text-[18px]'>Preço: {book.rawPrice}</h2>
+                <h2 className=' text-[18px]'>Pagamneto: {book.selectedPayment}</h2>
+                <h2 className=' text-[18px]'>TIME: {book.selectedTime}</h2>
+                <h2 className=' text-[18px]'>DAY: {book.selectedDate}</h2>
                 <div className="text-center mt-4">
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-full w-full"

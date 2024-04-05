@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '@/components/home/Header/HeaderPag';
 import Client from '@/components/book/Client';
 import Book from '@/components/book/Book';
@@ -9,22 +9,14 @@ import CreateAdminForm from '@/components/Admin/CreateAdminForm/CreateAdmin';
 import SignUp from '@/components/Admin/SignUp/SignUp';
 import { useRouter } from 'next/navigation';
 
-// Supondo que suas definições de tipos para Categoria e Serviço sejam assim:
-interface Categoria {
-  id: string;
-  nome: string;
-  Description: string;
-  image:string;
-
-}
-
 
 const AdicionarCategoriaServico = () => {
   const [formCategoria, setFormCategoria] = useState(false);
+  const [isPainel, setIsPainel] = useState(false);
+  const [isBook, setIsBook] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenSignUp, setIsOpenSignUp] = useState(false);
   const [isOpenAdmin, setIsOpenAdmin] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
 
 
@@ -35,9 +27,7 @@ const AdicionarCategoriaServico = () => {
         router.push("/");
         return;
       }
-      setToken(userToken);
-      //console.log('Token from localStorage:', localStorage.getItem('token'));
-  }, []);
+    }, []);
 
 
 
@@ -46,9 +36,14 @@ const AdicionarCategoriaServico = () => {
       style={{ backgroundImage: "url('/images/header/logo1.webp')" }} >  
       <Header/>
 
-      <Book />
-
-      <Painel />
+      <div onClick={() => setIsBook(!isBook)}>
+        <div className='text-2xl mx-8 mt-10 text-center bg-white p-4 font-semibold rounded-lg'>
+          <h1>List de Booking</h1>
+        </div>
+      </div>
+      {isBook && (
+        <Book />
+      )}
 
        <div onClick={() => setIsOpen(!isOpen)}>
         <div className='text-2xl mx-8 mt-10 text-center bg-white p-4 font-semibold rounded-lg'>
@@ -59,6 +54,15 @@ const AdicionarCategoriaServico = () => {
         <Client /> 
       )}
 
+      <div onClick={() => setIsPainel(!isPainel)}>
+        <div className='text-2xl mx-8 mt-10 text-center bg-white p-4 font-semibold rounded-lg'>
+          <h1>List de Service</h1>
+        </div>
+      </div>
+      {isPainel && (
+        <Painel />
+      )}
+      
       <div onClick={() => setFormCategoria(!formCategoria)}>
         <div className='text-2xl mx-8 mt-10 text-center bg-white p-4 font-semibold rounded-lg'>
           <h1>Adicionar Categoria ou Serviço</h1>

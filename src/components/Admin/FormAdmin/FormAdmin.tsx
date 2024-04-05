@@ -101,7 +101,7 @@ const FormAdmin = () => {
 
 
   return (
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-8  mx-8 ">
+      <form onSubmit={handleSubmit} className="bg-gray-50 shadow-md rounded-lg p-8  mx-8 ">
         <div className="mb-4">
           <select
             className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"

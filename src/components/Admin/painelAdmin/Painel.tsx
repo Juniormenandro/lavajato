@@ -92,7 +92,7 @@ const Painel = () =>{
 
 
   return (
-    <form className="bg-white shadow-md rounded-lg p-8 mx-8 mt-10">
+    <form className="bg-gray-50 shadow-md rounded-lg p-8 mx-8">
       <h1 className="text-3xl font-semibold text-gray-800 mb-6">Filtrar Serviços por Categoria</h1>
       <div className="mb-4">
           <select
