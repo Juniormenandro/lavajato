@@ -137,8 +137,8 @@ const BookingPage: NextPage = () => {
     <div className="relative bg-fixed  bg-center bg-cover min-h-[100vh] flex flex-col justify-center items-center" style={{ backgroundImage: `url('${image}')` }}>
       <Header />
       <Toaster position="top-center" />
-        <div className=" w-full rounded-lg items-center mt-24 ">
-          <div className="flex justify-center w-ful bg-white/90 rounded-lg py-1 text-xl mb-10 mx-12">
+        <div className=" w-2/3 rounded-lg items-center mt-24" >
+          <div className="flex justify-center bg-white/90 rounded-lg py-1 text-xl mb-10 mx-12">
             <label>
               {!bookingData.step && "select the date!"}
               {bookingData.step === 1 && "Select your time!"}
