@@ -1,11 +1,7 @@
 "use client";
-
-
 import React, { useEffect, useState } from 'react';
 import './MainSection.css';
-
 import { useRouter } from "next/navigation";
-
 
 interface Product {
   areaId: string;
@@ -97,7 +93,6 @@ const MainSection = () => {
               >
                 {product.Description}
               </h1>
-              {/* Botão para expandir apenas em dispositivos menores */}
               <button
                 className="text-blue-500 underline md:hidden"
                 onClick={(e) => {
