@@ -26,4 +26,40 @@
   .container {
     position: relative;
   }
-  
+  /* Texto colapsado */
+.collapsed-text {
+  display: -webkit-box; /* Necessário para ativar o comportamento de clamping */
+  -webkit-line-clamp: 2; /* Limita o texto a 3 linhas */
+  -webkit-box-orient: vertical; /* Orientação vertical obrigatória */
+  overflow: hidden; /* Garante que o texto que ultrapassa seja escondido */
+  text-overflow: ellipsis; /* Adiciona os três pontos (...) no final */
+}
+
+
+/* Texto expandido */
+.expanded-text {
+  display: block; /* Mostra todo o texto */
+}
+
+/* Botão 'Ler Mais' apenas em telas pequenas */
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  padding: 0;
+  text-decoration: underline;
+  color: #1d4ed8;
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+  .collapsed-text,
+  .expanded-text {
+    display: block; /* Sempre mostra o texto completo em telas maiores */
+  }
+
+  button {
+    display: none; /* Esconde o botão 'Ler Mais' em telas maiores */
+  }
+}
