@@ -111,3 +111,49 @@ a:hover {
   width: 100%; /* ou a largura que preferir */
   text-align: center; /* Para centralizar o conteúdo do botão, se necessário */
 }
+
+
+/* estilo para o button de reducao de texto da descricao do produto */
+/* Texto colapsado */
+.collapsed-text {
+  display: -webkit-box; /* Necessário para ativar o comportamento de clamping */
+  -webkit-line-clamp: 3; /* Limita o texto a 3 linhas */
+  -webkit-box-orient: vertical; /* Orientação vertical obrigatória */
+  overflow: hidden; /* Garante que o texto que ultrapassa seja escondido */
+  text-overflow: ellipsis; /* Adiciona os três pontos (...) no final */
+}
+
+/* Texto expandido */
+.expanded-text {
+  display: block; /* Mostra todo o texto */
+}
+
+/* Estilo para o botão 'Ler Mais/Ler Menos' */
+button.text-blue-400 {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  padding: 0;
+  text-decoration: underline;
+  color: #3b82f6; /* Cor azul semelhante ao Tailwind 'text-blue-400' */
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+  .collapsed-text,
+  .expanded-text {
+    display: block; /* Sempre mostra o texto completo em telas maiores */
+  }
+
+  button.text-blue-400 {
+    display: none; /* Esconde o botão 'Ler Mais/Ler Menos' em telas maiores */
+  }
+}
+
+/* Classe opcional para card selecionado */
+.selected-service-card {
+  border: 2px solid #3b82f6; /* Azul Tailwind */
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
